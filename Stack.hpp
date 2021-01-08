@@ -19,23 +19,137 @@ public:
 	T&				top();
 	const T&		top() const;
 	void 			push(const T& item);
-	bool 			pop();
+	void 			pop();
 
-	T&				operator[](int i)
-	bool			operator>=(const Stack<T>& lhs, const Stack<T>& rhs);
-	bool			operator>(const Stack<T>& lhs, const Stack<T>& rhs);
-	bool			operator<=(const Stack<T>& lhs, const Stack<T>& rhs);
-	bool			operator<(const Stack<T>& lhs, const Stack<T>& rhs);
-	bool			operator!=(const Stack<T>& lhs, const Stack<T>& rhs);
-	bool			operator==(const Stack<T>& lhs, const Stack<T>& rhs);
-	bool			operator=(const Stack<T>& lhs);
+	T&				operator[](int i) const;
+	Stack<T>&		operator=(const Stack<T>& lhs);
+	bool			operator==(const Stack<T>& rhs);
+	bool			operator>=(const Stack<T>& rhs);
+	bool			operator>(const Stack<T>& rhs);
+	bool			operator<=(const Stack<T>& rhs);
+	bool			operator<(const Stack<T>& rhs);
+	bool			operator!=(const Stack<T>& rhs);
 
 };
+
+
+template< typename T>
+Stack<T>&		Stack<T>::operator=(const Stack<T>& rhs)
+{
+	if (_top)
+		delete[] _items;
+	_items = new T[rhs.size()];
+	_top = rhs.size();
+	_cap = rhs._cap;
+	for(int i = 0; i < _top; i++)
+	{
+		_items[i] = rhs._items[i];
+	}
+	return *this;
+}
+
+template< typename T>
+bool			Stack<T>::operator==(const Stack<T>& rhs)
+{
+	if (rhs.size() > this->size() || rhs.size() < this->size())
+		return false;
+	if (rhs.size() == 0)
+		return true;
+	for(int i = 0; i < rhs.size(); i++)
+	{
+		if (rhs[i] != _items[i])
+			return false;
+	}
+	return true;
+}
+
+template< typename T>
+bool			Stack<T>::operator>=(const Stack<T>& rhs)
+{
+	if (this->size() < rhs.size())
+		return false;
+	if ((rhs.size() == 0 && this->size() == 0) || rhs.size() < this->size())
+		return true;
+	for(int i = 0; i < rhs.size(); i++)
+	{
+		if (rhs[i] > _items[i])
+			return false;
+		else if (rhs[i] < _items[i])
+			return true;
+	}
+	return true;
+}
+
+template< typename T>
+bool			Stack<T>::operator>(const Stack<T>& rhs)
+{
+	if (this->size() < rhs.size() || (rhs.size() == 0 && this->size() == 0))
+		return false;
+	if (rhs.size() < this->size())
+		return true;
+	for(int i = 0; i < rhs.size(); i++)
+	{
+		if (rhs[i] > _items[i])
+			return false;
+		else if (rhs[i] < _items[i])
+			return true;
+	}
+	return false;
+}
+
+template< typename T>
+bool			Stack<T>::operator<=(const Stack<T>& rhs)
+{
+	if (rhs.size() < this->size())
+		return false;
+	if ((rhs.size() == 0 && this->size() == 0) || this->size() < rhs.size())
+		return true;
+	for(int i = 0; i < rhs.size(); i++)
+	{
+		if (rhs[i] < _items[i])
+			return false;
+		else if (rhs[i] > _items[i])
+			return true;
+	}
+	return true;
+}
+
+template< typename T>
+bool			Stack<T>::operator<(const Stack<T>& rhs)
+{
+	if (rhs.size() < this->size() || (this->size() == 0 && rhs.size() == 0))
+		return false;
+	if (this->size() < rhs.size())
+		return true;
+	for(int i = 0; i < rhs.size(); i++)
+	{
+		if (rhs[i] < _items[i])
+			return false;
+		else if (rhs[i] > _items[i])
+			return true;
+	}
+	return false;
+}
+
+template< typename T>
+bool			Stack<T>::operator!=(const Stack<T>& rhs)
+{
+	if (rhs.size() > this->size() || rhs.size() < this->size())
+		return true;
+	if (rhs.size() == 0)
+		return false;
+	for(int i = 0; i < rhs.size(); i++)
+	{
+		if (rhs[i] != _items[i])
+			return true;
+	}
+	return false;
+}
 
 template< typename T>
 Stack<T>::Stack()
 {
-	top = 0;
+	_top = 0;
 	_cap = 10;
 	_items = new T[_cap];
 }
@@ -60,10 +174,7 @@ size_t	Stack<T>::size() const
 template< typename T>
 T&		Stack<T>::top()
 {
-	if (_top)
-		return _items[_top - 1];
-	else
-		return NULL;
+	return _items[_top - 1];
 }
 
 template< typename T>
@@ -113,14 +224,14 @@ void	Stack<T>::pop()
 }
 
 template< typename T>
-T&	Stack<T>::operator[](int i)
+T&	Stack<T>::operator[](int i) const
 	{
-		if (i >= len)
+		if (i >= _top)
 		{
 			std::cout << "Index out of bounds" << std::endl; 
 			//exception to throw
 		}
-		return array[i];
+		return _items[i];
 }
 
 #endif
