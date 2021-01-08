@@ -7,9 +7,15 @@
 template< typename T>
 class Stack
 {
+	class Node 
+	{ 
+		public:
+		T		data; 
+		Node*	next; 
+		Node*	prev; 
+	};
 private:
-	int		_cap;
-	T		*_items;
+	Node	*_items;
 	size_t	_top;
 
 public:
@@ -35,12 +41,12 @@ public:
 
 };
 
+
 template< typename T>
 Stack<T>::Stack()
 {
 	_top = 0;
-	_cap = 10;
-	_items = new T[_cap];
+	_items = nullptr;
 }
 
 template< typename T>
@@ -63,7 +69,7 @@ size_t	Stack<T>::size() const
 template< typename T>
 T&		Stack<T>::top()
 {
-	return _items[_top - 1];
+	return _items;
 }
 
 template< typename T>
@@ -75,41 +81,54 @@ const T& Stack<T>::top() const
 template< typename T>
 void	Stack<T>::push(const T& item)
 {
-	if (_top == _cap)
+	// if (_top == _cap)
+	// {
+	// 	T *tmp = _items;
+	// 	_cap += 10;
+	// 	_items = new T[_cap];
+	// 	for(int i = 0; i < _cap - 10; i++)
+	// 	{
+	// 		_items[i] = tmp[i];
+	// 		// delete tmp[i];
+	// 	}
+	// 	// delete[] tmp;
+	// }
+	// _items[_top] = item;
+
+	Node *n = new Node();
+	n->data = item;
+	n->prev = NULL;
+	n->next = NULL;
+	if (_items)
 	{
-		T *tmp = _items;
-		_cap += 10;
-		_items = new T[_cap];
-		for(int i = 0; i < _cap - 10; i++)
-		{
-			_items[i] = tmp[i];
-			// delete tmp[i];
-		}
-		// delete[] tmp;
+		_items->next = n;
+		n->prev = _items;
+		_items = _items->next;
 	}
-	_items[_top] = item;
+	else
+		_items = n;
 	_top++;
 }
 
 template< typename T>
 void	Stack<T>::pop()
 {
-	if (_top > 0)
-	{
-		_top--;
-	}
-	if (_top - _cap > 10)
-	{
-		T *tmp = _items;
-		_cap -= 10;
-		_items = new T[_cap];
-		for(int i = 0; i < _cap; i++)
-		{
-			_items[i] = tmp[i];
-			// delete tmp[i];
-		}
-		// delete[] tmp;
-	}
+	// if (_top > 0)
+	// {
+	// 	_top--;
+	// }
+	// if (_top - _cap > 10)
+	// {
+	// 	T *tmp = _items;
+	// 	_cap -= 10;
+	// 	_items = new T[_cap];
+	// 	for(int i = 0; i < _cap; i++)
+	// 	{
+	// 		_items[i] = tmp[i];
+	// 		// delete tmp[i];
+	// 	}
+	// 	// delete[] tmp;
+	// }
 }
 
 template< typename T>

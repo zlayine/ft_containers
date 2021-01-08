@@ -1,9 +1,7 @@
 #ifndef LIST_HPP
 # define LIST_HPP
 
-#include <memory>
-
-template< class T, class Alloc = std::allocator<T> >
+template< typename T>
 class List
 {
 private:
