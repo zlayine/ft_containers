@@ -1,14 +1,14 @@
 // #include "List.hpp"
 // #include "Map.hpp"
 // #include "Queue.hpp"
-#include <iostream>
 #include "Stack.hpp"
+#include "Queue.hpp"
 // #include "Vector.hpp"
 
 #include <stack>
+#include <queue>
 
-
-int main()
+void	test_stack()
 {
 	std::stack<int> stack;
 	Stack<int> mstack;
@@ -56,5 +56,68 @@ int main()
 	std::cout << "	>  	: " << a << std::endl;
 	a = ostack < mstack;
 	std::cout << "	<  	: " << a << std::endl;
+}
+
+void	test_queue()
+{
+	std::queue<int> queue;
+	Queue<int> mqueue;
+
+	std::cout << "TESTING QUEUE FUNCTIONS:" << std::endl << std::endl;
+	std::cout << "queue empty	: " << queue.empty() << std::endl;
+	std::cout << "my queue empty	: " << mqueue.empty() << std::endl;
+	std::cout << "queue size	: " << queue.size() << std::endl;
+	std::cout << "my queue size	: " << mqueue.size() << std::endl;
+	queue.push(1);
+	mqueue.push(1);
+	queue.push(10);
+	mqueue.push(10);
+	std::cout << "queue size	: " << queue.size() << std::endl;
+	std::cout << "my queue size	: " << mqueue.size() << std::endl;
+	std::cout << "queue empty	: " << queue.empty() << std::endl;
+	std::cout << "my queue empty	: " << mqueue.empty() << std::endl;
+	std::cout << "fqueue value	: " << queue.front() << std::endl;
+	std::cout << "my fqueue value	: " << mqueue.front() << std::endl;
+	queue.front() += 5;
+	mqueue.front() += 5;
+	std::cout << "fqueue value	: " << queue.front() << std::endl;
+	std::cout << "my fqueue value	: " << mqueue.front() << std::endl;
+	queue.back() += 5;
+	mqueue.back() += 5;
+	std::cout << "bqueue value	: " << queue.back() << std::endl;
+	std::cout << "my bqueue value	: " << mqueue.back() << std::endl;
+	queue.pop();
+	mqueue.pop();
+	std::cout << "queue size	: " << queue.size() << std::endl;
+	std::cout << "my queue size	: " << mqueue.size() << std::endl;
+	std::cout << "queue empty	: " << queue.empty() << std::endl;
+	std::cout << "my queue empty	: " << mqueue.empty() << std::endl;
+
+	
+	std::cout << "**	OPERATORS 	**" << std::endl;
+	Queue<int> oqueue;
+	bool a;
+	mqueue.push(1);
+	oqueue.push(1);
+	a = oqueue == mqueue;
+	std::cout << "	==  	: " << a << std::endl;
+	a = oqueue != mqueue;
+	std::cout << "	!=  	: " << a << std::endl;
+	oqueue.push(2);
+	a = oqueue >= mqueue;
+	std::cout << "	>=  	: " << a << std::endl;
+	a = oqueue <= mqueue;
+	std::cout << "	<=  	: " << a << std::endl;
+	a = oqueue > mqueue;
+	std::cout << "	>  	: " << a << std::endl;
+	a = oqueue < mqueue;
+	std::cout << "	<  	: " << a << std::endl;
+}
+
+
+int main()
+{
+	// test_stack();
+	// test_queue();
 	return 0;
 }

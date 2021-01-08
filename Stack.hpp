@@ -1,6 +1,9 @@
 #ifndef STACK_HPP
 # define STACK_HPP
 
+#include <iostream>
+
+//copy constructor not done and exceptions
 template< typename T>
 class Stack
 {
@@ -31,6 +34,94 @@ public:
 	bool			operator!=(const Stack<T>& rhs);
 
 };
+
+template< typename T>
+Stack<T>::Stack()
+{
+	_top = 0;
+	_cap = 10;
+	_items = new T[_cap];
+}
+
+template< typename T>
+Stack<T>::~Stack()
+{
+}
+
+template< typename T>
+bool 	Stack<T>::empty() const 
+{
+	return _top == 0;
+}
+
+template< typename T>
+size_t	Stack<T>::size() const
+{
+	return _top;
+}
+
+template< typename T>
+T&		Stack<T>::top()
+{
+	return _items[_top - 1];
+}
+
+template< typename T>
+const T& Stack<T>::top() const
+{
+	return top();
+}
+
+template< typename T>
+void	Stack<T>::push(const T& item)
+{
+	if (_top == _cap)
+	{
+		T *tmp = _items;
+		_cap += 10;
+		_items = new T[_cap];
+		for(int i = 0; i < _cap - 10; i++)
+		{
+			_items[i] = tmp[i];
+			// delete tmp[i];
+		}
+		// delete[] tmp;
+	}
+	_items[_top] = item;
+	_top++;
+}
+
+template< typename T>
+void	Stack<T>::pop()
+{
+	if (_top > 0)
+	{
+		_top--;
+	}
+	if (_top - _cap > 10)
+	{
+		T *tmp = _items;
+		_cap -= 10;
+		_items = new T[_cap];
+		for(int i = 0; i < _cap; i++)
+		{
+			_items[i] = tmp[i];
+			// delete tmp[i];
+		}
+		// delete[] tmp;
+	}
+}
+
+template< typename T>
+T&	Stack<T>::operator[](int i) const
+	{
+		if (i >= _top)
+		{
+			std::cout << "Index out of bounds" << std::endl; 
+			//exception to throw
+		}
+		return _items[i];
+}
 
 
 template< typename T>
@@ -144,94 +235,6 @@ bool			Stack<T>::operator!=(const Stack<T>& rhs)
 			return true;
 	}
 	return false;
-}
-
-template< typename T>
-Stack<T>::Stack()
-{
-	_top = 0;
-	_cap = 10;
-	_items = new T[_cap];
-}
-
-template< typename T>
-Stack<T>::~Stack()
-{
-}
-
-template< typename T>
-bool 	Stack<T>::empty() const 
-{
-	return _top == 0;
-}
-
-template< typename T>
-size_t	Stack<T>::size() const
-{
-	return _top;
-}
-
-template< typename T>
-T&		Stack<T>::top()
-{
-	return _items[_top - 1];
-}
-
-template< typename T>
-const T& Stack<T>::top() const
-{
-	return top();
-}
-
-template< typename T>
-void	Stack<T>::push(const T& item)
-{
-	if (_top == _cap)
-	{
-		T *tmp = _items;
-		_cap += 10;
-		_items = new T[_cap];
-		for(int i = 0; i < _cap - 10; i++)
-		{
-			_items[i] = tmp[i];
-			// delete tmp[i];
-		}
-		// delete[] tmp;
-	}
-	_items[_top] = item;
-	_top++;
-}
-
-template< typename T>
-void	Stack<T>::pop()
-{
-	if (_top > 0)
-	{
-		_top--;
-	}
-	if (_top - _cap > 10)
-	{
-		T *tmp = _items;
-		_cap -= 10;
-		_items = new T[_cap];
-		for(int i = 0; i < _cap; i++)
-		{
-			_items[i] = tmp[i];
-			// delete tmp[i];
-		}
-		// delete[] tmp;
-	}
-}
-
-template< typename T>
-T&	Stack<T>::operator[](int i) const
-	{
-		if (i >= _top)
-		{
-			std::cout << "Index out of bounds" << std::endl; 
-			//exception to throw
-		}
-		return _items[i];
 }
 
 #endif
