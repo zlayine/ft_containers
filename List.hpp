@@ -103,21 +103,61 @@ public:
 	typedef size_t							size_type;
 
 	List();
+	List(List<T> const &src);
 	~List();
 
-	size_t		size() const;
+	iterator			begin();
+	iterator			end();
+	reverse_iterator	rbgein();
+	reverse_iterator	rend();
+	
+	bool				empty() const;
+	size_type			size() const;
+	size_type			max_size() const;
+	
+	reference			front();
+	const_reference		front() const;
+	reference			back();
+	const_reference		back() const;
+	
+	// template <class InputIterator>
+ 	// void assign (InputIterator first, InputIterator last);
+	void 				assign (size_type n, const value_type& val);
+	void				push_front(const T& val);
+	void				pop_front();
+	void				push_back(const T& val);
+	void				pop_front();
+	iterator 			insert(iterator position, const value_type& val);
+	iterator			erase (iterator position);
+	iterator			erase (iterator first, iterator last);
+	void 				swap(List<T>& x);
+	void 				resize(size_type n, value_type val = value_type());
+	void				clear();
 
-	iterator	begin() const
-	{
-		return iterator(_head);
-	}
+	void				splice(iterator position, List<T>& x);
+	void				splice(iterator position, List<T>& x, iterator i);
+	void				splice(iterator position, List<T>& x, iterator first, iterator last);
+	void				remove(const value_type& val);
+// 	template <class Predicate>
+//   void remove_if (Predicate pred);
+	void				unique();
+	// template <class BinaryPredicate>
+  	// void unique (BinaryPredicate binary_pred);
+	void				merge(List<T>& x);
+	// template <class Compare>
+	// void merge (List<T>& x, Compare comp);
+	void				sort();
+	// template <class Compare>
+	// void sort (Compare comp);
+	void				reverse();
 
-	iterator	end() const
-	{
-		return iterator(_tail);
-	}
-
-	void		push_back(const T& val);
+	List<T>&		operator=(const List<T>& lhs);
+	bool			operator==(const List<T>& rhs);
+	bool			operator>=(const List<T>& rhs);
+	bool			operator>(const List<T>& rhs);
+	bool			operator<=(const List<T>& rhs);
+	bool			operator<(const List<T>& rhs);
+	bool			operator!=(const List<T>& rhs);
 };
 
 template<typename T>
@@ -135,7 +175,7 @@ List<T>::~List()
 }
 
 template<typename T>
-size_t		List<T>::size() const
+List<T>::size_type		List<T>::size() const
 {
 	return (_size);
 }
@@ -150,6 +190,18 @@ void		List<T>::push_back(const T& val)
 	_tail->prev = n;
 	n->next = _tail;
 	_size++;
+}
+
+template<typename T>
+List<T>::iterator	List<T>::begin()
+{
+	return iterator(_head);
+}
+
+template<typename T>
+List<T>::iterator	List<T>::end()
+{
+	return iterator(_tail);
 }
 
 #endif
