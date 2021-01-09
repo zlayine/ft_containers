@@ -120,17 +120,64 @@
 
 void	test_list()
 {
-	List<std::string>		mlist;
-	List<std::string>::iterator	it = mlist.begin();
+	List<int>			mlist;
+	std::list<int>		list;
 
-	mlist.push_back("ab");
-	mlist.push_back("ac");
-	mlist.push_back("ad");
+	mlist.push_back(1);
+	mlist.push_back(2);
+	mlist.push_back(3);
+	mlist.push_back(4);
+	mlist.push_back(5);
 
-	for(++it; it != mlist.end(); it++)
+	list.push_back(1);
+	list.push_back(2);
+	list.push_back(3);
+	list.push_back(4);
+	list.push_back(5);
+
+	List<int>::iterator ita;
+	std::list<int>::iterator its;
+
+	ita = mlist.begin();
+	its = list.begin();
+
+	++ita;
+	++its;
+
+	mlist.insert(ita, 10);
+	// std::cout << *ita << std::endl;
+	list.insert(its, 10);
+	// std::cout << *its << std::endl;
+
+	mlist.insert(ita, 2, 12);
+	// std::cout << *ita << std::endl;
+	list.insert(its, 2, 12);
+	// std::cout << *its << std::endl;
+
+	List<int>			nlist;
+	std::list<int>		list1;
+
+	nlist.push_back(22);
+	nlist.push_back(23);
+
+	list1.push_back(22);
+	list1.push_back(23);
+
+	mlist.insert(ita, nlist.begin(), nlist.end());
+	list.insert(its, list1.begin(), list1.end());
+	std::cout << "--------------------\n"; 
+
+	for(std::list<int>::iterator	it = list.begin() ; it != list.end(); ++it)
 	{
 		std::cout << *it << std::endl;
 	}
+	std::cout << "--------------------\n"; 
+	for(List<int>::iterator	it = mlist.begin() ; it != mlist.end(); ++it)
+	{
+		std::cout << *it << std::endl;
+	}
+
+	
 }
 
 int main()

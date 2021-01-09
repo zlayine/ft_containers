@@ -11,8 +11,18 @@ public:
 	typedef typename List::node_type*		pointer_type;
 	typedef typename List::value_type&		reference_type;
 
+	ListIterator() : _ptr(nullptr)
+	{
+
+	}
+
 	ListIterator(pointer_type ptr) : _ptr(ptr)
 	{
+	}
+
+	pointer_type	getNode() const
+	{
+		return _ptr->next;
 	}
 
 	ListIterator&	operator++()
@@ -43,22 +53,22 @@ public:
 
 	pointer_type	operator->()
 	{
-		return _ptr;
+		return _ptr->next;
 	}
 
 	reference_type	operator*()
 	{
-		return _ptr->data;
+		return _ptr->next->data;
 	}
 
 	bool			operator==(const ListIterator& other) const
 	{
-		return _ptr->data == other._ptr->data;
+		return _ptr == other._ptr;
 	}
 
 	bool			operator!=(const ListIterator& other) const
 	{
-		return _ptr->data != other._ptr->data;
+		return _ptr != other._ptr;
 	}
 
 private:
@@ -102,9 +112,23 @@ public:
 	typedef ptrdiff_t						difference_type;
 	typedef size_t							size_type;
 
-	List();
-	List(List<T> const &src);
-	~List();
+	List() : _size(0)
+	{
+		_head = _tail = new Node<T>();
+		// _tail = new Node<T>();
+		// _head->next = _tail;
+		// _tail->prev = _head;
+	}
+
+	List(List<T> const &src)
+	{
+
+	}
+
+	~List()
+	{
+		clear();
+	}
 
 	iterator			begin()
 	{
@@ -126,136 +150,258 @@ public:
 		return iterator(_head);
 	}
 	
+	//tested 0
 	bool				empty() const
 	{
 		return _size == 0;
 	}
 
+	//tested 0
 	size_type			size() const
 	{
 		return _size;
 	}
 
 	// not done
+	//tested 0
 	size_type			max_size() const
 	{
 		return _size;
 	}
 	
+	//tested 0
 	reference			front()
 	{
 		return _head->next;
 	}
 
+	//tested 0
 	const_reference		front() const
 	{
 		return _head->next;
 	}
 
+	//tested 0
 	reference			back()
 	{
-		return _tail->prev;
+		return _tail;
 	}
 
+	//tested 0
 	const_reference		back() const
 	{
-		return _tail->prev;
+		return _tail;
 	}
 	
+	//tested 0
  	void				assign(const_iterator first, const_iterator last)
 	{
-
+		clear();
+		_head = new Node<T>();
+		_tail = new Node<T>();
+		for(first; first != last; ++first)
+		{
+			push_front(*first);
+		}
 	}
 
+	//tested 0
 	void 				assign(size_type n, const value_type& val)
 	{
-
+		clear();
+		_head = new Node<T>();
+		_tail = new Node<T>();
+		for(size_type i = 0; i < n; i++)
+		{
+			push_front(val);
+		}
 	}
 
-	//not done
+	//tested 1
 	void				push_front(const T& val)
 	{
-		Node<T> *n;
-		n = _tail;
+		Node<T> *n = new Node<T>();
 		n->data = val;
-		_tail = new Node<T>();
-		_tail->prev = n;
-		n->next = _tail;
+		if (_head->next)
+		{
+			n->next = _head->next;
+			_head->next->prev = n;
+			n->prev = _head;
+		}
+		else
+		{
+			_tail = n;
+			_tail->prev = _head;
+		}
+		_head->next = n;
 		_size++;
 	}
 
+	//tested 1
 	void				pop_front()
 	{
+		Node<T> *tmp;
 
+		tmp = _head->next;
+		_head->next = _head->next->next;
+		if (_head->next)
+			_head->next->prev = _head;
+		delete tmp;
+		if (--_size == 0)
+			_tail = _head;
 	}
 
+	//tested 1
 	void				push_back(const T& val)
 	{
-		Node<T> *n;
-		n = _tail;
+		Node<T> *n = new Node<T>();
 		n->data = val;
-		_tail = new Node<T>();
-		_tail->prev = n;
-		n->next = _tail;
+		if (_tail->prev)
+		{
+			_tail->next = n;
+			n->prev = _tail;
+		}
+		else
+		{
+			_head->next = n;
+			n->prev = _head;
+		}
+		_tail = n;
 		_size++;
 	}
 
-	void				pop_front()
+	//tested 1
+	void				pop_back()
+	{
+		Node<T> *tmp;
+
+		tmp = _tail;
+		_tail = _tail->prev;
+		_tail->next = nullptr;
+		delete tmp;
+		if (--_size == 0)
+			_tail = _head;
+	}
+
+	//tested 0
+	iterator 			insert(iterator &position, const value_type& val)
+	{
+		Node<T> *n = new Node<T>();
+		n->data = val;
+		n->next = position.getNode();
+		n->prev = position->prev;
+		n->prev->next = n;
+		n->next->prev = n;
+		position = n->prev;
+		position++;
+		_size++;
+		return position;
+	}
+
+	//tested 0
+	void				insert(iterator &position, size_type n, const value_type& val)
+	{
+		Node<T> *tmp;
+		
+		tmp = position.getNode();
+		for (size_t i = 0; i < n; i++)
+		{
+			Node<T> *n = new Node<T>();
+			n->data = val;
+			n->next = tmp;
+			n->prev = tmp->prev;
+			n->prev->next = n;
+			n->next->prev = n;
+			_size++;
+		}
+		position = tmp->prev;
+	}
+
+	//tested 0
+	void				insert(iterator position, iterator first, iterator last)
+	{
+		Node<T> *tmp;
+
+		tmp = position.getNode();
+		for((void)first; first != last; ++first)
+		{
+			Node<T> *n = new Node<T>();
+			n->data = *first;
+			n->next = tmp;
+			n->prev = tmp->prev;
+			n->prev->next = n;
+			n->next->prev = n;
+			_size++;
+			++position;
+		}
+		position = tmp->prev;
+	}
+
+	//tested 0
+	iterator			erase(iterator position)
 	{
 
 	}
 
-	iterator 			insert(iterator position, const value_type& val)
+	//tested 0
+	iterator			erase(iterator first, iterator last)
 	{
 
 	}
 
-	iterator			erase (iterator position)
-	{
-
-	}
-
-	iterator			erase (iterator first, iterator last)
-	{
-
-	}
-
+	//tested 0
 	void 				swap(List<T>& x)
 	{
 
 	}
 
+	//tested 0
 	void 				resize(size_type n, value_type val = value_type())
 	{
 
 	}
 
+	//tested 0
 	void				clear()
 	{
+		Node<T> *tmp;
 
+		while(_head)
+		{
+			tmp = _head->next;
+			delete _head;
+			_head = tmp;
+		}
+		_size = 0;
+		_head = nullptr;
+		_tail = nullptr;
 	}
 
-
+	//tested 0
 	void				splice(iterator position, List<T>& x)
 	{
 
 	}
 
+	//tested 0
 	void				splice(iterator position, List<T>& x, iterator i)
 	{
 
 	}
 
+	//tested 0
 	void				splice(iterator position, List<T>& x, iterator first, iterator last)
 	{
 
 	}
 
+	//tested 0
 	void				remove(const value_type& val)
 	{
 
 	}
 
+	//tested 0
 	template <class Predicate>
   	void				remove_if (Predicate pred)
 	  {
@@ -267,77 +413,52 @@ public:
 
 	}
 
+	//tested 0
 	template <class BinaryPredicate>
   	void				unique(BinaryPredicate binary_pred)
 	  {
 
 	  }
 
+	//tested 0
 	void				merge(List<T>& x)
 	{
 
 	}
 
+	//tested 0
 	template <class Compare>
 	void				merge(List<T>& x, Compare comp)
 	{
 
 	}
 
+	//tested 0
 	void				sort()
 	{
 
 	}
 
+	//tested 0
 	template <class Compare>
 	void				sort(Compare comp)
 	{
 
 	}
 
+	//tested 0
 	void				reverse()
 	{
 
 	}
 
 
+	//tested 0
 	List<T>&		operator=(const List<T>& lhs)
 	{
 
 	}
-	
+
 };
-
-template<typename T>
-List<T>::List() : _size(0)
-{
-	_head = new Node<T>();
-	_tail = new Node<T>();
-	_head->next = _tail;
-	_tail->prev = _head;
-}
-
-template<typename T>
-List<T>::~List()
-{
-}
-
-template<typename T>
-List<T>::size_type		List<T>::size() const
-{
-	return (_size);
-}
-
-template<typename T>
-void		List<T>::push_back(const T& val)
-{
-	Node<T> *n;
-	n = _tail;
-	n->data = val;
-	_tail = new Node<T>();
-	_tail->prev = n;
-	n->next = _tail;
-	_size++;
-}
 
 #endif
