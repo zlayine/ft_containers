@@ -283,7 +283,7 @@ public:
 			_tail = _head;
 	}
 
-	//tested 0
+	//tested 1
 	iterator 			insert(iterator &position, const value_type& val)
 	{
 		Node<T> *n = new Node<T>();
@@ -298,7 +298,7 @@ public:
 		return position;
 	}
 
-	//tested 0
+	//tested 1
 	void				insert(iterator &position, size_type n, const value_type& val)
 	{
 		Node<T> *tmp;
@@ -317,7 +317,7 @@ public:
 		position = tmp->prev;
 	}
 
-	//tested 0
+	//tested 1
 	void				insert(iterator position, iterator first, iterator last)
 	{
 		Node<T> *tmp;
@@ -340,7 +340,12 @@ public:
 	//tested 0
 	iterator			erase(iterator position)
 	{
+		Node<T> *tmp;
 
+		tmp = position.getNode();
+		tmp->next->prev = tmp->prev;
+		tmp->prev = tmp->next;
+		
 	}
 
 	//tested 0

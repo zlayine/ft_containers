@@ -144,27 +144,28 @@ void	test_list()
 	++ita;
 	++its;
 
-	mlist.insert(ita, 10);
-	// std::cout << *ita << std::endl;
-	list.insert(its, 10);
-	// std::cout << *its << std::endl;
+	// mlist.insert(ita, 10);
+	// // std::cout << *ita << std::endl;
+	// list.insert(its, 10);
+	// // std::cout << *its << std::endl;
 
-	mlist.insert(ita, 2, 12);
-	// std::cout << *ita << std::endl;
-	list.insert(its, 2, 12);
-	// std::cout << *its << std::endl;
+	// mlist.insert(ita, 2, 12);
+	// // std::cout << *ita << std::endl;
+	// list.insert(its, 2, 12);
+	// // std::cout << *its << std::endl;
 
-	List<int>			nlist;
-	std::list<int>		list1;
+	// List<int>			nlist;
+	// std::list<int>		list1;
 
-	nlist.push_back(22);
-	nlist.push_back(23);
+	// nlist.push_back(22);
+	// nlist.push_back(23);
 
-	list1.push_back(22);
-	list1.push_back(23);
+	// list1.push_back(22);
+	// list1.push_back(23);
 
-	mlist.insert(ita, nlist.begin(), nlist.end());
-	list.insert(its, list1.begin(), list1.end());
+	// mlist.insert(ita, nlist.begin(), nlist.end());
+	// list.insert(its, list1.begin(), list1.end());
+	
 	std::cout << "--------------------\n"; 
 
 	for(std::list<int>::iterator	it = list.begin() ; it != list.end(); ++it)
