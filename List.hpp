@@ -2,6 +2,7 @@
 # define LIST_HPP
 
 #include <iostream>
+#include "Node.hpp"
 
 template<typename List>
 class ListIterator
@@ -22,7 +23,7 @@ public:
 
 	pointer_type	getNode() const
 	{
-		return _ptr->next;
+		return _ptr;
 	}
 
 	ListIterator&	operator++()
@@ -53,12 +54,12 @@ public:
 
 	pointer_type	operator->()
 	{
-		return _ptr->next;
+		return _ptr;
 	}
 
 	reference_type	operator*()
 	{
-		return _ptr->next->data;
+		return _ptr->data;
 	}
 
 	bool			operator==(const ListIterator& other) const
@@ -77,25 +78,17 @@ private:
 };
 
 template<typename T>
-class Node 
-{ 
-public:
-	T			data; 
-	Node<T>*	next; 
-	Node<T>*	prev; 
-
-	Node() : next(nullptr), prev(nullptr)
-	{
-	}
-};
-
-template<typename T>
 class List
 {
 private:
 	Node<T>	*_head;
 	Node<T>	*_tail;
 	size_t	_size;
+
+	void	print_here()
+	{
+		std::cout << "here\n";
+	}
 
 public:
 
@@ -115,9 +108,6 @@ public:
 	List() : _size(0)
 	{
 		_head = _tail = new Node<T>();
-		// _tail = new Node<T>();
-		// _head->next = _tail;
-		// _tail->prev = _head;
 	}
 
 	List(List<T> const &src)
@@ -128,6 +118,7 @@ public:
 	~List()
 	{
 		clear();
+		delete _tail;
 	}
 
 	iterator			begin()
@@ -135,7 +126,17 @@ public:
 		return iterator(_head);
 	}
 
+	const_iterator			begin() const
+	{
+		return iterator(_head);
+	}
+
 	iterator			end()
+	{
+		return iterator(_tail);
+	}
+
+	const_iterator			end() const
 	{
 		return iterator(_tail);
 	}
@@ -192,48 +193,28 @@ public:
 	{
 		return _tail;
 	}
-	
-	//tested 0
- 	void				assign(const_iterator first, const_iterator last)
-	{
-		clear();
-		_head = new Node<T>();
-		_tail = new Node<T>();
-		for(first; first != last; ++first)
-		{
-			push_front(*first);
-		}
-	}
 
 	//tested 0
 	void 				assign(size_type n, const value_type& val)
 	{
 		clear();
-		_head = new Node<T>();
-		_tail = new Node<T>();
 		for(size_type i = 0; i < n; i++)
-		{
 			push_front(val);
-		}
+	}
+
+	//tested 0
+ 	void				assign(const_iterator first, const_iterator last)
+	{
+		clear();
+		for(first; first != last; ++first)
+			push_front(*first);
 	}
 
 	//tested 1
 	void				push_front(const T& val)
 	{
-		Node<T> *n = new Node<T>();
-		n->data = val;
-		if (_head->next)
-		{
-			n->next = _head->next;
-			_head->next->prev = n;
-			n->prev = _head;
-		}
-		else
-		{
-			_tail = n;
-			_tail->prev = _head;
-		}
-		_head->next = n;
+		Node<T> *n = new Node<T>(val, _head);
+		_head = n;
 		_size++;
 	}
 
@@ -241,11 +222,12 @@ public:
 	void				pop_front()
 	{
 		Node<T> *tmp;
-
-		tmp = _head->next;
-		_head->next = _head->next->next;
-		if (_head->next)
-			_head->next->prev = _head;
+		
+		if (_size == 0)
+			return ;
+		tmp = _head;
+		_head = _head->next;
+		_head->prev = nullptr;
 		delete tmp;
 		if (--_size == 0)
 			_tail = _head;
@@ -254,19 +236,10 @@ public:
 	//tested 1
 	void				push_back(const T& val)
 	{
-		Node<T> *n = new Node<T>();
-		n->data = val;
-		if (_tail->prev)
-		{
-			_tail->next = n;
-			n->prev = _tail;
-		}
-		else
-		{
-			_head->next = n;
-			n->prev = _head;
-		}
-		_tail = n;
+		Node<T> *n = new Node<T>(val, _tail);
+		if (_size == 0)
+			_head = n;
+		_tail = n->next;
 		_size++;
 	}
 
@@ -275,15 +248,26 @@ public:
 	{
 		Node<T> *tmp;
 
-		tmp = _tail;
-		_tail = _tail->prev;
-		_tail->next = nullptr;
+		// std::cout << "size: " << _size << std::endl;
+		if (_size == 0)
+			return ;
+		tmp = _tail->prev;
+		_tail->prev = tmp->prev;
 		delete tmp;
 		if (--_size == 0)
+		{
+			// _head = _tail;
 			_tail = _head;
+		}
+		else 
+		{
+			// std::cout << "h size: " << _size << std::endl;
+			_tail->prev->next = _tail;
+		}
+		// std::cout << "head: " << _tail->data << std::endl;
 	}
 
-	//tested 1
+	//tested 0
 	iterator 			insert(iterator &position, const value_type& val)
 	{
 		Node<T> *n = new Node<T>();
@@ -298,7 +282,7 @@ public:
 		return position;
 	}
 
-	//tested 1
+	//tested 0
 	void				insert(iterator &position, size_type n, const value_type& val)
 	{
 		Node<T> *tmp;
@@ -317,7 +301,7 @@ public:
 		position = tmp->prev;
 	}
 
-	//tested 1
+	//tested 0
 	void				insert(iterator position, iterator first, iterator last)
 	{
 		Node<T> *tmp;
@@ -338,60 +322,87 @@ public:
 	}
 
 	//tested 0
-	iterator			erase(iterator position)
+	iterator			erase(iterator& position)
 	{
 		Node<T> *tmp;
 
 		tmp = position.getNode();
 		tmp->next->prev = tmp->prev;
-		tmp->prev = tmp->next;
-		
+		tmp->prev->next = tmp->next;
+		delete tmp;
+		return position;
 	}
 
-	//tested 0
+	//tested 0 (test weird shit with this)
 	iterator			erase(iterator first, iterator last)
 	{
+		Node<T> *tmp;
 
+		while (first.getNode() != last.getNode())
+		{
+			tmp = first.getNode();
+			tmp->next->prev = tmp->prev;
+			tmp->prev->next = tmp->next;
+			delete tmp;
+		}
+		return first;
 	}
 
-	//tested 0
+	//tested 1
 	void 				swap(List<T>& x)
 	{
+		List<T> tmp;
 
+		tmp = x;
+		x.clear();
+		for (List<T>::iterator it = begin(); it != end(); ++it)
+			x.push_back(*it);
+		clear();
+		for (List<T>::iterator it = tmp.begin(); it != tmp.end(); ++it)
+			push_back(*it);
 	}
 
 	//tested 0
 	void 				resize(size_type n, value_type val = value_type())
 	{
-
+		if (n < _size)
+		{
+			size_type 	total = _size;
+			for (size_type i = n; i < total; i++)
+				pop_back();
+		}
+		else if (n > _size)
+		{
+			for (size_type i = _size; i < n; i++)
+				push_back(val);
+		}
 	}
 
 	//tested 0
 	void				clear()
 	{
-		Node<T> *tmp;
-
-		while(_head)
+		for (List<T>::iterator it = begin(); begin() != end(); ++it)
 		{
-			tmp = _head->next;
-			delete _head;
-			_head = tmp;
+			pop_back();
 		}
-		_size = 0;
-		_head = nullptr;
-		_tail = nullptr;
 	}
 
 	//tested 0
 	void				splice(iterator position, List<T>& x)
 	{
-
+		for(List<T>::iterator it = x.begin(); it != x.end(); ++it)
+			insert(position, *it);
+		x.clear();
 	}
 
 	//tested 0
 	void				splice(iterator position, List<T>& x, iterator i)
 	{
-
+		for(List<T>::iterator it = i; it != x.end(); ++it)
+		{
+			print_here();
+			insert(position, *it);
+		}
 	}
 
 	//tested 0
@@ -461,7 +472,10 @@ public:
 	//tested 0
 	List<T>&		operator=(const List<T>& lhs)
 	{
-
+		clear();
+		for (List<T>::iterator it = lhs.begin(); it != lhs.end(); ++it)
+			push_back(*it);
+		return *this;
 	}
 
 };
