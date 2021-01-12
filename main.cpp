@@ -122,15 +122,25 @@ void	print_here()
 	std::cout << "here\n";
 }
 
+bool below_3 (const int& value)
+{
+	return (value < 4);
+}
+
+bool is_equal (const int& first, const int &second)
+{
+	return (first == second);
+}
+
 template<typename T>
 void	print_lists(List<T> &x, std::list<T> &y)
 {
-	std::cout << "----------s----------\n"; 
+	std::cout << "----------mine:----------\n"; 
 	for(List<int>::iterator	it = x.begin() ; it != x.end(); ++it)
 	{
 		std::cout << *it << " ";
 	}
-	std::cout << "\n--------------------\n"; 
+	std::cout << "\n----------syst:----------\n"; 
 	for(std::list<int>::iterator it = y.begin() ; it != y.end(); ++it)
 	{
 		std::cout << *it << " ";
@@ -147,6 +157,8 @@ void	test_list()
 	std::list<int>		list;
 	std::list<int>		list2;
 
+	// =====================> Push test 1
+
 	mlist.push_back(1);
 	mlist.push_back(2);
 	mlist.push_back(3);
@@ -161,6 +173,8 @@ void	test_list()
 
 	// print_lists(mlist, list);
 
+	// =====================> Pop test 1
+
 	// mlist.pop_front();
 	// list.pop_front();
 
@@ -177,20 +191,28 @@ void	test_list()
 	// list.pop_front();
 
 	// print_lists(mlist, list);
+
+	// =====================> Clear test 1
 
 	// mlist.clear();
 	// list.clear();
 
 	// print_lists(mlist, list);
 
+	// =====================> Assign test 1
+
 	// mlist.assign(7, 100);
 	// list.assign(7, 100);
 
 	// print_lists(mlist, list);
 
+	// =====================> Assign test 2
+
 	// mlist2.assign(mlist.begin(), mlist.end());
 
 	// print_lists(mlist2, list);
+
+	// =====================> Insert test 1
 
 	// problem with iterating over itself still occurs
 	// List<int>::iterator it = mlist.begin();
@@ -215,6 +237,8 @@ void	test_list()
 
 	// print_lists(mlist, list);
 
+	// =====================> Insert test 2
+
 	// mlist2.push_back(9);
 	// List<int>::iterator it = mlist2.begin();
 	// it++;
@@ -226,6 +250,8 @@ void	test_list()
 	// list2.insert(its, list.begin(), list.end());
 
 	// print_lists(mlist2, list2);
+
+	// =====================> Insert test 3
 
 	// List<int>::iterator it = mlist.begin();
 	// it++;
@@ -247,6 +273,8 @@ void	test_list()
 
 	// print_lists(mlist, list);
 
+	// =====================> Erase test 1
+
 	// List<int>::iterator it = mlist.begin();
 	// it++;
 	// it++;
@@ -261,6 +289,8 @@ void	test_list()
 
 	// print_lists(mlist, list);
 
+	// =====================> Erase test 2
+
 	// List<int>::iterator it = mlist.begin();
 	// it = mlist.erase(mlist.begin(), mlist.end());
 	// std::cout << *it << std::endl;
@@ -271,6 +301,8 @@ void	test_list()
 
 	// print_lists(mlist, list);
 
+	// =====================> Resize test 1
+
 	// list.resize(2);
 	// list.resize(5, 100);
 	// list.resize(10);
@@ -280,6 +312,8 @@ void	test_list()
 	// mlist.resize(10);
 
 	// print_lists(mlist, list);
+
+	// =====================> Swap test 1
 
 	// print_lists(mlist2, list2);
 	// print_lists(mlist, list);
@@ -328,10 +362,112 @@ void	test_list()
 	// print_lists(mlist, list);
 	// print_lists(mlist2, list2);
 
-	// mlist2.splice(mlist2.begin() , mlist, it3);
+	// =====================> Splice test 3
+
+	// mlist2.push_back(5);
+	// mlist2.push_back(6);
+	// mlist2.push_back(7);
+
+	// list2.push_back(5);
+	// list2.push_back(6);
+	// list2.push_back(7);
+
+	// List<int>::iterator it = mlist2.begin();
+	// List<int>::iterator it1 = mlist.begin();
+	// std::list<int>::iterator its = list2.begin();
+	// std::list<int>::iterator its1 = list.begin();
+
+	// print_lists(mlist, list);
+	// print_lists(mlist2, list2);
+
+	// it++;
+	// its++;
+
+	// it1++;
+	// its1++;
+	
+	// mlist2.splice(it, mlist, it1);
+	// list2.splice(its, list, its1);
+	// std::cout << "after splice: \n";
+
+	// print_lists(mlist, list);
+	// print_lists(mlist2, list2);
+
+	// =====================> Splice test 4
+
+	// mlist2.push_back(5);
+	// mlist2.push_back(6);
+	// mlist2.push_back(7);
+
+	// list2.push_back(5);
+	// list2.push_back(6);
+	// list2.push_back(7);
+
+	// List<int>::iterator it = mlist2.begin();
+	// List<int>::iterator it1 = mlist.begin();
+	// std::list<int>::iterator its = list2.begin();
+	// std::list<int>::iterator its1 = list.begin();
+
+	// print_lists(mlist, list);
+	// print_lists(mlist2, list2);
+
+	// it++;
+	// its++;
+
+	// it1++;
+	// its1++;
+	
+	// mlist2.splice(it, mlist, it1, mlist.end());
+	// list2.splice(its, list, its1, list.end());
+	// std::cout << "after splice: \n";
+
+	// print_lists(mlist, list);
+	// print_lists(mlist2, list2);
+
+	// =====================> Remove test 1
+	
+	// mlist.remove(2);
+	// list.remove(2);
+	// print_lists(mlist, list);
+
+	// =====================> Remove test 2
+	
+	// mlist.remove_if(below_3);
+	// list.remove_if(below_3);
+
+	// print_lists(mlist, list);
+
+	// =====================> Unique test 1
+
+	// mlist.push_back(3);
+	// mlist.push_back(3);
+	// list.push_back(3);
+	// list.push_back(3);
+	
+	// print_lists(mlist, list);
+
+	// mlist.unique();
+	// list.unique();
+	// std::cout << "after unique: \n";
+
+	// print_lists(mlist, list);
+
+	// =====================> Unique test 2
+
+	// mlist.push_back(3);
+	// mlist.push_back(3);
+	// list.push_back(3);
+	// list.push_back(3);
+	
+	// print_lists(mlist, list);
+
+	// mlist.unique(is_equal);
+	// list.unique(is_equal);
+	// std::cout << "after unique: \n";
+
+	// print_lists(mlist, list);
+
 }
-
-
 
 int main()
 {

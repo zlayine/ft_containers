@@ -11,6 +11,7 @@ public:
 	typedef typename List::value_type		value_type;
 	typedef typename List::node_type*		pointer_type;
 	typedef typename List::value_type&		reference_type;
+	typedef ptrdiff_t						difference_type;
 
 	ListIterator() : _ptr(nullptr)
 	{
@@ -39,6 +40,22 @@ public:
 		ListIterator iterator = *this;
 		++(*this);
 		return iterator;
+	}
+	// tmp + 1
+	ListIterator	operator+(difference_type v)
+	{	
+		pointer_type tmp;
+		tmp = _ptr;
+		while (v--)
+			tmp = tmp->next;
+		return tmp;
+	}
+
+	ListIterator	operator-(difference_type v)
+	{
+		while (v--)
+			_ptr = _ptr->prev;
+		return *this;
 	}
 
 	ListIterator&	operator--()
@@ -340,7 +357,7 @@ public:
 			pop_front();
 	}
 
-	//tested 0
+	//tested 1
 	void				splice(iterator position, List<T>& x)
 	{
 		for(List<T>::iterator it = x.begin(); it != x.end(); ++it)
@@ -348,46 +365,61 @@ public:
 		x.clear();
 	}
 
-	//tested 0
+	//tested 1
 	void				splice(iterator position, List<T>& x, iterator i)
 	{
-		for(List<T>::iterator it = i; it != x.end(); ++it)
-		{
-			print_here();
+		insert(position, *i);
+		x.erase(i);
+	}
+
+	//tested 1
+	void				splice(iterator position, List<T>& x, iterator first, iterator last)
+	{
+		for(List<T>::iterator it = first; it != last; ++it)
 			insert(position, *it);
+		x.erase(first, last);
+	}
+
+	//tested 1
+	void				remove(const value_type& val)
+	{
+		for(List<int>::iterator it = begin(); it != end(); ++it)
+		{
+			if (*it == val)
+				erase(it);
 		}
 	}
 
-	//tested 0
-	void				splice(iterator position, List<T>& x, iterator first, iterator last)
-	{
-
-	}
-
-	//tested 0
-	void				remove(const value_type& val)
-	{
-
-	}
-
-	//tested 0
+	//tested 1 need more testing
 	template <class Predicate>
   	void				remove_if (Predicate pred)
-	  {
-
-	  }
+	{
+		for(List<int>::iterator it = begin(); it != end(); ++it)
+		{
+			if (pred(*it))
+				remove(*it);
+		}
+	}
 
 	void				unique()
 	{
-
+		for(List<int>::iterator it = begin() + 1; it != end(); ++it)
+		{
+			if (*(it + 1) == *it)
+				erase(it);
+		}
 	}
 
 	//tested 0
 	template <class BinaryPredicate>
   	void				unique(BinaryPredicate binary_pred)
-	  {
-
-	  }
+	{
+		for(List<int>::iterator it = begin() + 1; it != end(); ++it)
+		{
+			if (binary_pred(*(it + 1), *it))
+				erase(it);
+		}
+	}
 
 	//tested 0
 	void				merge(List<T>& x)
