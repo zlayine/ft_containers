@@ -26,12 +26,14 @@ public:
 		return _ptr;
 	}
 
+	// if its the end it segfault
 	ListIterator&	operator++()
 	{
 		_ptr = _ptr->next;
 		return *this;
 	}
 
+	// if its the end it segfault
 	ListIterator	operator++(int)
 	{
 		ListIterator iterator = *this;
@@ -115,7 +117,7 @@ public:
 
 	}
 
-	~List()
+	virtual ~List()
 	{
 		clear();
 		delete _tail;
@@ -126,7 +128,7 @@ public:
 		return iterator(_head);
 	}
 
-	const_iterator			begin() const
+	const_iterator		begin() const
 	{
 		return iterator(_head);
 	}
@@ -136,7 +138,7 @@ public:
 		return iterator(_tail);
 	}
 
-	const_iterator			end() const
+	const_iterator		end() const
 	{
 		return iterator(_tail);
 	}
@@ -194,7 +196,7 @@ public:
 		return _tail;
 	}
 
-	//tested 0
+	//tested 1
 	void 				assign(size_type n, const value_type& val)
 	{
 		clear();
@@ -202,150 +204,103 @@ public:
 			push_front(val);
 	}
 
-	//tested 0
- 	void				assign(const_iterator first, const_iterator last)
+	//tested 1
+ 	void				assign(iterator first, iterator last)
 	{
 		clear();
-		for(first; first != last; ++first)
+		for((void)first; first != last; ++first)
 			push_front(*first);
 	}
 
 	//tested 1
 	void				push_front(const T& val)
 	{
-		Node<T> *n = new Node<T>(val, _head);
+		Node<T> *n = new Node<T>(val);
+		_head->insert(n);
 		_head = n;
 		_size++;
 	}
 
 	//tested 1
-	void				pop_front()
+	void				push_back(const T& val)
 	{
-		Node<T> *tmp;
-		
-		if (_size == 0)
-			return ;
-		tmp = _head;
-		_head = _head->next;
-		_head->prev = nullptr;
-		delete tmp;
-		if (--_size == 0)
-			_tail = _head;
+		Node<T> *n = new Node<T>(val);
+		_tail->insert(n);
+		if (_size++ == 0)
+			_head = n;
 	}
 
 	//tested 1
-	void				push_back(const T& val)
+	void				pop_front()
 	{
-		Node<T> *n = new Node<T>(val, _tail);
-		if (_size == 0)
-			_head = n;
-		_tail = n->next;
-		_size++;
+		if (!_size)
+			return;
+		_head = _head->erase();
+		if (_size-- == 1)
+			_head = _tail;
 	}
 
 	//tested 1
 	void				pop_back()
 	{
-		Node<T> *tmp;
-
-		// std::cout << "size: " << _size << std::endl;
-		if (_size == 0)
-			return ;
-		tmp = _tail->prev;
-		_tail->prev = tmp->prev;
-		delete tmp;
-		if (--_size == 0)
-		{
-			// _head = _tail;
-			_tail = _head;
-		}
-		else 
-		{
-			// std::cout << "h size: " << _size << std::endl;
-			_tail->prev->next = _tail;
-		}
-		// std::cout << "head: " << _tail->data << std::endl;
+		if (!_size)
+			return;
+		_tail->prev->erase();
+		if (_size-- == 1)
+			_head = _tail;
 	}
 
-	//tested 0
+	//tested 1
 	iterator 			insert(iterator &position, const value_type& val)
 	{
-		Node<T> *n = new Node<T>();
-		n->data = val;
-		n->next = position.getNode();
-		n->prev = position->prev;
-		n->prev->next = n;
-		n->next->prev = n;
-		position = n->prev;
-		position++;
+		Node<T> *n = new Node<T>(val);
+		position.getNode()->insert(n);
+		if (position == begin())
+			_head = n;
 		_size++;
-		return position;
+		return iterator(n);
 	}
 
-	//tested 0
+	//tested 1
 	void				insert(iterator &position, size_type n, const value_type& val)
 	{
-		Node<T> *tmp;
-		
-		tmp = position.getNode();
 		for (size_t i = 0; i < n; i++)
-		{
-			Node<T> *n = new Node<T>();
-			n->data = val;
-			n->next = tmp;
-			n->prev = tmp->prev;
-			n->prev->next = n;
-			n->next->prev = n;
-			_size++;
-		}
-		position = tmp->prev;
+			insert(position, val);
+		_size += n;
 	}
 
-	//tested 0
+	//tested 1
 	void				insert(iterator position, iterator first, iterator last)
 	{
-		Node<T> *tmp;
-
-		tmp = position.getNode();
 		for((void)first; first != last; ++first)
-		{
-			Node<T> *n = new Node<T>();
-			n->data = *first;
-			n->next = tmp;
-			n->prev = tmp->prev;
-			n->prev->next = n;
-			n->next->prev = n;
-			_size++;
-			++position;
-		}
-		position = tmp->prev;
+			insert(position, *first);
 	}
 
-	//tested 0
+	//tested 1
 	iterator			erase(iterator& position)
 	{
-		Node<T> *tmp;
-
-		tmp = position.getNode();
-		tmp->next->prev = tmp->prev;
-		tmp->prev->next = tmp->next;
-		delete tmp;
-		return position;
+		position.getNode()->erase();
+		if (position == begin())
+			_head = _head->next;
+		position++;
+		_size--;
+		if (position == end())
+			return (iterator(--position));
+		return iterator(position);
 	}
 
-	//tested 0 (test weird shit with this)
+	//tested 1 (test weird shit with this)
 	iterator			erase(iterator first, iterator last)
 	{
-		Node<T> *tmp;
-
-		while (first.getNode() != last.getNode())
-		{
-			tmp = first.getNode();
-			tmp->next->prev = tmp->prev;
-			tmp->prev->next = tmp->next;
-			delete tmp;
-		}
-		return first;
+		iterator position;
+		position = first;
+		for((void)first; first != last; ++first)
+			position = erase(position);
+		if (position == last)
+			return iterator(first);
+		if (position.getNode() == nullptr)
+			position = first;
+		return iterator(position);
 	}
 
 	//tested 1
@@ -362,7 +317,7 @@ public:
 			push_back(*it);
 	}
 
-	//tested 0
+	//tested 1
 	void 				resize(size_type n, value_type val = value_type())
 	{
 		if (n < _size)
@@ -378,13 +333,11 @@ public:
 		}
 	}
 
-	//tested 0
+	//tested 1
 	void				clear()
 	{
-		for (List<T>::iterator it = begin(); begin() != end(); ++it)
-		{
-			pop_back();
-		}
+		for (List<T>::iterator it = begin(); it != end(); ++it)
+			pop_front();
 	}
 
 	//tested 0
