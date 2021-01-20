@@ -192,25 +192,25 @@ public:
 	//tested 0
 	reference			front()
 	{
-		return _head->next;
+		return _head->data;
 	}
 
 	//tested 0
 	const_reference		front() const
 	{
-		return _head->next;
+		return _head->data;
 	}
 
 	//tested 0
 	reference			back()
 	{
-		return _tail;
+		return _tail->prev->data;
 	}
 
 	//tested 0
 	const_reference		back() const
 	{
-		return _tail;
+		return _tail->prev->data;
 	}
 
 	//tested 1
@@ -401,6 +401,7 @@ public:
 		}
 	}
 
+	//tested 1
 	void				unique()
 	{
 		for(List<int>::iterator it = begin() + 1; it != end(); ++it)
@@ -424,33 +425,105 @@ public:
 	//tested 0
 	void				merge(List<T>& x)
 	{
+		iterator s1 = begin();
+		iterator s2 = x.begin();
 
+		iterator e1 = end();
+		iterator e2 = x.end();
+
+		while (s1 != e1 && s2 != e2)
+		{
+			if (*s2 < *s1)
+			{
+				insert(s1, *s2);
+				x.pop_front();
+				s2++;
+			}
+			else
+				s1++;
+		}
+		splice(s1, x);
 	}
 
 	//tested 0
 	template <class Compare>
 	void				merge(List<T>& x, Compare comp)
 	{
+		iterator s1 = begin();
+		iterator s2 = x.begin();
 
+		iterator e1 = end();
+		iterator e2 = x.end();
+
+		while (s1 != e1 && s2 != e2)
+		{
+			if (comp(*s1, *s2))
+			{
+				insert(s1, *s2);
+				x.pop_front();
+				s2++;
+			}
+			else
+				s1++;
+		}
+		splice(s1, x);
 	}
 
-	//tested 0
+	//tested 1
 	void				sort()
 	{
+		T	tmp;
 
+		for(List<int>::iterator it = begin(); it != end(); ++it)
+		{
+			for(List<int>::iterator its = it + 1; its != end(); ++its)
+			{
+				if (*its < *it)
+				{
+					tmp = *its;
+					*its = *it;
+					*it = tmp;
+				}
+			}
+		}
 	}
 
 	//tested 0
 	template <class Compare>
 	void				sort(Compare comp)
 	{
+		T	tmp;
 
+		for(List<int>::iterator it = begin(); it != end(); ++it)
+		{
+			for(List<int>::iterator its = it + 1; its != end(); ++its)
+			{
+				if (comp(*its, *it))
+				{
+					tmp = *its;
+					*its = *it;
+					*it = tmp;
+				}
+			}
+		}
 	}
 
-	//tested 0
+	//tested 1
 	void				reverse()
 	{
+		T tmp;
+		iterator h = begin();
+		iterator e = --end();
 
+		size_type len = size() / 2;
+		for (size_type i = 0; i < len ; i++)
+		{
+			tmp = h.getNode()->data;
+			h.getNode()->data = e.getNode()->data;
+			e.getNode()->data = tmp;
+			h++;
+			e--;
+		}
 	}
 
 
@@ -464,5 +537,50 @@ public:
 	}
 
 };
+
+template<typename T>
+bool			operator==(const List<T>& lhs, const List<T>& rhs)
+{
+	typename List<T>::iterator s1 = lhs.begin();
+	typename List<T>::iterator s2 = rhs.begin();
+	for((void)s1; s1 != lhs.end(); ++s1)
+	{
+		if (*s1 != *s2)
+			return false;
+		s2++;
+	}
+	return true;
+}
+
+template<typename T>
+bool			operator>=(const List<T>& lhs, const List<T>& rhs)
+{
+	return !(lhs < rhs);
+}
+
+template<typename T>
+bool			operator>(const List<T>& lhs, const List<T>& rhs)
+{
+	return lhs > rhs;
+}
+
+template<typename T>
+bool			operator<=(const List<T>& lhs, const List<T>& rhs)
+{
+	return !(lhs > rhs);
+}
+
+template<typename T>
+bool			operator<(const List<T>& lhs, const List<T>& rhs)
+{
+	return lhs < rhs;
+}
+
+template<typename T>
+bool			operator!=(const List<T>& lhs, const List<T>& rhs)
+{
+	return !(lhs == rhs);
+}
+
 
 #endif
