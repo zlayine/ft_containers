@@ -392,7 +392,7 @@ public:
 
 	//tested 1 need more testing
 	template <class Predicate>
-  	void				remove_if (Predicate pred)
+  	void				remove_if(Predicate pred)
 	{
 		for(List<int>::iterator it = begin(); it != end(); ++it)
 		{
@@ -401,6 +401,7 @@ public:
 		}
 	}
 
+	//tested 1
 	void				unique()
 	{
 		for(List<int>::iterator it = begin() + 1; it != end(); ++it)
@@ -410,7 +411,7 @@ public:
 		}
 	}
 
-	//tested 0
+	//tested 1
 	template <class BinaryPredicate>
   	void				unique(BinaryPredicate binary_pred)
 	{
