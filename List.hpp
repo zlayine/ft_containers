@@ -545,7 +545,7 @@ bool			operator==(const List<T>& lhs, const List<T>& rhs)
 	typename List<T>::iterator s2 = rhs.begin();
 	for((void)s1; s1 != lhs.end(); ++s1)
 	{
-		if (*s1 != *s2)
+		if (*s1 != *s2 || s2 == rhs.end())
 			return false;
 		s2++;
 	}
@@ -561,7 +561,17 @@ bool			operator>=(const List<T>& lhs, const List<T>& rhs)
 template<typename T>
 bool			operator>(const List<T>& lhs, const List<T>& rhs)
 {
-	return lhs > rhs;
+	typename List<T>::iterator s1 = lhs.begin();
+	typename List<T>::iterator s2 = rhs.begin();
+	for((void)s1; s1 != lhs.end(); ++s1)
+	{
+		if (*s1 < *s2)
+			return false;
+		else if (*s1 > *s2 || s2 == rhs.end())
+			return true;
+		s2++;
+	}
+	return (s2 == rhs.end());
 }
 
 template<typename T>
@@ -573,7 +583,7 @@ bool			operator<=(const List<T>& lhs, const List<T>& rhs)
 template<typename T>
 bool			operator<(const List<T>& lhs, const List<T>& rhs)
 {
-	return lhs < rhs;
+	return (rhs > lhs);
 }
 
 template<typename T>

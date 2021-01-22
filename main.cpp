@@ -65,18 +65,32 @@ void	test_stack()
 	std::cout << "my stack empty	: " << mstack.empty() << std::endl;
 
 	
-	// std::cout << "**	OPERATORS 	**" << std::endl;
-	// Stack<int> ostack;
-	// bool a;
-	// mstack.push(1);
-	// ostack.push(1);
-	// a = ostack == mstack;
-	// std::cout << "	==  	: " << a << std::endl;
-	// a = ostack != mstack;
-	// std::cout << "	!=  	: " << a << std::endl;
-	// ostack.push(2);
-	// a = ostack >= mstack;
-	// std::cout << "	>=  	: " << a << std::endl;
+	std::cout << "**	OPERATORS 	**" << std::endl;
+	bool a;
+	Stack<int> ostack;
+	std::stack<int> nstack;
+
+	mstack.push(1);
+	ostack.push(1);
+	a = ostack == mstack;
+	std::cout << "mine:	==  	: " << a << std::endl;
+
+	stack.push(1);
+	nstack.push(1);
+	a = stack == nstack;
+	std::cout << "orgn:	==  	: " << a << std::endl;
+
+
+	a = ostack != mstack;
+	std::cout << "mine:	!=  	: " << a << std::endl;
+
+	a = stack != nstack;
+	std::cout << "orgn:	!=  	: " << a << std::endl;
+
+	ostack.push(2);
+	a = ostack >= mstack;
+	std::cout << "	>=  	: " << a << std::endl;
+	
 	// a = ostack <= mstack;
 	// std::cout << "	<=  	: " << a << std::endl;
 	// a = ostack > mstack;
@@ -169,17 +183,17 @@ void	test_list()
 
 	// =====================> Push test 1
 
-	mlist.push_back(1);
-	mlist.push_back(2);
-	mlist.push_back(3);
-	mlist.push_back(4);
-	mlist.push_back(5);
+	// mlist.push_back(1);
+	// mlist.push_back(2);
+	// mlist.push_back(3);
+	// mlist.push_back(4);
+	// mlist.push_back(5);
 
-	list.push_back(1);
-	list.push_back(2);
-	list.push_back(3);
-	list.push_back(4);
-	list.push_back(5);
+	// list.push_back(1);
+	// list.push_back(2);
+	// list.push_back(3);
+	// list.push_back(4);
+	// list.push_back(5);
 
 	// print_lists(mlist, list);
 
@@ -550,12 +564,59 @@ void	test_list()
 
 	// print_lists(mlist, list);
 
+	std::cout << "**	OPERATORS 	**" << std::endl;
+	bool a;
+
+	mlist.push_back(1);
+	mlist2.push_back(1);
+	a = mlist == mlist2;
+	std::cout << "mine:	==  	: " << a << std::endl;
+
+	list.push_back(1);
+	list2.push_back(1);
+	a = list == list2;
+	std::cout << "orgn:	==  	: " << a << std::endl;
+
+	a = mlist != mlist2;
+	std::cout << "mine:	!=  	: " << a << std::endl;
+
+	a = list != list2;
+	std::cout << "orgn:	!=  	: " << a << std::endl;
+
+	mlist.push_back(2);
+	a = mlist > mlist2;
+	std::cout << "mine:	>  	: " << a << std::endl;
+
+	list.push_back(2);
+	a = list > list2;
+	std::cout << "orgn:	>  	: " << a << std::endl;
+
+	a = mlist < mlist2;
+	std::cout << "mine:	<  	: " << a << std::endl;
+
+	a = list < list2;
+	std::cout << "orgn:	<  	: " << a << std::endl;
+
+	mlist2.push_back(2);
+	a = mlist <= mlist2;
+	std::cout << "mine:	<=  	: " << a << std::endl;
+
+	list2.push_back(2);
+	a = list <= list2;
+	std::cout << "orgn:	<=  	: " << a << std::endl;
+
+	a = mlist >= mlist2;
+	std::cout << "mine:	>=  	: " << a << std::endl;
+
+	a = list >= list2;
+	std::cout << "orgn:	>=  	: " << a << std::endl;
+
 }
 
 int main()
 {
-	test_stack();
+	// test_stack();
 	// test_queue();
-	// test_list();
+	test_list();
 	return 0;
 }

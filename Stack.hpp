@@ -68,47 +68,41 @@ public:
 		return *this;
 	}
 	
-	//tested 0
-	// template<typename value, typename container>
-	// bool			operator==(const Stack<value, container>& lhs, const Stack<value, container>& rhs)
-	// {
-	// 	return lhs.c == rhs.c;
-	// }
+	template<typename value, typename container>
+	friend bool			operator==(const Stack<value, container>& lhs, const Stack<value, container>& rhs)
+	{
+		return lhs.c == rhs.c;
+	}
 
-	//tested 0
-	// template<typename value, typename container>
-	// bool			operator>=(const Stack<value, container>& lhs, const Stack<value, container>& rhs)
-	// {
-	// 	return lhs.c >= rhs.c;
-	// }
+	template<typename value, typename container>
+	friend bool			operator>=(const Stack<value, container>& lhs, const Stack<value, container>& rhs)
+	{
+		return lhs.c >= rhs.c;
+	}
 
-	//tested 0
-	// template<typename value, typename container>
-	// bool			operator>(const Stack<value, container>& lhs, const Stack<value, container>& rhs)
-	// {
-	// 	return lhs.c > rhs.c;
-	// }
+	template<typename value, typename container>
+	friend bool			operator>(const Stack<value, container>& lhs, const Stack<value, container>& rhs)
+	{
+		return lhs.c > rhs.c;
+	}
 
-	//tested 0
-	// template<typename value, typename container>
-	// bool			operator<=(const Stack<value, container>& lhs, const Stack<value, container>& rhs)
-	// {
-	// 	return lhs.c <= rhs.c;
-	// }
+	template<typename value, typename container>
+	friend bool			operator<=(const Stack<value, container>& lhs, const Stack<value, container>& rhs)
+	{
+		return lhs.c <= rhs.c;
+	}
 
-	//tested 0
-	// template<typename value, typename container>
-	// bool			operator<(const Stack<value, container>& lhs, const Stack<value, container>& rhs)
-	// {
-	// 	return lhs.c < rhs.c;
-	// }
+	template<typename value, typename container>
+	friend bool			operator<(const Stack<value, container>& lhs, const Stack<value, container>& rhs)
+	{
+		return lhs.c < rhs.c;
+	}
 
-	//tested 0
-	// template<typename value, typename container>
-	// bool			operator!=(const Stack<value, container>& lhs, const Stack<value, container>& rhs)
-	// {
-	// 	return lhs.c != rhs.c;
-	// }
+	template<typename value, typename container>
+	friend bool			operator!=(const Stack<value, container>& lhs, const Stack<value, container>& rhs)
+	{
+		return lhs.c != rhs.c;
+	}
 
 
 };
