@@ -104,19 +104,14 @@ private:
 	Node<T>	*_tail;
 	size_t	_size;
 
-	void	print_here()
-	{
-		std::cout << "here\n";
-	}
-
 public:
 
 	typedef T								value_type;
 	typedef Node<T>							node_type;
 	typedef T&								reference;
-	typedef const Node<T>&					const_reference;
-	typedef Node<T>*						pointer;
-	typedef const Node<T>*					const_pointer;
+	typedef const T&						const_reference;
+	typedef T*								pointer;
+	typedef const T*						const_pointer;
 	typedef ListIterator<List<T> >			iterator;
 	typedef const ListIterator<List<T> >	const_iterator;
 	typedef ListIterator<List<T> >			reverse_iterator;
@@ -140,31 +135,37 @@ public:
 		delete _tail;
 	}
 
+	//tested 0
 	iterator			begin()
 	{
 		return iterator(_head);
 	}
 
+	//tested 0
 	const_iterator		begin() const
 	{
 		return iterator(_head);
 	}
 
+	//tested 0
 	iterator			end()
 	{
 		return iterator(_tail);
 	}
 
+	//tested 0
 	const_iterator		end() const
 	{
 		return iterator(_tail);
 	}
 
+	//tested 0
 	reverse_iterator	rbgein()
 	{
 		return iterator(_tail);
 	}
 
+	//tested 0
 	reverse_iterator	rend()
 	{
 		return iterator(_head);

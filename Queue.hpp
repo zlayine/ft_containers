@@ -73,46 +73,46 @@ public:
 
 
 	//tested 0
-	// template<typename value, typename container>
-	// friend bool			operator==(const Queue<value, container>& lhs, const Queue<value, container>& rhs)
-	// {
-	// 	return lhs.c == rhs.c;
-	// }
+	template<typename value, typename container>
+	friend bool			operator==(const Queue<value, container>& lhs, const Queue<value, container>& rhs)
+	{
+		return lhs.c == rhs.c;
+	}
 
 	//tested 0
-	// template<typename value, typename container>
-	// friend bool			operator>=(const Queue<value, container>& lhs, const Queue<value, container>& rhs)
-	// {
-	// 	return lhs.c >= rhs.c;
-	// }
+	template<typename value, typename container>
+	friend bool			operator>=(const Queue<value, container>& lhs, const Queue<value, container>& rhs)
+	{
+		return !(lhs.c < rhs.c);
+	}
 
 	//tested 0
-	// template<typename value, typename container>
-	// friend bool			operator>(const Queue<value, container>& lhs, const Queue<value, container>& rhs)
-	// {
-	// 	return lhs.c > rhs.c;
-	// }
+	template<typename value, typename container>
+	friend bool			operator>(const Queue<value, container>& lhs, const Queue<value, container>& rhs)
+	{
+		return lhs.c > rhs.c;
+	}
 
 	//tested 0
-	// template<typename value, typename container>
-	// friend bool			operator<=(const Queue<value, container>& lhs, const Queue<value, container>& rhs)
-	// {
-	// 	return lhs.c <= rhs.c;
-	// }
+	template<typename value, typename container>
+	friend bool			operator<=(const Queue<value, container>& lhs, const Queue<value, container>& rhs)
+	{
+		return !(lhs.c > rhs.c);
+	}
 
 	//tested 0
-	// template<typename value, typename container>
-	// friend bool			operator<(const Queue<value, container>& lhs, const Queue<value, container>& rhs)
-	// {
-	// 	return lhs.c < rhs.c;
-	// }
+	template<typename value, typename container>
+	friend bool			operator<(const Queue<value, container>& lhs, const Queue<value, container>& rhs)
+	{
+		return (rhs.c > lhs.c);
+	}
 
 	//tested 0
-	// template<typename value, typename container>
-	// friend bool			operator!=(const Queue<value, container>& lhs, const Queue<value, container>& rhs)
-	// {
-	// 	return lhs.c != rhs.c;
-	// }
+	template<typename value, typename container>
+	friend bool			operator!=(const Queue<value, container>& lhs, const Queue<value, container>& rhs)
+	{
+		return lhs.c != rhs.c;
+	}
 };
 
 
