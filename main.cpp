@@ -1,13 +1,13 @@
-// #include "List.hpp"
 // #include "Map.hpp"
 #include "List.hpp"
 #include "Stack.hpp"
 #include "Queue.hpp"
-// #include "Vector.hpp"
+#include "Vector.hpp"
 
 #include <stack>
 #include <queue>
 #include <list>
+#include <vector>
 #include <string>
 
 
@@ -35,61 +35,77 @@ bool compare_nothrees (const int first, const int second)
  	return true;
 }
 
+template<typename T>
+void	print_lists(List<T> &x, std::list<T> &y)
+{
+	std::cout << "----------mine:----------\n"; 
+	for(List<int>::iterator	it = x.begin() ; it != x.end(); ++it)
+	{
+		std::cout << *it << " ";
+	}
+	std::cout << "\n----------syst:----------\n"; 
+	for(std::list<int>::iterator it = y.begin() ; it != y.end(); ++it)
+	{
+		std::cout << *it << " ";
+	}
+	std::cout << "\n----------e----------\n"; 
+}
+
 void	test_stack()
 {
-	std::stack<int> stack;
-	Stack<int> mstack;
+	// std::stack<int> stack;
+	// Stack<int> mstack;
 
-	std::cout << "TESTING STACK FUNCTIONS:" << std::endl << std::endl;
-	std::cout << "stack empty	: " << stack.empty() << std::endl;
-	std::cout << "my stack empty	: " << mstack.empty() << std::endl;
-	std::cout << "stack size	: " << stack.size() << std::endl;
-	std::cout << "my stack size	: " << mstack.size() << std::endl;
-	stack.push(1);
-	mstack.push(1);
-	std::cout << "stack size	: " << stack.size() << std::endl;
-	std::cout << "my stack size	: " << mstack.size() << std::endl;
-	std::cout << "stack empty	: " << stack.empty() << std::endl;
-	std::cout << "my stack empty	: " << mstack.empty() << std::endl;
-	std::cout << "stack value	: " << stack.top() << std::endl;
-	std::cout << "my stack value	: " << mstack.top() << std::endl;
-	stack.top() += 5;
-	mstack.top() += 5;
-	std::cout << "stack value	: " << stack.top() << std::endl;
-	std::cout << "my stack value	: " << mstack.top() << std::endl;
-	stack.pop();
-	mstack.pop();
-	std::cout << "stack size	: " << stack.size() << std::endl;
-	std::cout << "my stack size	: " << mstack.size() << std::endl;
-	std::cout << "stack empty	: " << stack.empty() << std::endl;
-	std::cout << "my stack empty	: " << mstack.empty() << std::endl;
+	// std::cout << "TESTING STACK FUNCTIONS:" << std::endl << std::endl;
+	// std::cout << "stack empty	: " << stack.empty() << std::endl;
+	// std::cout << "my stack empty	: " << mstack.empty() << std::endl;
+	// std::cout << "stack size	: " << stack.size() << std::endl;
+	// std::cout << "my stack size	: " << mstack.size() << std::endl;
+	// stack.push(1);
+	// mstack.push(1);
+	// std::cout << "stack size	: " << stack.size() << std::endl;
+	// std::cout << "my stack size	: " << mstack.size() << std::endl;
+	// std::cout << "stack empty	: " << stack.empty() << std::endl;
+	// std::cout << "my stack empty	: " << mstack.empty() << std::endl;
+	// std::cout << "stack value	: " << stack.top() << std::endl;
+	// std::cout << "my stack value	: " << mstack.top() << std::endl;
+	// stack.top() += 5;
+	// mstack.top() += 5;
+	// std::cout << "stack value	: " << stack.top() << std::endl;
+	// std::cout << "my stack value	: " << mstack.top() << std::endl;
+	// stack.pop();
+	// mstack.pop();
+	// std::cout << "stack size	: " << stack.size() << std::endl;
+	// std::cout << "my stack size	: " << mstack.size() << std::endl;
+	// std::cout << "stack empty	: " << stack.empty() << std::endl;
+	// std::cout << "my stack empty	: " << mstack.empty() << std::endl;
 
 	
-	std::cout << "**	OPERATORS 	**" << std::endl;
-	bool a;
-	Stack<int> ostack;
-	std::stack<int> nstack;
+	// std::cout << "**	OPERATORS 	**" << std::endl;
+	// bool a;
+	// Stack<int> ostack;
+	// std::stack<int> nstack;
 
-	mstack.push(1);
-	ostack.push(1);
-	a = ostack == mstack;
-	std::cout << "mine:	==  	: " << a << std::endl;
+	// mstack.push(1);
+	// ostack.push(1);
+	// a = ostack == mstack;
+	// std::cout << "mine:	==  	: " << a << std::endl;
 
-	stack.push(1);
-	nstack.push(1);
-	a = stack == nstack;
-	std::cout << "orgn:	==  	: " << a << std::endl;
+	// stack.push(1);
+	// nstack.push(1);
+	// a = stack == nstack;
+	// std::cout << "orgn:	==  	: " << a << std::endl;
 
 
-	a = ostack != mstack;
-	std::cout << "mine:	!=  	: " << a << std::endl;
+	// a = ostack != mstack;
+	// std::cout << "mine:	!=  	: " << a << std::endl;
 
-	a = stack != nstack;
-	std::cout << "orgn:	!=  	: " << a << std::endl;
+	// a = stack != nstack;
+	// std::cout << "orgn:	!=  	: " << a << std::endl;
 
-	ostack.push(2);
-	a = ostack >= mstack;
-	std::cout << "	>=  	: " << a << std::endl;
+	// ostack.push(2);
+	// a = ostack >= mstack;
+	// std::cout << "	>=  	: " << a << std::endl;
 	
 	// a = ostack <= mstack;
 	// std::cout << "	<=  	: " << a << std::endl;
@@ -101,38 +117,38 @@ void	test_stack()
 
 void	test_queue()
 {
-	std::queue<int> queue;
-	Queue<int> mqueue;
+	// std::queue<int> queue;
+	// Queue<int> mqueue;
 
-	std::cout << "TESTING QUEUE FUNCTIONS:" << std::endl << std::endl;
-	std::cout << "queue empty	: " << queue.empty() << std::endl;
-	std::cout << "my queue empty	: " << mqueue.empty() << std::endl;
-	std::cout << "queue size	: " << queue.size() << std::endl;
-	std::cout << "my queue size	: " << mqueue.size() << std::endl;
-	queue.push(1);
-	mqueue.push(1);
-	queue.push(10);
-	mqueue.push(10);
-	std::cout << "queue size	: " << queue.size() << std::endl;
-	std::cout << "my queue size	: " << mqueue.size() << std::endl;
-	std::cout << "queue empty	: " << queue.empty() << std::endl;
-	std::cout << "my queue empty	: " << mqueue.empty() << std::endl;
-	std::cout << "fqueue value	: " << queue.front() << std::endl;
-	std::cout << "my fqueue value	: " << mqueue.front() << std::endl;
-	queue.front() += 5;
-	mqueue.front() += 5;
-	std::cout << "fqueue value	: " << queue.front() << std::endl;
-	std::cout << "my fqueue value	: " << mqueue.front() << std::endl;
-	queue.back() += 5;
-	mqueue.back() += 5;
-	std::cout << "bqueue value	: " << queue.back() << std::endl;
-	std::cout << "my bqueue value	: " << mqueue.back() << std::endl;
-	queue.pop();
-	mqueue.pop();
-	std::cout << "queue size	: " << queue.size() << std::endl;
-	std::cout << "my queue size	: " << mqueue.size() << std::endl;
-	std::cout << "queue empty	: " << queue.empty() << std::endl;
-	std::cout << "my queue empty	: " << mqueue.empty() << std::endl;
+	// std::cout << "TESTING QUEUE FUNCTIONS:" << std::endl << std::endl;
+	// std::cout << "queue empty	: " << queue.empty() << std::endl;
+	// std::cout << "my queue empty	: " << mqueue.empty() << std::endl;
+	// std::cout << "queue size	: " << queue.size() << std::endl;
+	// std::cout << "my queue size	: " << mqueue.size() << std::endl;
+	// queue.push(1);
+	// mqueue.push(1);
+	// queue.push(10);
+	// mqueue.push(10);
+	// std::cout << "queue size	: " << queue.size() << std::endl;
+	// std::cout << "my queue size	: " << mqueue.size() << std::endl;
+	// std::cout << "queue empty	: " << queue.empty() << std::endl;
+	// std::cout << "my queue empty	: " << mqueue.empty() << std::endl;
+	// std::cout << "fqueue value	: " << queue.front() << std::endl;
+	// std::cout << "my fqueue value	: " << mqueue.front() << std::endl;
+	// queue.front() += 5;
+	// mqueue.front() += 5;
+	// std::cout << "fqueue value	: " << queue.front() << std::endl;
+	// std::cout << "my fqueue value	: " << mqueue.front() << std::endl;
+	// queue.back() += 5;
+	// mqueue.back() += 5;
+	// std::cout << "bqueue value	: " << queue.back() << std::endl;
+	// std::cout << "my bqueue value	: " << mqueue.back() << std::endl;
+	// queue.pop();
+	// mqueue.pop();
+	// std::cout << "queue size	: " << queue.size() << std::endl;
+	// std::cout << "my queue size	: " << mqueue.size() << std::endl;
+	// std::cout << "queue empty	: " << queue.empty() << std::endl;
+	// std::cout << "my queue empty	: " << mqueue.empty() << std::endl;
 
 	// operations has a problem	
 	// std::cout << "**	OPERATORS 	**" << std::endl;
@@ -154,24 +170,6 @@ void	test_queue()
 	// a = oqueue < mqueue;
 	// std::cout << "	<  	: " << a << std::endl;
 }
-
-
-template<typename T>
-void	print_lists(List<T> &x, std::list<T> &y)
-{
-	std::cout << "----------mine:----------\n"; 
-	for(List<int>::iterator	it = x.begin() ; it != x.end(); ++it)
-	{
-		std::cout << *it << " ";
-	}
-	std::cout << "\n----------syst:----------\n"; 
-	for(std::list<int>::iterator it = y.begin() ; it != y.end(); ++it)
-	{
-		std::cout << *it << " ";
-	}
-	std::cout << "\n----------e----------\n"; 
-}
-
 
 void	test_list()
 {
@@ -564,59 +562,163 @@ void	test_list()
 
 	// print_lists(mlist, list);
 
-	std::cout << "**	OPERATORS 	**" << std::endl;
-	bool a;
+	// std::cout << "**	OPERATORS 	**" << std::endl;
+	// bool a;
 
-	mlist.push_back(1);
-	mlist2.push_back(1);
-	a = mlist == mlist2;
-	std::cout << "mine:	==  	: " << a << std::endl;
+	// mlist.push_back(1);
+	// mlist2.push_back(1);
+	// a = mlist == mlist2;
+	// std::cout << "mine:	==  	: " << a << std::endl;
 
-	list.push_back(1);
-	list2.push_back(1);
-	a = list == list2;
-	std::cout << "orgn:	==  	: " << a << std::endl;
+	// list.push_back(1);
+	// list2.push_back(1);
+	// a = list == list2;
+	// std::cout << "orgn:	==  	: " << a << std::endl;
 
-	a = mlist != mlist2;
-	std::cout << "mine:	!=  	: " << a << std::endl;
+	// a = mlist != mlist2;
+	// std::cout << "mine:	!=  	: " << a << std::endl;
 
-	a = list != list2;
-	std::cout << "orgn:	!=  	: " << a << std::endl;
+	// a = list != list2;
+	// std::cout << "orgn:	!=  	: " << a << std::endl;
 
-	mlist.push_back(2);
-	a = mlist > mlist2;
-	std::cout << "mine:	>  	: " << a << std::endl;
+	// mlist.push_back(2);
+	// a = mlist > mlist2;
+	// std::cout << "mine:	>  	: " << a << std::endl;
 
-	list.push_back(2);
-	a = list > list2;
-	std::cout << "orgn:	>  	: " << a << std::endl;
+	// list.push_back(2);
+	// a = list > list2;
+	// std::cout << "orgn:	>  	: " << a << std::endl;
 
-	a = mlist < mlist2;
-	std::cout << "mine:	<  	: " << a << std::endl;
+	// a = mlist < mlist2;
+	// std::cout << "mine:	<  	: " << a << std::endl;
 
-	a = list < list2;
-	std::cout << "orgn:	<  	: " << a << std::endl;
+	// a = list < list2;
+	// std::cout << "orgn:	<  	: " << a << std::endl;
 
-	mlist2.push_back(2);
-	a = mlist <= mlist2;
-	std::cout << "mine:	<=  	: " << a << std::endl;
+	// mlist2.push_back(2);
+	// a = mlist <= mlist2;
+	// std::cout << "mine:	<=  	: " << a << std::endl;
 
-	list2.push_back(2);
-	a = list <= list2;
-	std::cout << "orgn:	<=  	: " << a << std::endl;
+	// list2.push_back(2);
+	// a = list <= list2;
+	// std::cout << "orgn:	<=  	: " << a << std::endl;
 
-	a = mlist >= mlist2;
-	std::cout << "mine:	>=  	: " << a << std::endl;
+	// a = mlist >= mlist2;
+	// std::cout << "mine:	>=  	: " << a << std::endl;
 
-	a = list >= list2;
-	std::cout << "orgn:	>=  	: " << a << std::endl;
+	// a = list >= list2;
+	// std::cout << "orgn:	>=  	: " << a << std::endl;
 
 }
+
+template<typename T, typename L1, typename L2>
+void	print_temp(L1 &x, L2 &y)
+{
+	std::cout << "----------mine:----------\n"; 
+	for(typename L1::iterator	it = x.begin() ; it != x.end(); ++it)
+	{
+		std::cout << *it << " ";
+	}
+	std::cout << "\n----------syst:----------\n"; 
+	for(typename L2::iterator it = y.begin() ; it != y.end(); ++it)
+	{
+		std::cout << *it << " ";
+	}
+	std::cout << "\n----------e----------\n"; 
+}
+
+void	test_vector()
+{
+	Vector<int> mvector;
+	Vector<int> mvector2;
+
+	std::vector<int> vector;
+	std::vector<int> vector2;
+
+	
+
+	mvector.push_back(1);
+	mvector.push_back(2);
+	mvector.push_back(3);
+	mvector.push_back(4);
+	mvector.push_back(5);
+
+	vector.push_back(1);
+	vector.push_back(2);
+	vector.push_back(3);
+	vector.push_back(4);
+	vector.push_back(5);
+
+	// =====================> Push test
+
+	// print_temp<int, Vector<int>, std::vector<int> >(mvector, vector);
+
+	// =====================> Pop test
+	
+	// mvector.pop_back();
+	// mvector.pop_back();
+
+	// vector.pop_back();
+	// vector.pop_back();
+
+	// print_temp<int, Vector<int>, std::vector<int> >(mvector, vector);
+
+
+	// =====================> Size test
+
+	// std::cout << "mine: " << mvector.size() << std::endl;
+	// std::cout << "orgn: " << vector.size() << std::endl;
+
+	// =====================> Max Size test
+	
+	// std::cout << "mine: " << mvector.max_size() << std::endl;
+	// std::cout << "orgn: " << vector.max_size() << std::endl;
+
+	// =====================> Resize test
+
+	// mvector.resize(2);
+	// vector.resize(2);
+
+	// print_temp<int, Vector<int>, std::vector<int> >(mvector, vector);
+
+	// mvector.resize(5, 100);
+	// vector.resize(5, 100);
+
+	// print_temp<int, Vector<int>, std::vector<int> >(mvector, vector);
+
+	// =====================> Capacity test
+
+	// std::cout << mvector.capacity() << std::endl;
+	// std::cout << vector.capacity() << std::endl;
+
+	// =====================> Reserve test
+
+	// mvector.reserve(20);
+	// vector.reserve(20);
+
+	// std::cout << mvector.capacity() << std::endl;
+	// std::cout << vector.capacity() << std::endl;
+	
+	// print_temp<int, Vector<int>, std::vector<int> >(mvector, vector);
+
+	// =====================> Operator []
+
+	// std::cout << mvector[1] << std::endl;
+	// std::cout << vector[1] << std::endl;
+
+	// =====================> At test
+
+}
+
+// dont forget coplien form for iterators and classes
+
+// update the printing of list with the new print_temp
 
 int main()
 {
 	// test_stack();
 	// test_queue();
-	test_list();
+	// test_list();
+	test_vector();
 	return 0;
 }

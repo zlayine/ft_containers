@@ -6,57 +6,51 @@
 template<typename Vector>
 class VectorIterator
 {
-	typedef typename Vector::value_type			value_type;
-	typedef typename Vector::pointer_type*		pointer_type;
-	typedef typename Vector::value_type&		reference_type;
-	typedef ptrdiff_t							difference_type;
+public:
+	typedef typename Vector::value_type		value_type;
+	typedef value_type*						pointer_type;
+	typedef value_type&						reference_type;
+	typedef ptrdiff_t						difference_type;
 
-	VectorIterator() : _ptr(nullptr)
+	VectorIterator() : i(0), _ptr(nullptr)
 	{
 
 	}
 
-	VectorIterator(pointer_type ptr) : _ptr(ptr)
+	VectorIterator(pointer_type ptr) : i(0), _ptr(ptr)
 	{
 	}
 
-	pointer_type	getNode() const
+	VectorIterator(pointer_type ptr, unsigned int len) : i(len), _ptr(ptr)
 	{
-		return _ptr;
 	}
 
-	// if its the end it segfault
 	VectorIterator&	operator++()
 	{
-		_ptr = _ptr + 1;
+		++i;
 		return *this;
 	}
 
-	// if its the end it segfault
 	VectorIterator	operator++(int)
 	{
 		VectorIterator iterator = *this;
 		++(*this);
 		return iterator;
 	}
-	// tmp + 1
+
 	VectorIterator	operator+(difference_type v)
 	{	
-		pointer_type tmp;
-		tmp = _ptr;
-		tmp = tmp + v;
-		return tmp;
+		return VectorIterator(_ptr + i + v);
 	}
 
 	VectorIterator	operator-(difference_type v)
 	{
-		_ptr = _ptr - v;
-		return *this;
+		return VectorIterator(_ptr + i - v);
 	}
 
 	VectorIterator&	operator--()
 	{
-		_ptr = _ptr - 1;
+		--i;
 		return *this;
 	}
 
@@ -69,45 +63,39 @@ class VectorIterator
 
 	pointer_type	operator->()
 	{
-		return _ptr;
+		return &(*_ptr)[i];
 	}
 
 	reference_type	operator*()
 	{
-		return *_ptr;
+		return _ptr[i];
 	}
 
 	bool			operator==(const VectorIterator& other) const
 	{
-		return _ptr == other._ptr;
+		return i == other.i;
 	}
 
 	bool			operator!=(const VectorIterator& other) const
 	{
-		return _ptr != other._ptr;
+		return i != other.i;
 	}
+
+	/*
+	operators miissing 
+	+=
+	-=
+
+	*/
 
 private:
 	pointer_type	_ptr;
+	unsigned int 	i;
 };
 
 template<typename T>
 class Vector
 {
-private:
-	T	*_items;
-	int	_top;
-	int	_cap;
-
-	void	re_alloc_items()
-	{
-		T *tmp = _items;
-		_cap += 10;
-		_items = new T[_cap];
-		for(int i = 0; i < _cap - 10; i++)
-			_items[i] = tmp[i];
-		delete[] tmp;
-	}
 
 public:
 	typedef T									value_type;
@@ -122,58 +110,76 @@ public:
 	typedef ptrdiff_t							difference_type;
 	typedef size_t								size_type;
 
+private:
+	T				*_items;
+	unsigned int	_top;
+	size_type		_cap;
 
-	Vector() : _items(nullptr), _top(0), _cap(0)
+	void	re_alloc_items(size_type n = 0)
 	{
+		size_type sz = n ? n : _cap * 2;
+		T *tmp = _items;
+		_items = new T[sz];
+		for(size_type i = 0; i < _cap; i++)
+			_items[i] = tmp[i];
+		delete[] tmp;
+		_cap = sz;
+	}
+
+public:
+
+	Vector() : _top(0), _cap(1)
+	{
+		_items = new T[1];
 	}
 
 	~Vector()
 	{
 	}
 
-	//tested 0
+	//tested 1
 	iterator			begin()
 	{
-		return iterator(_items[0]);
+		return iterator(_items);
 	}
 
-	//tested 0
+	//tested 1
 	const_iterator		begin() const
 	{
-		return iterator(_items[0]);
+		return iterator(_items);
 	}
 
-	//tested 0
+	//tested 1
 	iterator			end()
 	{
-		return iterator(_items[_cap - 1]);
+		return iterator(_items, _top);
 	}
 
-	//tested 0
+	//tested 1
 	const_iterator		end() const
 	{
-		return iterator(_items[_cap - 1]);
+		return iterator(_items, _top);
 	}
 
 	//tested 0
 	reverse_iterator	rbgein()
 	{
-		return iterator(_items[_cap - 1]);
+		return iterator(_items, _top);
 	}
 
 	//tested 0
 	reverse_iterator	rend()
 	{
-		return iterator(_items[0]);
+		return iterator(_items);
 	}
 
-	//tested 0
+	//tested 1
 	bool 	empty() const 
 	{
 		return _top == 0;
 	}
 
-	//tested 0
+	//tested 1
 	size_t	size() const
 	{
 		return _top;
@@ -183,22 +189,33 @@ public:
 	//tested 0
 	size_type			max_size() const
 	{
-		return _size;
+		return _top;
 	}
 
 	void				resize(size_type n, value_type val = value_type())
 	{
-
+		if (n < _top)
+		{
+			size_type 	total = _top;
+			for (size_type i = n; i < total; i++)
+				pop_back();
+		}
+		else if (n > _top)
+		{
+			for (size_type i = _top; i < n; i++)
+				push_back(val);
+		}
 	}
 
 	size_type		capacity() const
 	{
-
+		return _cap;
 	}
 
 	void			reserve(size_type n)
 	{
-
+		if (n > _cap)
+			re_alloc_items(n);
 	}
 
 	reference		at(size_type n)
@@ -245,14 +262,15 @@ public:
 	{
 		if (_top == _cap)
 			re_alloc_items();
-		_items[_top] = val;
+		_items[_top++] = val;
 	}
 
+	// test for if (_top == _cap / 2)
 	void				pop_back()
 	{
 		if (_top > 0)
 			_top--;
-		if (_top - _cap > 10)
+		if (_top == _cap / 2)
 			re_alloc_items();
 	}
 
@@ -286,7 +304,7 @@ public:
 
 	}
 
-	void				swap(vector& x)
+	void				swap(Vector& x)
 	{
 
 	}
