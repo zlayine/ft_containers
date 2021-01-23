@@ -81,6 +81,13 @@ public:
 		return i != other.i;
 	}
 
+	VectorIterator&	operator=(const VectorIterator& src)
+	{
+		i = src.i;
+		_ptr = src._ptr;
+		return *this;
+	}
+
 	/*
 	operators miissing 
 	+=
@@ -119,6 +126,11 @@ private:
 	{
 		size_type sz = n ? n : _cap * 2;
 		T *tmp = _items;
+		// if (n)
+		// {
+		// 	std::cout << tmp[0] << std::endl;
+		// 	std::cout << _items[0] << std::endl;
+		// }
 		_items = new T[sz];
 		for(size_type i = 0; i < _cap; i++)
 			_items[i] = tmp[i];
@@ -192,6 +204,7 @@ public:
 		return _top;
 	}
 
+	//tested 1
 	void				resize(size_type n, value_type val = value_type())
 	{
 		if (n < _top)
@@ -207,57 +220,74 @@ public:
 		}
 	}
 
+	//tested 1
 	size_type		capacity() const
 	{
 		return _cap;
 	}
 
+	//tested 1
 	void			reserve(size_type n)
 	{
 		if (n > _cap)
 			re_alloc_items(n);
 	}
 
+	//exception
 	reference		at(size_type n)
 	{
-
+		// if (n > _top)
+			// throw exception();
+		return _items[n];
 	}
 
+	//tested 0
 	const_reference at(size_type n) const
 	{
-
+		return at(n);
 	}
 
+	//tested 1
 	reference		front()
 	{
-
+		return _items[0];
 	}
 
+	//tested 1
 	const_reference front() const
 	{
-
+		return _items[0];
 	}
 
+	//tested 1
 	reference		back()
 	{
-
+		return _items[_top - 1];
 	}
 
+	//tested 1
 	const_reference back() const
 	{
-
+		return _items[_top - 1];
 	}
 
+	//tested 1
 	void				assign(iterator first, iterator last)
 	{
-
+		clear();
+		for((void)first; first != last; ++first)
+			push_back(*first);
 	}
 
+	//tested 1
 	void 				assign(size_type n, const value_type& val)
 	{
-
+		clear();
+		for(size_type i = 0; i < n; i++)
+			push_back(val);
 	}
 
+	//tested 1
 	void				push_back(const value_type& val)
 	{
 		if (_top == _cap)
@@ -265,13 +295,13 @@ public:
 		_items[_top++] = val;
 	}
 
-	// test for if (_top == _cap / 2)
+	// test for if (_top < _cap / 2)
 	void				pop_back()
 	{
 		if (_top > 0)
 			_top--;
-		if (_top == _cap / 2)
-			re_alloc_items();
+		if (_top < _cap / 2)
+			re_alloc_items(_cap / 2);
 	}
 
 	//tested 0
@@ -293,29 +323,52 @@ public:
 	}
 
 	//tested 0
-	iterator			erase(iterator& position)
+	iterator			erase(iterator position)
 	{
-
+		for(iterator it = position; it != end(); ++it)
+		{
+			// std::cout << "removing: " << *it << "\n";
+			*it = *(it + 1);
+			// std::cout << "removed: " << *it << "\n";
+		}
+		_top--;
+		re_alloc_items(_cap - 1);
+		// pop_back();
+		// std::cout << "\n";
+		return iterator(position);
 	}
 
 	//tested 0
 	iterator			erase(iterator first, iterator last)
 	{
-
+		iterator position;
+		position = first;
+		for((void)first; first != last; ++first)
+		{
+			std::cout << "it: " << *first << std::endl;
+			std::cout << "last: " << *last << std::endl;
+			position = erase(position);
+			std::cout << "current: " << *position << std::endl;
+		}
+		return iterator(position);
 	}
 
+	//tested 0
 	void				swap(Vector& x)
 	{
 
 	}
 
-
+	//tested 1
 	void				clear()
 	{
-
+		size_type total = _top;
+		for (size_type i = 0; i < total; i++)
+			pop_back();
 	}
 
 
+	//tested 1
 	T&	operator[](int i) const
 	{
 		if (i >= _top)

@@ -294,8 +294,8 @@ public:
 			insert(position, *first);
 	}
 
-	//tested 1
-	iterator			erase(iterator& position)
+	//tested 0  just removed the reference, must be checked again
+	iterator			erase(iterator position)
 	{
 		position.getNode()->erase();
 		if (position == begin())

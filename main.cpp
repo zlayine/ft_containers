@@ -708,6 +708,66 @@ void	test_vector()
 
 	// =====================> At test
 
+	// std::cout << mvector.at(1) << std::endl;
+	// std::cout << vector.at(1) << std::endl;
+
+	// =====================> Front back test
+
+	// std::cout << mvector.front() << std::endl;
+	// std::cout << vector.front() << std::endl;
+
+	// std::cout << mvector.back() << std::endl;
+	// std::cout << vector.back() << std::endl;
+
+	// =====================> Assign test
+	// mvector.assign(7, 10);
+	// vector.assign(7, 10);
+
+	// print_temp<int, Vector<int>, std::vector<int> >(mvector, vector);
+
+	// mvector2.assign(mvector.begin(), mvector.end());
+
+	// vector2.assign(vector.begin(), vector.end());
+
+	// print_temp<int, Vector<int>, std::vector<int> >(mvector2, vector2);
+
+	// =====================> Erase test
+
+	// Vector<int>::iterator it = mvector.begin(); 
+	// std::vector<int>::iterator its = vector.begin(); 
+
+	// it = mvector.erase(it);
+	// it = mvector.erase(it);
+	// // std::cout << *it << std::endl;
+	
+	// //spmething wrong here (iterator is fucked af)
+	// // it = mvector.begin(); 
+
+	// // it = mvector.erase(it);
+
+	// its = vector.erase(its);
+	// its = vector.erase(its);
+	// // std::cout << *its << std::endl;
+	// // its = vector.erase(its);
+	
+	// // std::cout << *it << std::endl;
+	// // std::cout << *its << std::endl;
+
+	// print_temp<int, Vector<int>, std::vector<int> >(mvector, vector);
+	
+	// =====================> Erase test
+	
+	Vector<int>::iterator it = mvector.begin(); 
+	std::vector<int>::iterator its = vector.begin(); 
+
+	it = mvector.erase(mvector.begin() + 2, mvector.end());
+
+	its = vector.erase(vector.begin() + 2, vector.end());
+
+	// std::cout << *it << std::endl;
+	// std::cout << *its << std::endl;
+	print_temp<int, Vector<int>, std::vector<int> >(mvector, vector);
+
 }
 
 // dont forget coplien form for iterators and classes
@@ -717,8 +777,15 @@ void	test_vector()
 int main()
 {
 	// test_stack();
+
+
 	// test_queue();
+
+
 	// test_list();
+
+	//vector has error in : erase
 	test_vector();
+
 	return 0;
 }
