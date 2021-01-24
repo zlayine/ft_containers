@@ -411,98 +411,105 @@ public:
 		return *this;
 	}
 
-	bool			operator==(const Vector<T>& rhs)
-	{
-		if (rhs.size() > this->size() || rhs.size() < this->size())
-			return false;
-		if (rhs.size() == 0)
-			return true;
-		for(int i = 0; i < rhs.size(); i++)
-		{
-			if (rhs[i] != _items[i])
-				return false;
-		}
-		return true;
-	}
-
-	bool			operator>=(const Vector<T>& rhs)
-	{
-		if (this->size() < rhs.size())
-			return false;
-		if ((rhs.size() == 0 && this->size() == 0) || rhs.size() < this->size())
-			return true;
-		for(int i = 0; i < rhs.size(); i++)
-		{
-			if (rhs[i] > _items[i])
-				return false;
-			else if (rhs[i] < _items[i])
-				return true;
-		}
-		return true;
-	}
-
-	bool			operator>(const Vector<T>& rhs)
-	{
-		if (this->size() < rhs.size() || (rhs.size() == 0 && this->size() == 0))
-			return false;
-		if (rhs.size() < this->size())
-			return true;
-		for(int i = 0; i < rhs.size(); i++)
-		{
-			if (rhs[i] > _items[i])
-				return false;
-			else if (rhs[i] < _items[i])
-				return true;
-		}
-		return false;
-	}
-
-	bool			operator<=(const Vector<T>& rhs)
-	{
-		if (rhs.size() < this->size())
-			return false;
-		if ((rhs.size() == 0 && this->size() == 0) || this->size() < rhs.size())
-			return true;
-		for(int i = 0; i < rhs.size(); i++)
-		{
-			if (rhs[i] < _items[i])
-				return false;
-			else if (rhs[i] > _items[i])
-				return true;
-		}
-		return true;
-	}
-
-	bool			operator<(const Vector<T>& rhs)
-	{
-		if (rhs.size() < this->size() || (this->size() == 0 && rhs.size() == 0))
-			return false;
-		if (this->size() < rhs.size())
-			return true;
-		for(int i = 0; i < rhs.size(); i++)
-		{
-			if (rhs[i] < _items[i])
-				return false;
-			else if (rhs[i] > _items[i])
-				return true;
-		}
-		return false;
-	}
-
-	bool			operator!=(const Vector<T>& rhs)
-	{
-		if (rhs.size() > this->size() || rhs.size() < this->size())
-			return true;
-		if (rhs.size() == 0)
-			return false;
-		for(int i = 0; i < rhs.size(); i++)
-		{
-			if (rhs[i] != _items[i])
-				return true;
-		}
-		return false;
-	}
+	
 };
 
+template<typename T>
+bool			operator==(const Vector<T>& lhs, const Vector<T>& rhs)
+{
+	if (rhs.size() > lhs.size() || rhs.size() < lhs.size())
+		return false;
+	if (rhs.size() == 0)
+		return true;
+	for(int i = 0; i < rhs.size(); i++)
+	{
+		if (rhs[i] != lhs[i])
+			return false;
+	}
+	return true;
+}
+
+template<typename T>
+bool			operator>=(const Vector<T>& lhs, const Vector<T>& rhs)
+{
+	if (lhs.size() < rhs.size())
+		return false;
+	if ((rhs.size() == 0 && lhs.size() == 0) || rhs.size() < lhs.size())
+		return true;
+	for(int i = 0; i < rhs.size(); i++)
+	{
+		if (rhs[i] > lhs[i])
+			return false;
+		else if (rhs[i] < lhs[i])
+			return true;
+	}
+	return true;
+}
+
+template<typename T>
+bool			operator>(const Vector<T>& lhs, const Vector<T>& rhs)
+{
+	if (lhs.size() < rhs.size() || (rhs.size() == 0 && lhs.size() == 0))
+		return false;
+	if (rhs.size() < lhs.size())
+		return true;
+	for(int i = 0; i < rhs.size(); i++)
+	{
+		if (rhs[i] > lhs[i])
+			return false;
+		else if (rhs[i] < lhs[i])
+			return true;
+	}
+	return false;
+}
+
+template<typename T>
+bool			operator<=(const Vector<T>& lhs, const Vector<T>& rhs)
+{
+	if (rhs.size() < lhs.size())
+		return false;
+	if ((rhs.size() == 0 && lhs.size() == 0) || lhs.size() < rhs.size())
+		return true;
+	for(int i = 0; i < rhs.size(); i++)
+	{
+		if (rhs[i] < lhs[i])
+			return false;
+		else if (rhs[i] > lhs[i])
+			return true;
+	}
+	return true;
+}
+
+template<typename T>
+bool			operator<(const Vector<T>& lhs, const Vector<T>& rhs)
+{
+	if (rhs.size() < lhs.size() || (lhs.size() == 0 && rhs.size() == 0))
+		return false;
+	if (lhs.size() < rhs.size())
+		return true;
+	for(int i = 0; i < rhs.size(); i++)
+	{
+		if (rhs[i] < lhs[i])
+			return false;
+		else if (rhs[i] > lhs[i])
+			return true;
+	}
+	return false;
+}
+
+template<typename T>
+bool			operator!=(const Vector<T>& lhs, const Vector<T>& rhs)
+{
+	if (rhs.size() > lhs.size() || rhs.size() < lhs.size())
+		return true;
+	if (rhs.size() == 0)
+		return false;
+	for(int i = 0; i < rhs.size(); i++)
+	{
+		if (rhs[i] != lhs[i])
+			return true;
+	}
+	return false;
+}
 
 #endif
