@@ -25,6 +25,11 @@ public:
 	{
 	}
 
+	unsigned int getI()
+	{
+		return i;
+	}
+
 	VectorIterator&	operator++()
 	{
 		++i;
@@ -40,12 +45,12 @@ public:
 
 	VectorIterator	operator+(difference_type v)
 	{	
-		return VectorIterator(_ptr + i + v);
+		return VectorIterator(_ptr, i + v);
 	}
 
 	VectorIterator	operator-(difference_type v)
 	{
-		return VectorIterator(_ptr + i - v);
+		return VectorIterator(_ptr, i - v);
 	}
 
 	VectorIterator&	operator--()
@@ -126,11 +131,11 @@ private:
 	{
 		size_type sz = n ? n : _cap * 2;
 		T *tmp = _items;
-		// if (n)
-		// {
-		// 	std::cout << tmp[0] << std::endl;
-		// 	std::cout << _items[0] << std::endl;
-		// }
+		if (n)
+		{
+			std::cout << tmp[0] << std::endl;
+			std::cout << _items[0] << std::endl;
+		}
 		_items = new T[sz];
 		for(size_type i = 0; i < _cap; i++)
 			_items[i] = tmp[i];
@@ -174,7 +179,7 @@ public:
 	}
 
 	//tested 0
-	reverse_iterator	rbgein()
+	reverse_iterator	rbegin()
 	{
 		return iterator(_items, _top);
 	}
@@ -295,46 +300,55 @@ public:
 		_items[_top++] = val;
 	}
 
-	// test for if (_top < _cap / 2)
+	// tested 0 (test with the capacity if it changes with orgn)
 	void				pop_back()
 	{
 		if (_top > 0)
 			_top--;
-		if (_top < _cap / 2)
-			re_alloc_items(_cap / 2);
+		// this one is not included
+		// if (_top < _cap / 2)
+			// re_alloc_items(_cap / 2);
 	}
 
 	//tested 0
-	iterator 			insert(iterator &position, const value_type& val)
+	iterator 			insert(iterator position, const value_type& val)
 	{
-
+		if (_top + 1 == _cap)
+			re_alloc_items();
+		for(iterator it = rbegin(); it != position; --it)
+			*it = *(it - 1);
+		*position = val;
+		_top++;
+		position++;
+		return iterator(position);
 	}
 
 	//tested 0
-	void				insert(iterator &position, size_type n, const value_type& val)
+	void				insert(iterator position, size_type n, const value_type& val)
 	{
-
+		for (size_t i = 0; i < n; i++)
+			insert(position, val);
 	}
 
 	//tested 0
 	void				insert(iterator position, iterator first, iterator last)
 	{
-
+		for((void)first; first != last; ++first)
+		{
+			for(iterator it = rbegin(); it != position; --it)
+				*it = *(it - 1);
+			*position = *first;
+			position++;
+			_top++;
+		}
 	}
 
 	//tested 0
 	iterator			erase(iterator position)
 	{
 		for(iterator it = position; it != end(); ++it)
-		{
-			// std::cout << "removing: " << *it << "\n";
 			*it = *(it + 1);
-			// std::cout << "removed: " << *it << "\n";
-		}
-		_top--;
-		re_alloc_items(_cap - 1);
-		// pop_back();
-		// std::cout << "\n";
+		pop_back();
 		return iterator(position);
 	}
 
@@ -344,19 +358,22 @@ public:
 		iterator position;
 		position = first;
 		for((void)first; first != last; ++first)
-		{
-			std::cout << "it: " << *first << std::endl;
-			std::cout << "last: " << *last << std::endl;
 			position = erase(position);
-			std::cout << "current: " << *position << std::endl;
-		}
 		return iterator(position);
 	}
 
 	//tested 0
-	void				swap(Vector& x)
+	void				swap(Vector<T>& x)
 	{
+		Vector<T> tmp;
 
+		tmp = x;
+		x.clear();
+		for (iterator it = begin(); it != end(); ++it)
+			x.push_back(*it);
+		clear();
+		for (iterator it = tmp.begin(); it != tmp.end(); ++it)
+			push_back(*it);
 	}
 
 	//tested 1
@@ -384,13 +401,11 @@ public:
 	{
 		if (_top)
 			delete[] _items;
-		_items = new T[rhs.size()];
-		_top = rhs.size();
+		_items = new T[rhs._cap];
+		_top = rhs._top;
 		_cap = rhs._cap;
 		for(int i = 0; i < _top; i++)
-		{
 			_items[i] = rhs._items[i];
-		}
 		return *this;
 	}
 

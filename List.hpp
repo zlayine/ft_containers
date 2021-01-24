@@ -160,7 +160,7 @@ public:
 	}
 
 	//tested 0
-	reverse_iterator	rbgein()
+	reverse_iterator	rbegin()
 	{
 		return iterator(_tail);
 	}
@@ -269,7 +269,7 @@ public:
 	}
 
 	//tested 1
-	iterator 			insert(iterator &position, const value_type& val)
+	iterator 			insert(iterator position, const value_type& val)
 	{
 		Node<T> *n = new Node<T>(val);
 		position.getNode()->insert(n);
@@ -280,11 +280,11 @@ public:
 	}
 
 	//tested 1
-	void				insert(iterator &position, size_type n, const value_type& val)
+	void				insert(iterator position, size_type n, const value_type& val)
 	{
 		for (size_t i = 0; i < n; i++)
 			insert(position, val);
-		_size += n;
+		// _size += n;
 	}
 
 	//tested 1

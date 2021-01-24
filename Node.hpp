@@ -41,7 +41,6 @@ public:
 		if (this->next)
 			this->next->prev = this->prev;
 		delete this;
-		
 		return n;
 	}
 

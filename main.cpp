@@ -738,36 +738,72 @@ void	test_vector()
 
 	// it = mvector.erase(it);
 	// it = mvector.erase(it);
-	// // std::cout << *it << std::endl;
-	
-	// //spmething wrong here (iterator is fucked af)
-	// // it = mvector.begin(); 
+	// it = mvector.erase(it);
 
-	// // it = mvector.erase(it);
 
 	// its = vector.erase(its);
 	// its = vector.erase(its);
-	// // std::cout << *its << std::endl;
-	// // its = vector.erase(its);
-	
-	// // std::cout << *it << std::endl;
-	// // std::cout << *its << std::endl;
+	// its = vector.erase(its);
 
-	// print_temp<int, Vector<int>, std::vector<int> >(mvector, vector);
-	
-	// =====================> Erase test
-	
-	Vector<int>::iterator it = mvector.begin(); 
-	std::vector<int>::iterator its = vector.begin(); 
-
-	it = mvector.erase(mvector.begin() + 2, mvector.end());
-
-	its = vector.erase(vector.begin() + 2, vector.end());
 
 	// std::cout << *it << std::endl;
 	// std::cout << *its << std::endl;
-	print_temp<int, Vector<int>, std::vector<int> >(mvector, vector);
 
+	// print_temp<int, Vector<int>, std::vector<int> >(mvector, vector);
+	
+	// =====================> Erase test 2
+	
+	// Vector<int>::iterator it = mvector.begin(); 
+	// std::vector<int>::iterator its = vector.begin(); 
+
+	// it = mvector.erase(mvector.begin() + 2, mvector.end());
+	// its = vector.erase(vector.begin() + 2, vector.end());
+
+	// std::cout << *it << std::endl;
+	// std::cout << *its << std::endl;
+	// print_temp<int, Vector<int>, std::vector<int> >(mvector, vector);
+
+	// =====================> Insert test
+
+	// Vector<int>::iterator it = mvector.begin(); 
+	// std::vector<int>::iterator its = vector.begin(); 
+
+	// it = mvector.insert(mvector.begin() + 2, 10);
+
+	// its = vector.insert(vector.begin() + 2, 10);
+
+	// std::cout << *it << std::endl;
+	// std::cout << *its << std::endl;
+	// print_temp<int, Vector<int>, std::vector<int> >(mvector, vector);
+	
+	// =====================> Insert test 2
+
+	// mvector.insert(mvector.begin() + 2, 5, 10);
+
+	// vector.insert(vector.begin() + 2, 5, 10);
+
+	// print_temp<int, Vector<int>, std::vector<int> >(mvector, vector);
+	
+	// =====================> Insert test 3
+
+	// mvector2.insert(mvector2.begin(), mvector.begin(), mvector.end());
+
+	// vector2.insert(vector2.begin(), vector.begin(), vector.end());
+
+	// print_temp<int, Vector<int>, std::vector<int> >(mvector2, vector2);
+
+	/* =====================> Swap test 1 */
+
+	// print_temp<int, Vector<int>, std::vector<int> >(mvector, vector);
+	// print_temp<int, Vector<int>, std::vector<int> >(mvector2, vector2);
+
+	// mvector.swap(mvector2);
+	// vector.swap(vector2);
+	// std::cout << "after swap: \n";
+
+	// print_temp<int, Vector<int>, std::vector<int> >(mvector, vector);
+	// print_temp<int, Vector<int>, std::vector<int> >(mvector2, vector2);
+	
 }
 
 // dont forget coplien form for iterators and classes
@@ -784,7 +820,7 @@ int main()
 
 	// test_list();
 
-	//vector has error in : erase
+	//vector has error in : erase test 2,
 	test_vector();
 
 	return 0;
