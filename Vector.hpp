@@ -152,6 +152,8 @@ public:
 
 	~Vector()
 	{
+		clear();
+		delete[] _items;
 	}
 
 	//tested 1
