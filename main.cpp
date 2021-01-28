@@ -810,6 +810,8 @@ void	test_vector()
 
 // update the printing of list with the new print_temp
 
+#include "Tree.hpp"
+
 int main()
 {
 	// test_stack();
@@ -821,7 +823,21 @@ int main()
 	// test_list();
 
 	//vector has error in : erase test 2,
-	test_vector();
+	// test_vector();
+
+	// Tree<int> tree;
+
+	// tree.insertNode(50);
+	// tree.insertNode(30);
+	// tree.insertNode(70);
+	// tree.insertNode(40);
+	// tree.insertNode(80);
+	// tree.insertNode(60);
+	// tree.insertNode(20);
+
+	// tree.deleteNode(50);
+
+	// tree.print_tree();
 
 	return 0;
 }

@@ -15,7 +15,6 @@ public:
 
 	ListIterator() : _ptr(nullptr)
 	{
-
 	}
 
 	ListIterator(pointer_type ptr) : _ptr(ptr)
