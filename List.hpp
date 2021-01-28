@@ -327,10 +327,10 @@ public:
 
 		tmp = x;
 		x.clear();
-		for (List<T>::iterator it = begin(); it != end(); ++it)
+		for (iterator it = begin(); it != end(); ++it)
 			x.push_back(*it);
 		clear();
-		for (List<T>::iterator it = tmp.begin(); it != tmp.end(); ++it)
+		for (iterator it = tmp.begin(); it != tmp.end(); ++it)
 			push_back(*it);
 	}
 
@@ -353,14 +353,14 @@ public:
 	//tested 1
 	void				clear()
 	{
-		for (List<T>::iterator it = begin(); it != end(); ++it)
+		for (iterator it = begin(); it != end(); ++it)
 			pop_front();
 	}
 
 	//tested 1
 	void				splice(iterator position, List<T>& x)
 	{
-		for(List<T>::iterator it = x.begin(); it != x.end(); ++it)
+		for(iterator it = x.begin(); it != x.end(); ++it)
 			insert(position, *it);
 		x.clear();
 	}
@@ -375,7 +375,7 @@ public:
 	//tested 1
 	void				splice(iterator position, List<T>& x, iterator first, iterator last)
 	{
-		for(List<T>::iterator it = first; it != last; ++it)
+		for(iterator it = first; it != last; ++it)
 			insert(position, *it);
 		x.erase(first, last);
 	}
@@ -383,7 +383,7 @@ public:
 	//tested 1
 	void				remove(const value_type& val)
 	{
-		for(List<int>::iterator it = begin(); it != end(); ++it)
+		for(iterator it = begin(); it != end(); ++it)
 		{
 			if (*it == val)
 				erase(it);
@@ -394,7 +394,7 @@ public:
 	template <class Predicate>
   	void				remove_if(Predicate pred)
 	{
-		for(List<int>::iterator it = begin(); it != end(); ++it)
+		for(iterator it = begin(); it != end(); ++it)
 		{
 			if (pred(*it))
 				remove(*it);
@@ -404,7 +404,7 @@ public:
 	//tested 1
 	void				unique()
 	{
-		for(List<int>::iterator it = begin() + 1; it != end(); ++it)
+		for(iterator it = begin() + 1; it != end(); ++it)
 		{
 			if (*(it + 1) == *it)
 				erase(it);
@@ -415,7 +415,7 @@ public:
 	template <class BinaryPredicate>
   	void				unique(BinaryPredicate binary_pred)
 	{
-		for(List<int>::iterator it = begin() + 1; it != end(); ++it)
+		for(iterator it = begin() + 1; it != end(); ++it)
 		{
 			if (binary_pred(*(it + 1), *it))
 				erase(it);
@@ -474,9 +474,9 @@ public:
 	{
 		T	tmp;
 
-		for(List<int>::iterator it = begin(); it != end(); ++it)
+		for(iterator it = begin(); it != end(); ++it)
 		{
-			for(List<int>::iterator its = it + 1; its != end(); ++its)
+			for(iterator its = it + 1; its != end(); ++its)
 			{
 				if (*its < *it)
 				{
@@ -494,9 +494,9 @@ public:
 	{
 		T	tmp;
 
-		for(List<int>::iterator it = begin(); it != end(); ++it)
+		for(iterator it = begin(); it != end(); ++it)
 		{
-			for(List<int>::iterator its = it + 1; its != end(); ++its)
+			for(iterator its = it + 1; its != end(); ++its)
 			{
 				if (comp(*its, *it))
 				{
@@ -531,7 +531,7 @@ public:
 	List<T>&		operator=(const List<T>& lhs)
 	{
 		clear();
-		for (List<T>::iterator it = lhs.begin(); it != lhs.end(); ++it)
+		for (iterator it = lhs.begin(); it != lhs.end(); ++it)
 			push_back(*it);
 		return *this;
 	}
@@ -541,8 +541,8 @@ public:
 template<typename T>
 bool			operator==(const List<T>& lhs, const List<T>& rhs)
 {
-	typename List<T>::iterator s1 = lhs.begin();
-	typename List<T>::iterator s2 = rhs.begin();
+	typename iterator s1 = lhs.begin();
+	typename iterator s2 = rhs.begin();
 	for((void)s1; s1 != lhs.end(); ++s1)
 	{
 		if (*s1 != *s2 || s2 == rhs.end())
@@ -561,8 +561,8 @@ bool			operator>=(const List<T>& lhs, const List<T>& rhs)
 template<typename T>
 bool			operator>(const List<T>& lhs, const List<T>& rhs)
 {
-	typename List<T>::iterator s1 = lhs.begin();
-	typename List<T>::iterator s2 = rhs.begin();
+	typename iterator s1 = lhs.begin();
+	typename iterator s2 = rhs.begin();
 	for((void)s1; s1 != lhs.end(); ++s1)
 	{
 		if (*s1 < *s2)

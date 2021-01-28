@@ -1,5 +1,5 @@
-#ifndef MAP_HPP
-# define MAP_HPP
+#ifndef TREE_HPP
+# define TREE_HPP
 
 #include <iostream>
 // #include "Map.hpp";
@@ -8,18 +8,24 @@ template<typename T>
 class TreeNode
 {
 public:
-    T			data;
+    T				data;
     TreeNode<T>		*left;
     TreeNode<T>		*right;
+    TreeNode<T>		*parent;
 
-	TreeNode() : left(nullptr), right(nullptr)
+	TreeNode() : left(nullptr), right(nullptr), parent(nullptr)
 	{
 		data = 0;
 	}
 
-	TreeNode(T data) : data(data), left(nullptr), right(nullptr)
+	TreeNode(T data) : data(data), left(nullptr), right(nullptr), parent(nullptr)
 	{
 	}
+
+	TreeNode(T data, TreeNode<T> *parent) : data(data), left(nullptr), right(nullptr), parent(parent)
+	{
+	}
+
 };
 
 template<typename T, typename N>
@@ -31,8 +37,9 @@ public:
 	typedef const T* const_pointer;
 	typedef T&		reference;
 	typedef const T& const_reference;
-	typedef N		node_type;
+	typedef TreeNode<T>*		node_type;
 	typedef	N*		node_pointer;
+	typedef ptrdiff_t	difference_type;
 
 	TreeIterator() : _ptr(nullptr)
 	{
@@ -47,14 +54,91 @@ public:
 		return _ptr;
 	}
 
-	TreeIterator&	operator++
+	TreeIterator&	operator++()
 	{
-		
+		_ptr = next();
+		return *this;
+	}
+
+	TreeIterator	operator++(int)
+	{
+		TreeIterator	iterator = *this;
+		++(*this);
+		return iterator;
+	}
+
+	TreeIterator	operator+(difference_type v)
+	{
+		node_pointer	tmp;
+		tmp = _ptr;
+		while (v--)
+			tmp = next();
+		return TreeIterator(tmp);
+	}
+
+	TreeIterator	operator-(difference_type v)
+	{
+		node_pointer	tmp;
+		tmp = _ptr;
+		while (v--)
+			tmp = previous();
+		return TreeIterator(tmp);
+	}
+
+	TreeIterator&	operator--()
+	{
+		_ptr = previous();
+		return *this;
+	}
+
+	TreeIterator	operator--(int)
+	{
+		TreeIterator	iterator = *this;
+		--(*this);
+		return iterator;
+	}
+
+	node_pointer	operator->()
+	{
+		return _ptr;
+	}
+
+	reference		operator*()
+	{
+		return	_ptr->data;
 	}
 
 private:
 	node_pointer	_ptr;
 
+	node_pointer	next()
+	{
+		TreeNode<T>*	curr;
+		TreeNode<T>*	last;
+
+		curr = _ptr;
+		if (curr->right)
+		{
+			curr = curr->right;
+			while (curr->left)
+				curr = curr->left;
+			return curr;
+		}
+		else
+		{
+			while (curr->parent)
+			{
+				last = curr;
+				curr = curr->parent;
+				if (curr->right != last)
+					return curr;
+			}
+		}
+	}
+
+	node_pointer	previous()
+	{
+	}
 };
 
 template<typename T, typename Compare>
@@ -65,7 +149,12 @@ private:
 	TreeNode<T>	*head;
 	TreeNode<T>	*tail;
 	Compare		cmp;
+
 public:
+	typedef	T					value_type;
+	typedef TreeNode<T>			node_type;
+	typedef	typename node_type*	node_pointer;
+
     Tree()
 	{
 		root = NULL;
@@ -76,7 +165,7 @@ public:
 		destroyTree();
 	}
 
-	void	insertNode(int data)
+	void	insertNode(value_type data)
 	{
 		if (root != nullptr)
 			insertNode(data, root);
@@ -84,12 +173,12 @@ public:
 			root = new TreeNode<T>(data);
 	}
 
-	TreeNode<T>	*searchNode(int data)
+	node_pointer searchNode(value_type ata)
 	{
 		return searchNode(data, root);
 	}
 
-	void	deleteNode(int data)
+	void	deleteNode(value_type data)
 	{
 		deleteNode(data, root);
 	}
@@ -105,37 +194,51 @@ public:
 		std::cout << "\n";
 	}
 
-
 private:
 
-	void	insertNode(int data, TreeNode<T>* leaf)
+	void	reset_edges()
+	{
+		head = tail = root;
+		while (head->left)
+			head = head->left;
+		while (tail->right)
+			tail = tail->right;
+	}
+
+	void	insertNode(value_type data, node_pointer leaf)
 	{
 		if (cmp(data ,leaf->data))
 		{
 			if (leaf->left != nullptr)
 				insertNode(data, leaf->left);
 			else
-				leaf->left = new TreeNode<T>(data);
+			{
+				leaf->left = new TreeNode<T>(data, leaf);
+				reset_edges();
+			}
 		}
 		else
 		{
 			if (leaf->right != nullptr)
 				insertNode(data, leaf->right);
 			else
-				leaf->right = new TreeNode<T>(data);
+			{
+				leaf->right = new TreeNode<T>(data, leaf);
+				reset_edges();
+			}
 		}
 	}
 
-	TreeNode<T>* minValueNode(TreeNode<T>* node)
+	node_pointer minValueNode(node_pointer node)
 	{
-		TreeNode<T>* current = node;
+		node_pointer current = node;
 	
 		while (current && current->left != NULL)
 			current = current->left;
 		return current;
 	}
 
-	TreeNode<T>	*deleteNode(int data, TreeNode<T> *leaf)
+	node_pointer deleteNode(value_type data, node_pointer leaf)
 	{
 		if (leaf == nullptr)
 			return leaf;
@@ -148,26 +251,26 @@ private:
 		{
 			if (leaf->left == nullptr)
 			{
-				TreeNode<T> *tmp = leaf->right;
+				node_pointer tmp = leaf->right;
 				delete leaf;
 				return tmp;
 			}
 			else if (leaf->right == nullptr)
 			{
-				TreeNode<T> *tmp = leaf->left;
+				node_pointer tmp = leaf->left;
 				delete leaf;
 				return tmp;
 			}
 
 			// Simple way to delete
-			// TreeNode<T> *tmp = minValueNode(leaf->right);
+			// node_pointer tmp = minValueNode(leaf->right);
 			// leaf->data = tmp->data;
 			// leaf->right = deleteNode(tmp->data, leaf->right);
 
 			//optimized way to delete
-			TreeNode<T> *succParent = leaf;
+			node_pointer succParent = leaf;
 
-			TreeNode<T> *succ = leaf->right;
+			node_pointer succ = leaf->right;
 			while (succ->left != nullptr)
 			{
 				succParent = succ;
@@ -185,7 +288,7 @@ private:
 		return leaf;
 	}
 
-	TreeNode<T>	*searchNode(int data, TreeNode<T> *leaf)
+	node_pointer searchNode(value_type data, node_pointer leaf)
 	{
 		if (leaf != nullptr)
 		{
@@ -200,18 +303,17 @@ private:
 			return nullptr;
 	}
 
-	void	print_tree(TreeNode<T> *leaf)
+	void	print_tree(node_pointer leaf)
 	{
 		if (leaf != nullptr)
 		{
 			std::cout << leaf->data << std::endl;
 			print_tree(leaf->left);
 			print_tree(leaf->right);
-
 		}
 	}
 
-	void	destroyTree(TreeNode<T> *leaf)
+	void	destroyTree(node_pointer leaf)
 	{
 		if (leaf)
 		{
