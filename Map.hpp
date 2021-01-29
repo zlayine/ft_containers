@@ -83,6 +83,12 @@ public:
 
 	}
 
+	// delete this
+	tree_type	getTree()
+	{
+		return _tree;
+	}
+
 	//tested 0
 	iterator			begin()
 	{

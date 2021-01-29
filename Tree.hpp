@@ -210,12 +210,6 @@ public:
 		destroyTree(root);
 	}
 
-	void	print_tree()
-	{
-		print_tree(root);
-		std::cout << "\n";
-	}
-
 private:
 
 	void	reset_edges()
@@ -314,9 +308,11 @@ private:
 	{
 		if (leaf != nullptr)
 		{
-			if (leaf->data == data)
+			if (leaf->data.first == data.first)
+			{
 				return leaf;
-			else if (data < leaf->data)
+			}
+			else if (cmp(data, leaf->data))
 				return searchNode(data, leaf->left);
 			else
 				return searchNode(data, leaf->right);
@@ -329,7 +325,7 @@ private:
 	{
 		if (leaf != nullptr)
 		{
-			std::cout << leaf->data.second << std::endl;
+			std::cout << "data: " << leaf->data.second << std::endl;
 			print_tree(leaf->left);
 			print_tree(leaf->right);
 		}

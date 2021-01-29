@@ -840,15 +840,17 @@ void	test_map()
 	std::map<int, int> map;
 	std::map<int, int> map2;
 
-	std::pair<Map<int, int>::iterator, bool> mp = mmap.insert(std::pair<int, int>(1, 1));
-	mp = mmap.insert(std::pair<int, int>(1, 1));
-	mp = mmap.insert(std::pair<int, int>(2, 1));
-	mp = mmap.insert(std::pair<int, int>(3, 1));
+	std::pair<Map<int, int>::iterator, bool> mp = mmap.insert(std::pair<int, int>(1, 70));
+	mp = mmap.insert(std::pair<int, int>(1, 50));
+	mp = mmap.insert(std::pair<int, int>(2, 40));
+	mp = mmap.insert(std::pair<int, int>(3, 80));
+	mp = mmap.insert(std::pair<int, int>(4, 30));
 
-	std::pair<std::map<int, int>::iterator, bool> p = map.insert(std::pair<int, int>(1, 1));
-	p = map.insert(std::pair<int, int>(1, 2));
-	p = map.insert(std::pair<int, int>(2, 1));
-	p = map.insert(std::pair<int, int>(3, 1));
+	std::pair<std::map<int, int>::iterator, bool> p = map.insert(std::pair<int, int>(1, 70));
+	p = map.insert(std::pair<int, int>(1, 50));
+	p = map.insert(std::pair<int, int>(2, 40));
+	p = map.insert(std::pair<int, int>(3, 80));
+	p = map.insert(std::pair<int, int>(4, 30));
 
 	// std:: cout << mp.second << " " << p.second << "\n";
 	print_tree<Map<int, int>, std::map<int, int> >(mmap, map);
