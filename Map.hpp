@@ -157,24 +157,25 @@ public:
 		
 	}
 
-	//tested 0
+	//tested 0 (iterator position not fixed)
 	std::pair<iterator, bool>	insert(const value_type& val)
 	{
 		if (!_tree.searchNode(val))
 		{
 			_tree.insertNode(val);
+			_size++;
 			return std::pair<iterator, bool>(iterator(_tree.getHead()), true);
 		}
 		return std::pair<iterator, bool>(iterator(_tree.getHead()), false);
 	}
 
-	//tested 0
+	//tested 0 (should be checked again)
 	iterator 			insert(iterator position, const value_type& val)
 	{
-		
+		return insert(val).first;
 	}
 
-	//tested 0
+	//tested 1
 	void				insert(iterator first, iterator last)
 	{
 		for((void)first; first != last; ++first)
@@ -184,7 +185,7 @@ public:
 	//tested 0
 	void				erase(iterator position)
 	{
-
+		_tree.deleteNode(*position);
 	}
 
 	//tested 0

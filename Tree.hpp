@@ -203,6 +203,7 @@ public:
 	void	deleteNode(value_type data)
 	{
 		deleteNode(data, root);
+		reset_edges();
 	}
 
 	void	destroyTree()
@@ -258,10 +259,9 @@ private:
 	{
 		if (leaf == nullptr)
 			return leaf;
-
 		if (cmp(data, leaf->data))
 			leaf->left = deleteNode(data, leaf->left);
-		else if (cmp(data, leaf->data))
+		else if (data.first > leaf->data.first)
 			leaf->right = deleteNode(data, leaf->right);
 		else
 		{
@@ -269,17 +269,20 @@ private:
 			{
 				node_pointer tmp = leaf->right;
 				delete leaf;
+				reset_edges();
 				return tmp;
 			}
 			else if (leaf->right == nullptr)
 			{
 				node_pointer tmp = leaf->left;
 				delete leaf;
+				reset_edges();
+
 				return tmp;
 			}
-
 			// Simple way to delete
 			// node_pointer tmp = minValueNode(leaf->right);
+			// std::cout << tmp->data.first << std::endl;
 			// leaf->data = tmp->data;
 			// leaf->right = deleteNode(tmp->data, leaf->right);
 

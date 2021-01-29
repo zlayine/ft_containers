@@ -840,20 +840,55 @@ void	test_map()
 	std::map<int, int> map;
 	std::map<int, int> map2;
 
-	std::pair<Map<int, int>::iterator, bool> mp = mmap.insert(std::pair<int, int>(1, 70));
-	mp = mmap.insert(std::pair<int, int>(1, 50));
-	mp = mmap.insert(std::pair<int, int>(2, 40));
-	mp = mmap.insert(std::pair<int, int>(3, 80));
-	mp = mmap.insert(std::pair<int, int>(4, 30));
+	std::pair<Map<int, int>::iterator, bool> mp = mmap.insert(std::pair<int, int>(5, 1));
+	mp = mmap.insert(std::pair<int, int>(3, 1));
+	mp = mmap.insert(std::pair<int, int>(8, 1));
+	mp = mmap.insert(std::pair<int, int>(4, 1));
+	mp = mmap.insert(std::pair<int, int>(2, 1));
 
-	std::pair<std::map<int, int>::iterator, bool> p = map.insert(std::pair<int, int>(1, 70));
-	p = map.insert(std::pair<int, int>(1, 50));
-	p = map.insert(std::pair<int, int>(2, 40));
-	p = map.insert(std::pair<int, int>(3, 80));
-	p = map.insert(std::pair<int, int>(4, 30));
+	std::pair<std::map<int, int>::iterator, bool> p = map.insert(std::pair<int, int>(5, 1));
+	p = map.insert(std::pair<int, int>(3, 1));
+	p = map.insert(std::pair<int, int>(8, 1));
+	p = map.insert(std::pair<int, int>(4, 1));
+	p = map.insert(std::pair<int, int>(2, 1));
+
+	// ===================== Insert Test
 
 	// std:: cout << mp.second << " " << p.second << "\n";
+	// print_tree<Map<int, int>, std::map<int, int> >(mmap, map);
+
+	// ===================== Insert Test
+
+	// Map<int, int>::iterator it = mmap.begin();
+	// it++;
+	// mmap.insert(it, std::pair<int, int>(1, 1));
+
+	// std::map<int, int>::iterator its = map.begin();
+	// its++;
+	// map.insert(its, std::pair<int, int>(1, 1));
+
+	// print_tree<Map<int, int>, std::map<int, int> >(mmap, map);
+
+	// ===================== Insert Test
+
+	// mmap2.insert(mmap.begin(), mmap.end());
+
+	// map2.insert(map.begin(), map.end());
+
+	// print_tree<Map<int, int>, std::map<int, int> >(mmap2, map2);
+
+	// ===================== Erase Test
+
+	Map<int, int>::iterator it = mmap.begin();
+	// it++;
+	mmap.erase(it);
+
+	std::map<int, int>::iterator its = map.begin();
+	// its++;
+	map.erase(its);
+
 	print_tree<Map<int, int>, std::map<int, int> >(mmap, map);
+
 }
 
 
