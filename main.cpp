@@ -840,12 +840,17 @@ void	test_map()
 	std::map<int, int> map;
 	std::map<int, int> map2;
 
-	mmap.insert(std::pair<int, int>(1, 1));
-	mmap.insert(std::pair<int, int>(2, 1));
+	std::pair<Map<int, int>::iterator, bool> mp = mmap.insert(std::pair<int, int>(1, 1));
+	mp = mmap.insert(std::pair<int, int>(1, 1));
+	mp = mmap.insert(std::pair<int, int>(2, 1));
+	mp = mmap.insert(std::pair<int, int>(3, 1));
 
-	map.insert(std::pair<int, int>(1, 1));
-	map.insert(std::pair<int, int>(2, 1));
+	std::pair<std::map<int, int>::iterator, bool> p = map.insert(std::pair<int, int>(1, 1));
+	p = map.insert(std::pair<int, int>(1, 2));
+	p = map.insert(std::pair<int, int>(2, 1));
+	p = map.insert(std::pair<int, int>(3, 1));
 
+	// std:: cout << mp.second << " " << p.second << "\n";
 	print_tree<Map<int, int>, std::map<int, int> >(mmap, map);
 }
 

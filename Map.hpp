@@ -154,8 +154,12 @@ public:
 	//tested 0
 	std::pair<iterator, bool>	insert(const value_type& val)
 	{
-		_tree.insertNode(val);
-		return std::pair<iterator, bool>(iterator(_tree.getHead()), true);
+		if (!_tree.searchNode(val))
+		{
+			_tree.insertNode(val);
+			return std::pair<iterator, bool>(iterator(_tree.getHead()), true);
+		}
+		return std::pair<iterator, bool>(iterator(_tree.getHead()), false);
 	}
 
 	//tested 0
