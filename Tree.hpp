@@ -108,6 +108,17 @@ public:
 		return	_ptr->data;
 	}
 
+
+	bool			operator==(const TreeIterator& other) const
+	{
+		return _ptr == other._ptr;
+	}
+
+	bool			operator!=(const TreeIterator& other) const
+	{
+		return _ptr != other._ptr;
+	}
+
 private:
 	node_pointer	_ptr;
 
@@ -134,6 +145,7 @@ private:
 					return curr;
 			}
 		}
+		return nullptr;
 	}
 
 	node_pointer	previous()
@@ -153,7 +165,7 @@ private:
 public:
 	typedef	T					value_type;
 	typedef TreeNode<T>			node_type;
-	typedef	typename node_type*	node_pointer;
+	typedef	node_type*			node_pointer;
 
     Tree()
 	{
@@ -165,6 +177,16 @@ public:
 		destroyTree();
 	}
 
+	node_pointer		getHead()
+	{
+		return head;
+	}
+
+	node_pointer		getTail()
+	{
+		return tail;
+	}
+
 	void	insertNode(value_type data)
 	{
 		if (root != nullptr)
@@ -173,7 +195,7 @@ public:
 			root = new TreeNode<T>(data);
 	}
 
-	node_pointer searchNode(value_type ata)
+	node_pointer searchNode(value_type data)
 	{
 		return searchNode(data, root);
 	}
@@ -307,7 +329,7 @@ private:
 	{
 		if (leaf != nullptr)
 		{
-			std::cout << leaf->data << std::endl;
+			std::cout << leaf->data.second << std::endl;
 			print_tree(leaf->left);
 			print_tree(leaf->right);
 		}
