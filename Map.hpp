@@ -73,9 +73,8 @@ public:
 
 	}
 
-	Map(Map const &src)
+	Map(Map const &src) : _tree(src._tree), _size(src._size)
 	{
-		
 	}
 	
 	~Map()
@@ -147,8 +146,7 @@ public:
 	//tested 0
 	void				clear()
 	{
-		// for (iterator it = begin(); it != end(); ++it)
-		// 	pop_front();
+		erase(begin(), end());
 	}
 
 	//tested 0
@@ -182,28 +180,37 @@ public:
 			insert(*first);
 	}
 
-	//tested 0
+	//tested 0 check if deleted to reduce size
 	void				erase(iterator position)
 	{
 		_tree.deleteNode(*position);
+		_size--;
 	}
 
-	//tested 0
+	//tested 0  check if deleted to reduce size
 	size_type			erase(const key_type& k)
 	{
-
+		_tree.deleteNode(pair_type(k, 0));
+		return --_size;
 	}
 
 	//tested 0
 	void				erase(iterator first, iterator last)
 	{
-
+		for((void)first; first != last; ++first)
+			erase(first);
 	}
 
 	//tested 0
 	void				swap(Map<key, T>& x)
 	{
+		// Map<key, T> tmp(x);
 
+		// tmp = x;
+		// x.clear();
+		// x.insert(begin(), end());
+		// clear();
+		// insert(tmp.begin(), tmp.end());
 	}
 
 	//tested 0

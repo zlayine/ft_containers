@@ -879,15 +879,46 @@ void	test_map()
 
 	// ===================== Erase Test
 
-	Map<int, int>::iterator it = mmap.begin();
-	// it++;
-	mmap.erase(it);
+	// Map<int, int>::iterator it = mmap.begin();
+	// // it++;
+	// mmap.erase(it);
 
-	std::map<int, int>::iterator its = map.begin();
-	// its++;
-	map.erase(its);
+	// std::map<int, int>::iterator its = map.begin();
+	// // its++;
+	// map.erase(its);
+
+	// print_tree<Map<int, int>, std::map<int, int> >(mmap, map);
+
+	// ===================== Erase Test
+
+	// mmap.erase(2);
+
+	// map.erase(2);
+	
+	// print_tree<Map<int, int>, std::map<int, int> >(mmap, map);
+
+	// ===================== Erase Test
+
+	// mmap.erase(mmap.begin(), mmap.end());
+
+	// map.erase(map.begin(), map.end());
+
+	// print_tree<Map<int, int>, std::map<int, int> >(mmap, map);
+
+	// ===================== Swap Test
+
+	// mmap2.insert(std::pair<int, int>(8, 1));
+	mmap2.insert(std::pair<int, int>(5, 1));
+
+	// mmap2.swap(mmap);
+
+	map2.insert(std::pair<int, int>(8, 1));
+
+	// map2.swap(map);
 
 	print_tree<Map<int, int>, std::map<int, int> >(mmap, map);
+
+	print_tree<Map<int, int>, std::map<int, int> >(mmap2, map2);
 
 }
 

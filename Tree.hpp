@@ -202,7 +202,7 @@ public:
 
 	void	deleteNode(value_type data)
 	{
-		deleteNode(data, root);
+		root = deleteNode(data, root);
 		reset_edges();
 	}
 
@@ -216,6 +216,8 @@ private:
 	void	reset_edges()
 	{
 		head = tail = root;
+		if (!root)
+			return ;
 		while (head->left)
 			head = head->left;
 		while (tail->right)
@@ -268,16 +270,17 @@ private:
 			if (leaf->left == nullptr)
 			{
 				node_pointer tmp = leaf->right;
+				if (tmp)
+					tmp->parent = leaf->parent;
 				delete leaf;
-				reset_edges();
 				return tmp;
 			}
 			else if (leaf->right == nullptr)
 			{
 				node_pointer tmp = leaf->left;
+				if (tmp)
+					tmp->parent = leaf->parent;
 				delete leaf;
-				reset_edges();
-
 				return tmp;
 			}
 			// Simple way to delete
