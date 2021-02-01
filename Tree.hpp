@@ -170,6 +170,11 @@ public:
 		head = tail = new TreeNode<T>();
 	}
 
+	Tree(Tree const &src) : root(src.root), head(src.head), tail(src.tail), cmp(src.cmp)
+	{
+
+	}
+
     ~Tree()
 	{
 		destroyTree();
@@ -204,11 +209,14 @@ public:
 	{
 		root = deleteNode(data, root);
 		reset_edges();
+		if (root == tail)
+			root = nullptr;
 	}
 
 	void	destroyTree()
 	{
 		destroyTree(root);
+		root = nullptr;
 		head = tail;
 	}
 
@@ -216,7 +224,7 @@ private:
 
 	void	reset_edges()
 	{
-		node_pointer	tmp = root;
+		node_pointer tmp = root;
 		if (!root)
 			return ;
 		while (tmp->left)
@@ -227,7 +235,8 @@ private:
 			tmp = tmp->right;
 		if (tmp == tail)
 			tmp = tmp->parent;
-		tmp->right = tail;
+		else
+			tmp->right = tail;
 		tail->parent = tmp;
 	}
 
@@ -332,7 +341,7 @@ private:
 	{
 		if (leaf)
 		{
-			std::cout << "data: " << leaf->data.second << std::endl;
+			std::cout << "data: " << leaf->data.first << std::endl;
 			print_tree(leaf->left);
 			print_tree(leaf->right);
 		}

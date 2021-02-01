@@ -147,6 +147,8 @@ public:
 	void				clear()
 	{
 		erase(begin(), end());
+
+		// _tree.destroyTree();
 	}
 
 	//tested 0
@@ -198,17 +200,19 @@ public:
 	void				erase(iterator first, iterator last)
 	{
 		for((void)first; first != last; ++first)
+		{
+			// std::cout << "erasing: " << (*first).first << std::endl;
 			erase(first);
+		}
 	}
 
 	//tested 0
-	void				swap(Map<key, T>& x)
+	void				swap(Map<key, T> &x)
 	{
-		// Map<key, T> tmp(x);
+		Map<key, T> tmp(x);
 
-		// tmp = x;
-		// x.clear();
-		// x.insert(begin(), end());
+		x.clear();
+		x.insert(begin(), end());
 		// clear();
 		// insert(tmp.begin(), tmp.end());
 	}
