@@ -13,12 +13,8 @@ public:
     TreeNode<T>		*right;
     TreeNode<T>		*parent;
 
-	TreeNode() : left(nullptr), right(nullptr), parent(nullptr)
-	{
-		data = 0;
-	}
 
-	TreeNode(T data) : data(data), left(nullptr), right(nullptr), parent(nullptr)
+	TreeNode(T data = T()) : data(data), left(nullptr), right(nullptr), parent(nullptr)
 	{
 	}
 
@@ -170,11 +166,14 @@ public:
     Tree()
 	{
 		root = NULL;
+		// head = tail = new TreeNode<T>(std::pair<int, int>(10, 1));
+		head = tail = new TreeNode<T>();
 	}
 
     ~Tree()
 	{
 		destroyTree();
+		delete tail;
 	}
 
 	node_pointer		getHead()
@@ -193,6 +192,7 @@ public:
 			insertNode(data, root);
 		else
 			root = new TreeNode<T>(data);
+		reset_edges();
 	}
 
 	node_pointer searchNode(value_type data)
@@ -209,42 +209,43 @@ public:
 	void	destroyTree()
 	{
 		destroyTree(root);
+		head = tail;
 	}
 
 private:
 
 	void	reset_edges()
 	{
-		head = tail = root;
+		node_pointer	tmp = root;
 		if (!root)
 			return ;
-		while (head->left)
-			head = head->left;
-		while (tail->right)
-			tail = tail->right;
+		while (tmp->left)
+			tmp = tmp->left;
+		head = tmp;
+		tmp = root;
+		while (tmp->right)
+			tmp = tmp->right;
+		if (tmp == tail)
+			tmp = tmp->parent;
+		tmp->right = tail;
+		tail->parent = tmp;
 	}
 
 	void	insertNode(value_type data, node_pointer leaf)
 	{
 		if (cmp(data ,leaf->data))
 		{
-			if (leaf->left != nullptr)
+			if (leaf->left)
 				insertNode(data, leaf->left);
 			else
-			{
 				leaf->left = new TreeNode<T>(data, leaf);
-				reset_edges();
-			}
 		}
 		else
 		{
-			if (leaf->right != nullptr)
+			if (leaf->right && leaf->right != tail)
 				insertNode(data, leaf->right);
 			else
-			{
 				leaf->right = new TreeNode<T>(data, leaf);
-				reset_edges();
-			}
 		}
 	}
 
@@ -329,7 +330,7 @@ private:
 
 	void	print_tree(node_pointer leaf)
 	{
-		if (leaf != nullptr)
+		if (leaf)
 		{
 			std::cout << "data: " << leaf->data.second << std::endl;
 			print_tree(leaf->left);
@@ -339,7 +340,7 @@ private:
 
 	void	destroyTree(node_pointer leaf)
 	{
-		if (leaf)
+		if (leaf && leaf != tail)
 		{
 			destroyTree(leaf->left);
 			destroyTree(leaf->right);

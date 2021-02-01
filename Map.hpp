@@ -103,13 +103,13 @@ public:
 	//tested 0
 	iterator			end()
 	{
-		return iterator();
+		return iterator(_tree.getTail());
 	}
 
 	//tested 0
 	const_iterator		end() const
 	{
-		return iterator();
+		return iterator(_tree.getTail());
 	}
 
 	//tested 0
@@ -121,7 +121,7 @@ public:
 	//tested 0
 	reverse_iterator	rend()
 	{
-		return iterator();
+		return iterator(_tree.getTail());
 	}
 	
 	//tested 0

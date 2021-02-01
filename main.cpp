@@ -836,21 +836,25 @@ void	test_map()
 {
 	Map<int, int> mmap;
 	Map<int, int> mmap2;
+	std::pair<Map<int, int>::iterator, bool> mp;
 
 	std::map<int, int> map;
 	std::map<int, int> map2;
+	std::pair<std::map<int, int>::iterator, bool> p;
 
-	std::pair<Map<int, int>::iterator, bool> mp = mmap.insert(std::pair<int, int>(5, 1));
+	mp = mmap.insert(std::pair<int, int>(5, 1));
 	mp = mmap.insert(std::pair<int, int>(3, 1));
 	mp = mmap.insert(std::pair<int, int>(8, 1));
 	mp = mmap.insert(std::pair<int, int>(4, 1));
 	mp = mmap.insert(std::pair<int, int>(2, 1));
 
-	std::pair<std::map<int, int>::iterator, bool> p = map.insert(std::pair<int, int>(5, 1));
+	p = map.insert(std::pair<int, int>(5, 1));
 	p = map.insert(std::pair<int, int>(3, 1));
 	p = map.insert(std::pair<int, int>(8, 1));
 	p = map.insert(std::pair<int, int>(4, 1));
 	p = map.insert(std::pair<int, int>(2, 1));
+
+	print_tree<Map<int, int>, std::map<int, int> >(mmap, map);
 
 	// ===================== Insert Test
 
@@ -908,17 +912,17 @@ void	test_map()
 	// ===================== Swap Test
 
 	// mmap2.insert(std::pair<int, int>(8, 1));
-	mmap2.insert(std::pair<int, int>(5, 1));
+	// mmap2.insert(std::pair<int, int>(5, 1));
 
 	// mmap2.swap(mmap);
 
-	map2.insert(std::pair<int, int>(8, 1));
+	// map2.insert(std::pair<int, int>(8, 1));
 
 	// map2.swap(map);
 
-	print_tree<Map<int, int>, std::map<int, int> >(mmap, map);
+	// print_tree<Map<int, int>, std::map<int, int> >(mmap, map);
 
-	print_tree<Map<int, int>, std::map<int, int> >(mmap2, map2);
+	// print_tree<Map<int, int>, std::map<int, int> >(mmap2, map2);
 
 }
 
