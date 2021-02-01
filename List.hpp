@@ -4,6 +4,8 @@
 #include <iostream>
 #include "Node.hpp"
 
+namespace ft {
+	
 template<typename List>
 class ListIterator
 {
@@ -592,5 +594,6 @@ bool			operator!=(const List<T>& lhs, const List<T>& rhs)
 	return !(lhs == rhs);
 }
 
+}
 
 #endif

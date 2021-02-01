@@ -4,7 +4,9 @@
 #include "Tools.hpp"
 #include "Tree.hpp"
 
-template<typename key, typename T, typename Compare = ::less<key> >
+namespace ft {
+
+template<typename key, typename T, typename Compare = ft::less<key> >
 class MapCompare : public std::binary_function<std::pair<key, T>, std::pair<key, T>, bool>
 {
 public:
@@ -209,10 +211,11 @@ public:
 	//tested 0
 	void				swap(Map<key, T> &x)
 	{
-		Map<key, T> tmp(x);
+		_tree.swap(x._tree);
+		// Map<key, T> tmp(x);
 
-		x.clear();
-		x.insert(begin(), end());
+		// x.clear();
+		// x.insert(begin(), end());
 		// clear();
 		// insert(tmp.begin(), tmp.end());
 	}
@@ -284,5 +287,7 @@ public:
 	}
 
 };
+
+}
 
 #endif

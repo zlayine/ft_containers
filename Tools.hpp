@@ -4,6 +4,8 @@
 #include <utility>
 #include <functional>
 
+namespace ft {
+
 template<typename T>
 struct less : public std::binary_function<T, T, bool>
 {
@@ -12,5 +14,7 @@ struct less : public std::binary_function<T, T, bool>
 		return (x < y);
 	}
 };
+
+}
 
 #endif

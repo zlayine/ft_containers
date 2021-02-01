@@ -4,6 +4,8 @@
 #include <iostream>
 // #include "Map.hpp";
 
+namespace ft {
+
 template<typename T>
 class TreeNode
 {
@@ -166,13 +168,11 @@ public:
     Tree()
 	{
 		root = NULL;
-		// head = tail = new TreeNode<T>(std::pair<int, int>(10, 1));
 		head = tail = new TreeNode<T>();
 	}
 
 	Tree(Tree const &src) : root(src.root), head(src.head), tail(src.tail), cmp(src.cmp)
 	{
-
 	}
 
     ~Tree()
@@ -359,5 +359,6 @@ private:
 
 };
 
+}
 
 #endif

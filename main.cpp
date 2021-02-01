@@ -834,9 +834,9 @@ void	print_tree(L1 &x, L2 &y)
 
 void	test_map()
 {
-	Map<int, int> mmap;
-	Map<int, int> mmap2;
-	std::pair<Map<int, int>::iterator, bool> mp;
+	ft::Map<int, int> mmap;
+	ft::Map<int, int> mmap2;
+	std::pair<ft::Map<int, int>::iterator, bool> mp;
 
 	std::map<int, int> map;
 	std::map<int, int> map2;
@@ -933,9 +933,9 @@ void	test_map()
 
 	map2.swap(map);
 
-	print_tree<Map<int, int>, std::map<int, int> >(mmap, map);
+	print_tree<ft::Map<int, int>, std::map<int, int> >(mmap, map);
 
-	print_tree<Map<int, int>, std::map<int, int> >(mmap2, map2);
+	print_tree<ft::Map<int, int>, std::map<int, int> >(mmap2, map2);
 
 }
 

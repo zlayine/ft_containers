@@ -3,6 +3,8 @@
 
 #include "List.hpp"
 
+namespace ft {
+
 template< typename T, class Container = List<T> >
 class Queue
 {
@@ -115,6 +117,6 @@ public:
 	}
 };
 
-
+}
 
 #endif

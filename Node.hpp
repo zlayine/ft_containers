@@ -1,6 +1,8 @@
 #ifndef NODE_HPP
 # define NODE_HPP
 
+namespace ft {
+
 template<typename T>
 class Node 
 { 
@@ -53,4 +55,5 @@ public:
 	}
 };
 
+}
 #endif

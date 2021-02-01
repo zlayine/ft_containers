@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+namespace ft {
+
 template<typename Vector>
 class VectorIterator
 {
@@ -510,6 +512,8 @@ bool			operator!=(const Vector<T>& lhs, const Vector<T>& rhs)
 			return true;
 	}
 	return false;
+}
+
 }
 
 #endif

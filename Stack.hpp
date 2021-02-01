@@ -3,7 +3,9 @@
 
 #include "List.hpp"
 
-template< typename T, class Container = List<T> >
+namespace ft {
+
+template< typename T, class Container = ft::List<T> >
 class Stack
 {
 public:
@@ -322,4 +324,5 @@ public:
 // 	return false;
 // }
 
+}
 #endif
