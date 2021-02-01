@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+namespace ft {
+
 template<typename Deque>
 class DequeIterator
 {
@@ -392,5 +394,7 @@ public:
 		// return *this;
 	}
 };
+
+}
 
 #endif
