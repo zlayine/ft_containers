@@ -127,7 +127,6 @@ public:
 
 	List(List<T> const &src)
 	{
-
 	}
 
 	virtual ~List()
@@ -255,7 +254,7 @@ public:
 		if (!_size)
 			return;
 		_head = _head->erase();
-		if (_size-- == 1)
+		if (_size-- == 1)	
 			_head = _tail;
 	}
 

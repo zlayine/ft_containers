@@ -30,13 +30,13 @@ template<typename T, typename N>
 class TreeIterator
 {
 public:
-	typedef T		value_type;
-	typedef T*		pointer;
-	typedef const T* const_pointer;
-	typedef T&		reference;
-	typedef const T& const_reference;
+	typedef T				value_type;
+	typedef T*				pointer;
+	typedef const T* 		const_pointer;
+	typedef T&				reference;
+	typedef const T& 		const_reference;
 	typedef TreeNode<T>*		node_type;
-	typedef	N*		node_pointer;
+	typedef	N*			node_pointer;
 	typedef ptrdiff_t	difference_type;
 
 	TreeIterator() : _ptr(nullptr)
@@ -78,6 +78,8 @@ public:
 	{
 		node_pointer	tmp;
 		tmp = _ptr;
+		std::cout << v << "\n";
+		std::cout << _ptr->data.first << "\n";
 		while (v--)
 			tmp = previous();
 		return TreeIterator(tmp);
@@ -96,9 +98,9 @@ public:
 		return iterator;
 	}
 
-	node_pointer	operator->()
+	pointer			operator->()
 	{
-		return _ptr;
+		return &_ptr->data;
 	}
 
 	reference		operator*()
@@ -148,6 +150,28 @@ private:
 
 	node_pointer	previous()
 	{
+		TreeNode<T>*	curr;
+		TreeNode<T>*	last;
+
+		curr = _ptr;
+		if (curr->left)
+		{
+			curr = curr->left;
+			while (curr->right)
+				curr = curr->right;
+			return curr;
+		}
+		else
+		{
+			while (curr->parent)
+			{
+				last = curr;
+				curr = curr->parent;
+				if (curr->right == last)
+					return curr;
+			}
+		}
+		return nullptr;
 	}
 };
 
@@ -218,6 +242,11 @@ public:
 		destroyTree(root);
 		root = nullptr;
 		head = tail;
+	}
+
+	void	print_tree()
+	{
+		print_tree(root);
 	}
 
 private:
@@ -322,7 +351,7 @@ private:
 
 	node_pointer searchNode(value_type data, node_pointer leaf)
 	{
-		if (leaf != nullptr)
+		if (leaf)
 		{
 			if (leaf->data.first == data.first)
 			{

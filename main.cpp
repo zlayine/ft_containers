@@ -923,20 +923,45 @@ void	test_map()
 
 	// ===================== Swap Test
 
-	mmap2.insert(std::pair<int, int>(7, 1));
-	mmap2.insert(std::pair<int, int>(5, 1));
+	// mmap2.insert(std::pair<int, int>(7, 1));
+	// mmap2.insert(std::pair<int, int>(5, 1));
 
-	mmap2.swap(mmap);
+	// mmap2.swap(mmap);
 
-	map2.insert(std::pair<int, int>(7, 1));
-	map2.insert(std::pair<int, int>(5, 1));
+	// map2.insert(std::pair<int, int>(7, 1));
+	// map2.insert(std::pair<int, int>(5, 1));
 
-	map2.swap(map);
+	// map2.swap(map);
 
-	print_tree<ft::Map<int, int>, std::map<int, int> >(mmap, map);
+	// print_tree<ft::Map<int, int>, std::map<int, int> >(mmap, map);
 
-	print_tree<ft::Map<int, int>, std::map<int, int> >(mmap2, map2);
+	// print_tree<ft::Map<int, int>, std::map<int, int> >(mmap2, map2);
 
+	// ===================== KeyComp Test
+
+	ft::Map<int,int>::iterator it = mmap.rbegin();
+	// it++;
+	// it++;
+	// it++;
+	// it++;
+	// it++;
+	// it--;
+	// it--;
+	std::cout << it->first << "\n";
+
+	// std::map<int,int>::key_compare comp = map.key_comp();
+	// std::cout << "map contains:\n";
+	// std::map<int,int>::iterator its = map.begin();
+	// do {
+	// 	std::cout << its->first << " => " << its->second << '\n';
+	// } while ( comp((*its++).first, map.rbegin()->first) );
+
+	// ft::Map<int,int>::key_compare mcomp = mmap.key_comp();
+	// std::cout << "mmap contains:\n";
+	// ft::Map<int,int>::iterator it = mmap.begin();
+	// do {
+	// 	std::cout << it->first << " => " << it->second << '\n';
+	// } while ( mcomp((*it++).first, mmap.rbegin()->first) );
 }
 
 

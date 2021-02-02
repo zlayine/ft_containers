@@ -10,31 +10,29 @@ template<typename key, typename T, typename Compare = ft::less<key> >
 class MapCompare : public std::binary_function<std::pair<key, T>, std::pair<key, T>, bool>
 {
 public:
+	typedef	typename std::pair<key, T>	value_type;
+
 	MapCompare()
 	{
 
 	}
-	// MapCompare();
+	
+	// MapCompare(MapCompare const &src);
+	
 	virtual ~MapCompare()
 	{
 
 	}
-
-	typedef	typename std::pair<key, T>	value_type;
 
 	bool operator()(const value_type& x, const value_type& y) const
     {
 		return (cmp(x.first, y.first));
 	}
 
-	bool operator()(const value_type& x, const key& y) const
+	bool operator()(const key& x, const key& y) const
     {
-		return (cmp(x.first, y));
-	}
-
-	bool operator()(const key& x, const value_type& y) const
-    {
-		return (cmp(x, y.first));
+		std::cout << x << " " << y << "\n";
+		return (cmp(x, y));
 	}
 
 private:
@@ -75,13 +73,13 @@ public:
 
 	}
 
-	Map(Map const &src) : _tree(src._tree), _size(src._size)
+	Map(Map<key, T> &src)
 	{
+		insert(src.begin(), src.end());
 	}
 	
 	~Map()
 	{
-
 	}
 
 	// delete this
@@ -117,13 +115,13 @@ public:
 	//tested 0
 	reverse_iterator	rbegin()
 	{
-		return iterator(_tree.getTail());
+		return reverse_iterator(_tree.getTail() + 1);
 	}
 
 	//tested 0
 	reverse_iterator	rend()
 	{
-		return iterator(_tree.getTail());
+		return reverse_iterator(_tree.getHead());
 	}
 	
 	//tested 0
@@ -181,7 +179,10 @@ public:
 	void				insert(iterator first, iterator last)
 	{
 		for((void)first; first != last; ++first)
+		{
+			// std::cout << (*first).first << "\n";
 			insert(*first);
+		}
 	}
 
 	//tested 0 check if deleted to reduce size
@@ -211,19 +212,19 @@ public:
 	//tested 0
 	void				swap(Map<key, T> &x)
 	{
-		_tree.swap(x._tree);
-		// Map<key, T> tmp(x);
+		Map<key, T> tmp(x);
 
-		// x.clear();
-		// x.insert(begin(), end());
-		// clear();
-		// insert(tmp.begin(), tmp.end());
+		x.clear();
+		x.insert(begin(), end());
+		clear();
+		insert(tmp.begin(), tmp.end());
 	}
 
 	//tested 0
 	key_compare			key_comp() const
 	{
-
+		key_compare cmp;
+		return cmp;
 	}
 
 	//tested 0
@@ -284,6 +285,13 @@ public:
 	std::pair<iterator, iterator>				equal_range(const key_type& k)
 	{
 
+	}
+
+	Map<key, T>&		operator=(const Map<key, T>& lhs)
+	{
+		clear();
+		insert(lhs.begin(), lhs.end());
+		return *this;
 	}
 
 };
