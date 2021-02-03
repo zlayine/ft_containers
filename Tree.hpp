@@ -2,7 +2,6 @@
 # define TREE_HPP
 
 #include <iostream>
-// #include "Map.hpp";
 
 namespace ft {
 
@@ -40,6 +39,10 @@ public:
 	typedef ptrdiff_t	difference_type;
 
 	TreeIterator() : _ptr(nullptr)
+	{
+	}
+
+	TreeIterator(TreeIterator const &src) : _ptr(src._ptr)
 	{
 	}
 

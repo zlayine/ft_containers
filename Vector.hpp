@@ -2,6 +2,7 @@
 # define VECTOR_HPP
 
 #include <iostream>
+#include "ReverseIterator.hpp"
 
 namespace ft {
 
@@ -16,7 +17,10 @@ public:
 
 	VectorIterator() : i(0), _ptr(nullptr)
 	{
+	}
 
+	VectorIterator(VectorIterator const &src) : _ptr(src._ptr), i(src.i)
+	{
 	}
 
 	VectorIterator(pointer_type ptr) : i(0), _ptr(ptr)
@@ -119,8 +123,8 @@ public:
 	typedef const T*							const_pointer;
 	typedef VectorIterator<Vector<T> >			iterator;
 	typedef const VectorIterator<Vector<T> >	const_iterator;
-	typedef VectorIterator<Vector<T> >			reverse_iterator;
-	typedef const VectorIterator<Vector<T> >	const_reverse_iterator;
+	typedef ReverseIterator<iterator>			reverse_iterator;
+	typedef const ReverseIterator<iterator>		const_reverse_iterator;
 	typedef ptrdiff_t							difference_type;
 	typedef size_t								size_type;
 
@@ -185,13 +189,13 @@ public:
 	//tested 0
 	reverse_iterator	rbegin()
 	{
-		return iterator(_items, _top);
+		return reverse_iterator(_items, _top);
 	}
 
 	//tested 0
 	reverse_iterator	rend()
 	{
-		return iterator(_items);
+		return reverse_iterator(_items);
 	}
 
 	//tested 1

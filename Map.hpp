@@ -3,6 +3,7 @@
 
 #include "Tools.hpp"
 #include "Tree.hpp"
+#include "ReverseIterator.hpp"
 
 namespace ft {
 
@@ -59,8 +60,8 @@ public:
 	typedef	typename tree_type::node_type				node_type;
 	typedef TreeIterator<pair_type, node_type>			iterator;
 	typedef const TreeIterator<pair_type, node_type>	const_iterator;
-	typedef TreeIterator<pair_type, node_type>			reverse_iterator;
-	typedef const TreeIterator<pair_type, node_type>	const_reverse_iterator;
+	typedef ReverseIterator<iterator>					reverse_iterator;
+	typedef const ReverseIterator<iterator>				const_reverse_iterator;
 	typedef ptrdiff_t									difference_type;
 	typedef size_t										size_type;
 private:

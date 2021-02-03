@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "Node.hpp"
+#include "ReverseIterator.hpp"
 
 namespace ft {
 	
@@ -16,6 +17,10 @@ public:
 	typedef ptrdiff_t						difference_type;
 
 	ListIterator() : _ptr(nullptr)
+	{
+	}
+
+	ListIterator(ListIterator const &src) : _ptr(src._ptr)
 	{
 	}
 
@@ -115,8 +120,8 @@ public:
 	typedef const T*						const_pointer;
 	typedef ListIterator<List<T> >			iterator;
 	typedef const ListIterator<List<T> >	const_iterator;
-	typedef ListIterator<List<T> >			reverse_iterator;
-	typedef const ListIterator<List<T> >	const_reverse_iterator;
+	typedef ReverseIterator<iterator>		reverse_iterator;
+	typedef const ReverseIterator<iterator>	const_reverse_iterator;
 	typedef ptrdiff_t						difference_type;
 	typedef size_t							size_type;
 
@@ -162,13 +167,13 @@ public:
 	//tested 0
 	reverse_iterator	rbegin()
 	{
-		return iterator(_tail);
+		return reverse_iterator(_tail);
 	}
 
 	//tested 0
 	reverse_iterator	rend()
 	{
-		return iterator(_head);
+		return reverse_iterator(_head);
 	}
 	
 	//tested 0
