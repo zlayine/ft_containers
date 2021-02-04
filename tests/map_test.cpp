@@ -179,23 +179,23 @@ void	test_map()
 
 	// ===================== Equal range Test
 	
-	std::pair<std::map<int, int>::iterator,std::map<int, int>::iterator> ret;
-	ret = map.equal_range(8);
+	// std::pair<std::map<int, int>::iterator,std::map<int, int>::iterator> ret;
+	// ret = map.equal_range(8);
 
-	std::cout << "lower bound points to: ";
-	std::cout << ret.first->first << " => " << ret.first->second << '\n';
+	// std::cout << "lower bound points to: ";
+	// std::cout << ret.first->first << " => " << ret.first->second << '\n';
 
-	std::cout << "upper bound points to: ";
-	std::cout << ret.second->first << " => " << ret.second->second << '\n';
+	// std::cout << "upper bound points to: ";
+	// std::cout << ret.second->first << " => " << ret.second->second << '\n';
 
-	std::cout << "------------mine-----------\n";
-	std::pair<ft::Map<int, int>::iterator,ft::Map<int, int>::iterator> rets;
-	rets = mmap.equal_range(8);
+	// std::cout << "------------mine-----------\n";
+	// std::pair<ft::Map<int, int>::iterator,ft::Map<int, int>::iterator> rets;
+	// rets = mmap.equal_range(8);
 
-	std::cout << "lower bound points to: ";
-	std::cout << rets.first->first << " => " << rets.first->second << '\n';
+	// std::cout << "lower bound points to: ";
+	// std::cout << rets.first->first << " => " << rets.first->second << '\n';
 
-	std::cout << "upper bound points to: ";
-	std::cout << rets.second->first << " => " << rets.second->second << '\n';
+	// std::cout << "upper bound points to: ";
+	// std::cout << rets.second->first << " => " << rets.second->second << '\n';
 
 }

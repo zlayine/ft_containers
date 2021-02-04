@@ -1,6 +1,8 @@
 #ifndef REVERSEITERATOR_HPP
 # define REVERSEITERATOR_HPP
 
+namespace ft {
+
 template<typename Iterator>
 class ReverseIterator : public Iterator
 {
@@ -20,7 +22,7 @@ public:
 
     }
 
-    ReverseIterator(ReverseIterator const &src) : Iterator(src._ptr)
+    ReverseIterator(const ReverseIterator &src) : Iterator(src._ptr)
     {
     }
 
@@ -47,26 +49,32 @@ public:
         return &*--it;
     }
 
-    ReverseIterator&    operator++()
+    ReverseIterator    operator++()
     {
-
+		return Iterator::operator--();
     }
 
     ReverseIterator     operator++(int)
     {
-
+		Iterator it(*this);
+		operator++();
+		return it;
     }
 
-    ReverseIterator&    operator--()
+    ReverseIterator    operator--()
     {
-
+		return Iterator::operator++();
     }
 
     ReverseIterator     operator--(int)
     {
-        
+        Iterator it(*this);
+		operator--();
+		return it;
     }
 
 };
+
+}
 
 #endif

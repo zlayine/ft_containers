@@ -28,6 +28,11 @@ public:
 	{
 	}
 
+	void	hello()
+	{
+		std::cout << "hello\n";
+	}
+
 	pointer_type	getNode() const
 	{
 		return _ptr;
@@ -47,7 +52,7 @@ public:
 		++(*this);
 		return iterator;
 	}
-	// tmp + 1
+
 	ListIterator	operator+(difference_type v)
 	{	
 		pointer_type tmp;
@@ -97,7 +102,7 @@ public:
 		return _ptr != other._ptr;
 	}
 
-private:
+protected:
 	pointer_type	_ptr;
 
 };
@@ -547,8 +552,8 @@ public:
 template<typename T>
 bool			operator==(const List<T>& lhs, const List<T>& rhs)
 {
-	typename iterator s1 = lhs.begin();
-	typename iterator s2 = rhs.begin();
+	typename List<T>::iterator s1 = lhs.begin();
+	typename List<T>::iterator s2 = rhs.begin();
 	for((void)s1; s1 != lhs.end(); ++s1)
 	{
 		if (*s1 != *s2 || s2 == rhs.end())
@@ -567,8 +572,8 @@ bool			operator>=(const List<T>& lhs, const List<T>& rhs)
 template<typename T>
 bool			operator>(const List<T>& lhs, const List<T>& rhs)
 {
-	typename iterator s1 = lhs.begin();
-	typename iterator s2 = rhs.begin();
+	typename List<T>::iterator s1 = lhs.begin();
+	typename List<T>::iterator s2 = rhs.begin();
 	for((void)s1; s1 != lhs.end(); ++s1)
 	{
 		if (*s1 < *s2)

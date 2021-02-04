@@ -30,9 +30,9 @@ class TreeIterator
 {
 public:
 	typedef T				value_type;
-	typedef T*				pointer;
+	typedef T*				pointer_type;
 	typedef const T* 		const_pointer;
-	typedef T&				reference;
+	typedef T&				reference_type;
 	typedef const T& 		const_reference;
 	typedef TreeNode<T>*		node_type;
 	typedef	N*			node_pointer;
@@ -81,8 +81,8 @@ public:
 	{
 		node_pointer	tmp;
 		tmp = _ptr;
-		std::cout << v << "\n";
-		std::cout << _ptr->data.first << "\n";
+		// std::cout << v << "\n";
+		// std::cout << _ptr->data.first << "\n";
 		while (v--)
 			tmp = previous();
 		return TreeIterator(tmp);
@@ -101,12 +101,12 @@ public:
 		return iterator;
 	}
 
-	pointer			operator->()
+	pointer_type			operator->()
 	{
 		return &_ptr->data;
 	}
 
-	reference		operator*()
+	reference_type		operator*()
 	{
 		return	_ptr->data;
 	}
@@ -122,8 +122,9 @@ public:
 		return _ptr != other._ptr;
 	}
 
-private:
+protected:
 	node_pointer	_ptr;
+private:
 
 	node_pointer	next()
 	{
@@ -388,6 +389,8 @@ private:
 			delete leaf;
 		}
 	}
+
+
 
 };
 
