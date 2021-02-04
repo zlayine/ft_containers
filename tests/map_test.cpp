@@ -159,6 +159,9 @@ void	test_map()
 
 	// // ===================== Lower Bound Test
 	
+	// check if tree or tree node
+
+
 	// std::map<int,int>::iterator its = map.begin();
 	// its = map.lower_bound(8);
 	// std::cout << its->first << " " << its->second << "\n";
@@ -197,5 +200,10 @@ void	test_map()
 
 	// std::cout << "upper bound points to: ";
 	// std::cout << rets.second->first << " => " << rets.second->second << '\n';
+
+	// ===================== Operator [] Test
+
+	std::cout << map[2] << "\n";
+	std::cout << mmap[2] << "\n";
 
 }
