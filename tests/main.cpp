@@ -5,6 +5,7 @@ void	test_vector();
 void	test_list();
 void	test_queue();
 void	test_stack();
+void	test_map();
 
 
 int main(int argc, char **argv)
@@ -20,5 +21,7 @@ int main(int argc, char **argv)
 			test_stack();
 		else if (var == "queue")
 			test_queue();
+		else if (var == "map")
+			test_map();
 	}
 }

@@ -5,6 +5,7 @@ MAIN = main.cpp
 SRCS = list_test.cpp \
 	queue_test.cpp \
 	stack_test.cpp \
+	map_test.cpp \
 	vector_test.cpp
 
 CONTAINERS = ../List.hpp \
