@@ -7,9 +7,21 @@ SRCS = list_test.cpp \
 	stack_test.cpp \
 	vector_test.cpp
 
+CONTAINERS = ../List.hpp \
+	../Map.hpp \
+	../Stack.hpp \
+	../Queue.hpp \
+	../Tree.hpp \
+	../Tools.hpp \
+	../Vector.hpp \
+	../Deque.hpp \
+	../ReverseIterator.hpp \
+	../Node.hpp  
+
+
 all: $(NAME)
 
-$(NAME): $(MEGAPHONE)
+$(NAME): $(MAIN) $(SRCS) $(CONTAINERS)
 	@g++  $(MAIN) $(SRCS) -o $(NAME)
 	@echo "CONTAINERS ARE READY! NO FLAGS"
 

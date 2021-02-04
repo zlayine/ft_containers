@@ -36,6 +36,19 @@ void	print_temp(L1 &x, L2 &y)
 	std::cout << "\n----------e----------\n"; 
 }
 
+template<typename C>
+C	reinsert()
+{
+	C list;
+
+	list.push_back(1);
+	list.push_back(2);
+	list.push_back(3);
+	list.push_back(4);
+	list.push_back(5);
+	return list;
+}
+
 void	test_list()
 {
 	ft::List<int>		mlist;
@@ -44,21 +57,27 @@ void	test_list()
 	std::list<int>		list;
 	std::list<int>		list2;
 
+
+	mlist = reinsert<ft::List<int> >();
+	list = reinsert<std::list<int> >();
+
 	/* =====================> Push test 1 */
 
-	mlist.push_back(1);
-	mlist.push_back(2);
-	mlist.push_back(3);
-	mlist.push_back(4);
-	mlist.push_back(5);
+	print_temp<int, ft::List<int>, std::list<int> >(mlist, list);
 
-	list.push_back(1);
-	list.push_back(2);
-	list.push_back(3);
-	list.push_back(4);
-	list.push_back(5);
+	/* =====================> Reverse Iteration print */
 
-	// print_temp<int, ft::List<int>, std::list<int> >(mlist, list);
+	// std::cout << "----------mine:----------\n"; 
+	// for(ft::List<int>::reverse_iterator	it = mlist.rbegin() ; it != mlist.rend(); ++it)
+	// {
+	// 	std::cout << *it << " ";
+	// }
+	// std::cout << "\n----------syst:----------\n"; 
+	// for(std::list<int>::reverse_iterator it = list.rbegin() ; it != list.rend(); ++it)
+	// {
+	// 	std::cout << *it << " ";
+	// }
+	// std::cout << "\n----------e----------\n"; 
 
 	/* =====================> Pop test 1 */
 
