@@ -147,14 +147,15 @@ public:
 	void				clear()
 	{
 		erase(begin(), end());
-
-		// _tree.destroyTree();
 	}
 
 	//tested 0
-	T&	operator[](int i) const
+	mapped_type&	operator[](key_type const &k)
 	{
-		
+		TreeNode<pair_type> *node = _tree.searchNode(std::pair<key, T>(k, mapped_type()));
+		if (node)
+			return node->data.second;
+		return (*((this->insert(std::make_pair(k,mapped_type()))).first)).second;
 	}
 
 	//tested 0 (iterator position not fixed)
@@ -179,10 +180,7 @@ public:
 	void				insert(iterator first, iterator last)
 	{
 		for((void)first; first != last; ++first)
-		{
-			// std::cout << (*first).first << "\n";
 			insert(*first);
-		}
 	}
 
 	//tested 0 check if deleted to reduce size
@@ -203,10 +201,7 @@ public:
 	void				erase(iterator first, iterator last)
 	{
 		for((void)first; first != last; ++first)
-		{
-			// std::cout << "erasing: " << (*first).first << std::endl;
 			erase(first);
-		}
 	}
 
 	//tested 0
@@ -237,7 +232,7 @@ public:
 	//tested 1
 	iterator			find(const key_type& k)
 	{
-		tree_type *node = _tree.searchNode(pair_type(k, 0));
+		TreeNode<pair_type> *node = _tree.searchNode(std::pair<key, T>(k, mapped_type()));
 		if (node)
 			return iterator(node);
 		else
@@ -271,9 +266,9 @@ public:
 				return it;
 			}
 			else if (k == (*it).first)
-				return
+				return it;
 		}
-		return iterator(new TreeNode<pair_type>(pair_type(-1, 0)));
+		return iterator(new TreeNode<pair_type>(std::make_pair(-1, mapped_type())));
 	}
 
 	//tested 1
@@ -291,7 +286,7 @@ public:
 			if (cmp(k, (*it).first))
 				return it;
 		}
-		return iterator(new TreeNode<pair_type>(pair_type(-1, 0)));
+		return iterator(new TreeNode<pair_type>(std::make_pair(-1, mapped_type())));
 	}
 
 	//tested 1
@@ -300,13 +295,13 @@ public:
 		return upper_bound(k);
 	}
 
-	//tested 0
+	//tested 1
 	std::pair<const_iterator, const_iterator>	equal_range(const key_type& k) const
 	{
 		return std::pair<const_iterator, const_iterator>(lower_bound(k), upper_bound(k));
 	}
 
-	//tested 0
+	//tested 1
 	std::pair<iterator, iterator>				equal_range(const key_type& k)
 	{
 		return std::pair<iterator, iterator>(lower_bound(k), upper_bound(k));
