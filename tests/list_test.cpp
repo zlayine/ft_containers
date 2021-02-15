@@ -391,18 +391,18 @@ void	test_list()
 
 	/* =====================> Sort test 2 */
 
-	// mlist.push_back(3);
-	// mlist.push_back(4);
+	mlist.push_back(2);
+	mlist.push_back(4);
 
-	// list.push_back(3);
-	// list.push_back(4);
+	list.push_back(2);
+	list.push_back(4);
 
-	// print_temp<int, ft::List<int>, std::list<int> >(mlist, list);
+	print_temp<int, ft::List<int>, std::list<int> >(mlist, list);
 
-	// mlist.sort(compare_nothrees);
-	// list.sort(compare_nothrees);
+	mlist.sort(compare_nothrees);
+	list.sort(compare_nothrees);
 
-	// print_temp<int, ft::List<int>, std::list<int> >(mlist, list);
+	print_temp<int, ft::List<int>, std::list<int> >(mlist, list);
 
 	/* =====================> Merge test 1 */
 

@@ -28,11 +28,6 @@ public:
 	{
 	}
 
-	void	hello()
-	{
-		std::cout << "hello\n";
-	}
-
 	pointer_type	getNode() const
 	{
 		return _ptr;
@@ -145,49 +140,49 @@ public:
 		delete _tail;
 	}
 
-	//tested 0
+	//tested 1
 	iterator			begin()
 	{
 		return iterator(_head);
 	}
 
-	//tested 0
+	//tested 1
 	const_iterator		begin() const
 	{
 		return iterator(_head);
 	}
 
-	//tested 0
+	//tested 1
 	iterator			end()
 	{
 		return iterator(_tail);
 	}
 
-	//tested 0
+	//tested 1
 	const_iterator		end() const
 	{
 		return iterator(_tail);
 	}
 
-	//tested 0
+	//tested 1
 	reverse_iterator	rbegin()
 	{
 		return reverse_iterator(_tail);
 	}
 
-	//tested 0
+	//tested 1
 	reverse_iterator	rend()
 	{
 		return reverse_iterator(_head);
 	}
 	
-	//tested 0
+	//tested 1
 	bool				empty() const
 	{
 		return _size == 0;
 	}
 
-	//tested 0
+	//tested 1
 	size_type			size() const
 	{
 		return _size;
@@ -200,25 +195,25 @@ public:
 		return _size;
 	}
 	
-	//tested 0
+	//tested 1
 	reference			front()
 	{
 		return _head->data;
 	}
 
-	//tested 0
+	//tested 1
 	const_reference		front() const
 	{
 		return _head->data;
 	}
 
-	//tested 0
+	//tested 1
 	reference			back()
 	{
 		return _tail->prev->data;
 	}
 
-	//tested 0
+	//tested 1
 	const_reference		back() const
 	{
 		return _tail->prev->data;
@@ -507,15 +502,23 @@ public:
 
 		for(iterator it = begin(); it != end(); ++it)
 		{
+			std::cout << "start:" << *it << "\n";
 			for(iterator its = it + 1; its != end(); ++its)
 			{
+				std::cout << "current:" << *its << "\n";
+
 				if (comp(*its, *it))
 				{
+					std::cout << *its << "\n";
 					tmp = *its;
-					*its = *it;
-					*it = tmp;
+					*its = *(it + 1);
+					*(it + 1) = tmp;
 				}
+				// else
+				// 	break;
 			}
+			std::cout << "\n";
+
 		}
 	}
 
