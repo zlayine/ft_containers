@@ -63,7 +63,7 @@ void	test_list()
 
 	/* =====================> Push test 1 */
 
-	print_temp<int, ft::List<int>, std::list<int> >(mlist, list);
+	// print_temp<int, ft::List<int>, std::list<int> >(mlist, list);
 
 	/* =====================> Reverse Iteration print */
 
@@ -78,6 +78,16 @@ void	test_list()
 	// 	std::cout << *it << " ";
 	// }
 	// std::cout << "\n----------e----------\n"; 
+
+	/* =====================> Front */
+
+	// std::cout << mlist.front() << std::endl;
+	// std::cout << list.front() << std::endl;
+
+	/* =====================> Back */
+
+	// std::cout << mlist.back() << std::endl;
+	// std::cout << list.back() << std::endl;
 
 	/* =====================> Pop test 1 */
 
@@ -123,21 +133,19 @@ void	test_list()
 	/* =====================> Insert test 1 */
 
 	// ft::List<int>::iterator it = mlist.begin();
-	// // it++;
-	// // it++;
-	// // it++;
-	// // it++;
-	// // it++;
+	// it++;
+	// it++;
+	// it++;
+	// it++;
 	// it = mlist.insert(it, 10);
 	// mlist.insert(it, 2, 100);
 	// std::cout << *it << std::endl;
 
 	// std::list<int>::iterator its = list.begin();
-	// // its++;
-	// // its++;
-	// // its++;
-	// // its++;
-	// // its++;
+	// its++;
+	// its++;
+	// its++;
+	// its++;
 	// its = list.insert(its, 10);
 	// list.insert(its, 2, 100);
 	// std::cout << *its << std::endl;
@@ -146,25 +154,20 @@ void	test_list()
 
 	/* =====================> Insert test 2 */
 
-	// mlist2.push_back(9);
 	// ft::List<int>::iterator it = mlist2.begin();
-	// it++;
 	// mlist2.insert(it, mlist.begin(), mlist.end());
 
-	// list2.push_back(9);
 	// std::list<int>::iterator its = list2.begin();
-	// its++;
 	// list2.insert(its, list.begin(), list.end());
 
 	// print_temp<int, ft::List<int>, std::list<int> >(mlist2, list2);
 
-	/* =====================> Insert test 3 */
+	/* =====================> Erase test 1 */
 
 	// ft::List<int>::iterator it = mlist.begin();
 	// it++;
 	// it++;
 	// it++;
-	// // it++;
 	// it = mlist.erase(it);
 	// it = mlist.erase(it);
 	// std::cout << *it << std::endl;
@@ -173,14 +176,13 @@ void	test_list()
 	// its++;
 	// its++;
 	// its++;
-	// // its++;
 	// its = list.erase(its);
 	// its = list.erase(its);
 	// std::cout << *its << std::endl;
 
 	// print_temp<int, ft::List<int>, std::list<int> >(mlist, list);
 
-	/* =====================> Erase test 1 */
+	/* =====================> Erase test 2 */
 
 	// ft::List<int>::iterator it = mlist.begin();
 	// it++;
@@ -196,7 +198,7 @@ void	test_list()
 
 	// print_temp<int, ft::List<int>, std::list<int> >(mlist, list);
 
-	/* =====================> Erase test 2 */
+	/* =====================> Erase test 3 */
 
 	// ft::List<int>::iterator it = mlist.begin();
 	// it = mlist.erase(mlist.begin(), mlist.end());
@@ -446,6 +448,8 @@ void	test_list()
 	// list.reverse();
 
 	// print_temp<int, ft::List<int>, std::list<int> >(mlist, list);
+
+	/* =====================> Operations */
 
 	// std::cout << "**	OPERATORS 	**" << std::endl;
 	// bool a;

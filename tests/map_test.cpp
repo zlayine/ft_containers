@@ -203,7 +203,7 @@ void	test_map()
 
 	// ===================== Operator [] Test
 
-	std::cout << map[2] << "\n";
-	std::cout << mmap[2] << "\n";
+	// std::cout << map[2] << "\n";
+	// std::cout << mmap[2] << "\n";
 
 }
