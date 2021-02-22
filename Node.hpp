@@ -53,6 +53,18 @@ public:
 		this->prev = rhs->prev;
 		return *this;
 	}
+
+	void		swap(Node<T> *toswap)
+	{
+		toswap->prev = this->prev;
+		this->prev = toswap;
+		this->next = toswap->next;
+		toswap->next = this;
+		if (this->prev)
+			this->prev->next = toswap;
+		if (this->next)
+			this->next->prev = this;
+	}
 };
 
 }

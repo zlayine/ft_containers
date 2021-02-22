@@ -428,7 +428,7 @@ public:
 		}
 	}
 
-	//tested 0
+	//tested 1
 	void				merge(List<T>& x)
 	{
 		iterator s1 = begin();
@@ -451,7 +451,7 @@ public:
 		splice(s1, x);
 	}
 
-	//tested 0
+	//tested 1
 	template <class Compare>
 	void				merge(List<T>& x, Compare comp)
 	{
@@ -482,7 +482,7 @@ public:
 
 		for(iterator it = begin(); it != end(); ++it)
 		{
-			for(iterator its = it + 1; its != end(); ++its)
+			for(iterator its = it; its != end(); ++its)
 			{
 				if (*its < *it)
 				{
@@ -498,24 +498,25 @@ public:
 	template <class Compare>
 	void				sort(Compare comp)
 	{
-		T	tmp;
+		iterator	tmp;
 
 		for(iterator it = begin(); it != end(); ++it)
 		{
 			std::cout << "start:" << *it << "\n";
-			for(iterator its = it + 1; its != end(); ++its)
+			for(iterator its = it; its != end(); ++its)
 			{
 				std::cout << "current:" << *its << "\n";
-
 				if (comp(*its, *it))
 				{
-					std::cout << *its << "\n";
-					tmp = *its;
-					*its = *(it + 1);
-					*(it + 1) = tmp;
+					std::cout << "cmp: " << *its << "\n";
+					// swap node relations
+					its.getNode()->swap(it.getNode());
+					// swap nodes
+					tmp = its;
+					its = it;
+					it = tmp;
+
 				}
-				// else
-				// 	break;
 			}
 			std::cout << "\n";
 
