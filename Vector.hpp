@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "ReverseIterator.hpp"
+#include <cmath>
 
 namespace ft {
 
@@ -210,11 +211,20 @@ public:
 		return _top;
 	}
 
-	// not done
 	//tested 0
 	size_type			max_size() const
 	{
-		return _top;
+		long long size;
+		#ifdef __x86_64
+			size = pow(2, 64) / sizeof(T) - 1;
+		#else
+		#ifdef _M_AMD64
+			size = pow(2, 64) / sizeof(T) - 1;
+		#else
+			size = pow(2, 32) / sizeof(T) - 1;
+		#endif
+		#endif
+		return size;
 	}
 
 	//tested 1

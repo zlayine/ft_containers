@@ -7,9 +7,9 @@ void	test_queue();
 void	test_stack();
 void	test_map();
 
-
 int main(int argc, char **argv)
 {
+
 	if (argc > 1)
 	{
 		std::string var = argv[1];

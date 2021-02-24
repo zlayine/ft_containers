@@ -4,9 +4,10 @@
 #include <iostream>
 #include "Node.hpp"
 #include "ReverseIterator.hpp"
+#include <cmath>
 
 namespace ft {
-	
+
 template<typename List>
 class ListIterator
 {
@@ -132,6 +133,10 @@ public:
 
 	List(List<T> const &src)
 	{
+		_size = 0;
+		_head = _tail = new Node<T>();
+		for(iterator it = src.begin(); it != src.end(); ++it)
+			push_back(*it);
 	}
 
 	virtual ~List()
@@ -188,11 +193,20 @@ public:
 		return _size;
 	}
 
-	// not done
-	//tested 0
+	//tested 1
 	size_type			max_size() const
 	{
-		return _size;
+		long long size;
+		#ifdef __x86_64
+			size = pow(2, 64) / sizeof(Node<T>) - 1;
+		#else
+		#ifdef _M_AMD64
+			size = pow(2, 64) / sizeof(Node<T>) - 1;
+		#else
+			size = pow(2, 32) / sizeof(Node<T>) - 1;
+		#endif
+		#endif
+		return size;
 	}
 	
 	//tested 1
@@ -515,11 +529,9 @@ public:
 					tmp = its;
 					its = it;
 					it = tmp;
-
 				}
 			}
-			std::cout << "\n";
-
+			// std::cout << "\n";
 		}
 	}
 

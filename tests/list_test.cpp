@@ -57,9 +57,28 @@ void	test_list()
 	std::list<int>		list;
 	std::list<int>		list2;
 
-
 	mlist = reinsert<ft::List<int> >();
 	list = reinsert<std::list<int> >();
+
+	/* =====================> Max size test 1 */
+
+	// std::cout << mlist.max_size() << std::endl;
+	// std::cout << list.max_size() << std::endl;
+
+	/* =====================> Size test 1 */
+
+	// std::cout << mlist.size() << std::endl;
+	// std::cout << list.size() << std::endl;
+
+	/* =====================> Copy 1 */
+
+	// ft::List<int>		mlist3(mlist);
+	// std::list<int>		list3(list);
+	
+	// std::cout << mlist3.size() << std::endl;
+	// std::cout << list3.size() << std::endl;
+
+	// print_temp<int, ft::List<int>, std::list<int> >(mlist3, list3);
 
 	/* =====================> Push test 1 */
 
@@ -391,18 +410,18 @@ void	test_list()
 
 	/* =====================> Sort test 2 */
 
-	mlist.push_back(2);
-	mlist.push_back(4);
+	// mlist.push_back(2);
+	// mlist.push_back(4);
 
-	list.push_back(2);
-	list.push_back(4);
+	// list.push_back(2);
+	// list.push_back(4);
 
-	print_temp<int, ft::List<int>, std::list<int> >(mlist, list);
+	// print_temp<int, ft::List<int>, std::list<int> >(mlist, list);
 
-	mlist.sort(compare_nothrees);
-	list.sort(compare_nothrees);
+	// mlist.sort(compare_nothrees);
+	// list.sort(compare_nothrees);
 
-	print_temp<int, ft::List<int>, std::list<int> >(mlist, list);
+	// print_temp<int, ft::List<int>, std::list<int> >(mlist, list);
 
 	/* =====================> Merge test 1 */
 
