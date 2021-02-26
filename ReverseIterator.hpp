@@ -1,79 +1,80 @@
 #ifndef REVERSEITERATOR_HPP
-# define REVERSEITERATOR_HPP
+#define REVERSEITERATOR_HPP
 
-namespace ft {
-
-template<typename Iterator>
-class ReverseIterator : public Iterator
+namespace ft
 {
-public:
-    using typename Iterator::value_type;
-    using typename Iterator::pointer_type;
-    using typename Iterator::reference_type;
-    using typename Iterator::difference_type;
 
-    ReverseIterator()
-    {
+	template <typename Iterator>
+	class ReverseIterator : public Iterator
+	{
+	public:
+		using typename Iterator::difference_type;
+		using typename Iterator::pointer_type;
+		using typename Iterator::reference_type;
+		using typename Iterator::value_type;
 
-    }
+		ReverseIterator()
+		{
+		}
 
-    ReverseIterator(Iterator const &it) : Iterator(it)
-    {
+		ReverseIterator(Iterator const &it) : Iterator(it)
+		{
+		}
 
-    }
+		ReverseIterator(const ReverseIterator &src) : Iterator(src._ptr)
+		{
+		}
 
-    ReverseIterator(const ReverseIterator &src) : Iterator(src._ptr)
-    {
-    }
+		ReverseIterator(pointer_type const &ptr, unsigned int len) : Iterator(ptr, len)
+		{
+		}
 
-    ~ReverseIterator() 
-    {
+		~ReverseIterator()
+		{
+		}
 
-    }
+		ReverseIterator &operator=(ReverseIterator const &rhs)
+		{
+			this->_ptr = rhs._ptr;
+			return *this;
+		}
 
-    ReverseIterator&    operator=(ReverseIterator const &rhs)
-    {
-        this->_ptr = rhs._ptr;
-        return *this;
-    }
+		reference_type operator*()
+		{
+			Iterator it(*this);
+			return *--it;
+		}
 
-    reference_type  operator*()
-    {
-        Iterator it(*this);
-        return *--it;
-    }
+		pointer_type operator->()
+		{
+			Iterator it(*this);
+			return &*--it;
+		}
 
-    pointer_type    operator->()
-    {
-        Iterator it(*this);
-        return &*--it;
-    }
+		ReverseIterator operator++()
+		{
+			return Iterator::operator--();
+		}
 
-    ReverseIterator    operator++()
-    {
-		return Iterator::operator--();
-    }
+		ReverseIterator operator++(int)
+		{
+			Iterator it(*this);
+			operator++();
+			return it;
+		}
 
-    ReverseIterator     operator++(int)
-    {
-		Iterator it(*this);
-		operator++();
-		return it;
-    }
+		ReverseIterator operator--()
+		{
+			return Iterator::operator++();
+		}
 
-    ReverseIterator    operator--()
-    {
-		return Iterator::operator++();
-    }
-
-    ReverseIterator     operator--(int)
-    {
-        Iterator it(*this);
-		operator--();
-		return it;
-    }
-
-};
+		ReverseIterator operator--(int)
+		{
+			Iterator it(*this);
+			operator--();
+			return it;
+		}
+	};
 
 }
 

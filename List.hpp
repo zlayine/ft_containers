@@ -196,16 +196,10 @@ namespace ft
 		size_type max_size() const
 		{
 			long long size;
-#ifdef __x86_64
-			size = pow(2, 64) / sizeof(Node<T>) - 1;
-#else
-#ifdef _M_AMD64
-			size = pow(2, 64) / sizeof(Node<T>) - 1;
-#else
-			size = pow(2, 32) / sizeof(Node<T>) - 1;
-#endif
-#endif
-			return size;
+			long long diffsize;
+			size = std::numeric_limits<size_type>::max() / sizeof(Node<T>) - sizeof(T);
+			diffsize = std::numeric_limits<difference_type>::max();
+			return diffsize < size ? diffsize : size;
 		}
 
 		//tested 1
@@ -302,7 +296,6 @@ namespace ft
 		{
 			for (size_t i = 0; i < n; i++)
 				insert(position, val);
-			// _size += n;
 		}
 
 		//tested 1
@@ -312,7 +305,7 @@ namespace ft
 				insert(position, *first);
 		}
 
-		//tested 0  just removed the reference, must be checked again
+		//tested 1
 		iterator erase(iterator position)
 		{
 			position.getNode()->erase();
@@ -325,7 +318,7 @@ namespace ft
 			return iterator(position);
 		}
 
-		//tested 1 (test weird shit with this)
+		//tested 1
 		iterator erase(iterator first, iterator last)
 		{
 			iterator position;
@@ -409,7 +402,7 @@ namespace ft
 			}
 		}
 
-		//tested 1 need more testing
+		//tested 1
 		template <class Predicate>
 		void remove_if(Predicate pred)
 		{
