@@ -8,7 +8,6 @@
 
 namespace ft
 {
-
 	template <typename key, typename T, typename Compare = ft::less<key> >
 	class MapCompare : public std::binary_function<std::pair<key, T>, std::pair<key, T>, bool>
 	{
@@ -19,7 +18,10 @@ namespace ft
 		{
 		}
 
-		// MapCompare(MapCompare const &src);
+		MapCompare(MapCompare const &src)
+		{
+			cmp = src.cmp;
+		}
 
 		virtual ~MapCompare()
 		{
@@ -77,66 +79,59 @@ namespace ft
 			insert(src.begin(), src.end());
 		}
 
-		~Map()
+		virtual ~Map()
 		{
 		}
 
-		// delete this
-		tree_type getTree()
-		{
-			return _tree;
-		}
-
-		//tested 0
+		//tested 1
 		iterator begin()
 		{
 			return iterator(_tree.getHead());
 		}
 
-		//tested 0
+		//tested 1
 		const_iterator begin() const
 		{
 			return iterator(_tree.getHead());
 		}
 
-		//tested 0
+		//tested 1
 		iterator end()
 		{
 			return iterator(_tree.getTail());
 		}
 
-		//tested 0
+		//tested 1
 		const_iterator end() const
 		{
 			return iterator(_tree.getTail());
 		}
 
-		//tested 0
+		//tested 1
 		reverse_iterator rbegin()
 		{
 			return reverse_iterator(_tree.getTail());
 		}
 
-		//tested 0
+		//tested 1
 		reverse_iterator rend()
 		{
 			return reverse_iterator(_tree.getHead());
 		}
 
-		//tested 0
+		//tested 1
 		bool empty() const
 		{
 			return _size == 0;
 		}
 
-		//tested 0
+		//tested 1
 		size_type size() const
 		{
 			return _size;
 		}
 
-		// not done
-		//tested 0
+		//tested 1
 		size_type max_size() const
 		{
 			long long size;
@@ -146,13 +141,13 @@ namespace ft
 			return diffsize < size ? diffsize : size;
 		}
 
-		//tested 0
+		//tested 1
 		void clear()
 		{
 			erase(begin(), end());
 		}
 
-		//tested 0
+		//tested 1
 		mapped_type &operator[](key_type const &k)
 		{
 			TreeNode<pair_type> *node = _tree.searchNode(std::pair<key, T>(k, mapped_type()));
@@ -161,7 +156,7 @@ namespace ft
 			return (*((this->insert(std::make_pair(k, mapped_type()))).first)).second;
 		}
 
-		//tested 0 (iterator position not fixed)
+		//tested 1 (iterator position not fixed)
 		std::pair<iterator, bool> insert(const value_type &val)
 		{
 			if (!_tree.searchNode(val))
@@ -173,7 +168,7 @@ namespace ft
 			return std::pair<iterator, bool>(iterator(_tree.getHead()), false);
 		}
 
-		//tested 0 (should be checked again)
+		//tested 1 (should be checked again)
 		iterator insert(iterator position, const value_type &val)
 		{
 			return insert(val).first;
@@ -186,28 +181,28 @@ namespace ft
 				insert(*first);
 		}
 
-		//tested 0 check if deleted to reduce size
+		//tested 1 
 		void erase(iterator position)
 		{
 			_tree.deleteNode(*position);
 			_size--;
 		}
 
-		//tested 0  check if deleted to reduce size
+		//tested 1 
 		size_type erase(const key_type &k)
 		{
-			_tree.deleteNode(pair_type(k, 0));
+			_tree.deleteNode(std::make_pair(k, mapped_type()));
 			return --_size;
 		}
 
-		//tested 0
+		//tested 1
 		void erase(iterator first, iterator last)
 		{
 			for ((void)first; first != last; ++first)
 				erase(first);
 		}
 
-		//tested 0
+		//tested 1
 		void swap(Map<key, T> &x)
 		{
 			Map<key, T> tmp(x);
@@ -271,7 +266,7 @@ namespace ft
 				else if (k == (*it).first)
 					return it;
 			}
-			return iterator(new TreeNode<pair_type>(std::make_pair(-1, mapped_type())));
+			return this->end();
 		}
 
 		//tested 1
@@ -289,7 +284,7 @@ namespace ft
 				if (cmp(k, (*it).first))
 					return it;
 			}
-			return iterator(new TreeNode<pair_type>(std::make_pair(-1, mapped_type())));
+			return this->end();
 		}
 
 		//tested 1

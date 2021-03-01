@@ -42,11 +42,11 @@ void	test_map()
 	// ===================== Insert Test
 
 	// std:: cout << mp.second << " " << p.second << "\n";
-	// print_tree<Map<int, int>, std::map<int, int> >(mmap, map);
+	// print_tree<ft::Map<int, int>, std::map<int, int> >(mmap, map);
 
 	// ===================== Insert Test
 
-	// Map<int, int>::iterator it = mmap.begin();
+	// ft::Map<int, int>::iterator it = mmap.begin();
 	// it++;
 	// mmap.insert(it, std::pair<int, int>(1, 1));
 
@@ -54,7 +54,7 @@ void	test_map()
 	// its++;
 	// map.insert(its, std::pair<int, int>(1, 1));
 
-	// print_tree<Map<int, int>, std::map<int, int> >(mmap, map);
+	// print_tree<ft::Map<int, int>, std::map<int, int> >(mmap, map);
 
 	// ===================== Insert Test
 
@@ -62,19 +62,19 @@ void	test_map()
 
 	// map2.insert(map.begin(), map.end());
 
-	// print_tree<Map<int, int>, std::map<int, int> >(mmap2, map2);
+	// print_tree<ft::Map<int, int>, std::map<int, int> >(mmap2, map2);
 
 	// ===================== Erase Test
 
-	// Map<int, int>::iterator it = mmap.begin();
-	// // it++;
+	// ft::Map<int, int>::iterator it = mmap.begin();
+	// it++;
 	// mmap.erase(it);
 
 	// std::map<int, int>::iterator its = map.begin();
-	// // its++;
+	// its++;
 	// map.erase(its);
 
-	// print_tree<Map<int, int>, std::map<int, int> >(mmap, map);
+	// print_tree<ft::Map<int, int>, std::map<int, int> >(mmap, map);
 
 	// ===================== Erase Test
 
@@ -82,7 +82,7 @@ void	test_map()
 
 	// map.erase(2);
 	
-	// print_tree<Map<int, int>, std::map<int, int> >(mmap, map);
+	// print_tree<ft::Map<int, int>, std::map<int, int> >(mmap, map);
 
 	// ===================== Erase Test
 
@@ -90,7 +90,7 @@ void	test_map()
 
 	// map.erase(map.begin(), map.end());
 
-	// print_tree<Map<int, int>, std::map<int, int> >(mmap, map);
+	// print_tree<ft::Map<int, int>, std::map<int, int> >(mmap, map);
 
 	// ===================== Clear Test
 
@@ -98,13 +98,13 @@ void	test_map()
 
 	// map.clear();
 
-	// print_tree<Map<int, int>, std::map<int, int> >(mmap, map);
+	// print_tree<ft::Map<int, int>, std::map<int, int> >(mmap, map);
 
 	// mmap.insert(std::pair<int, int>(7, 1));
 
 	// map.insert(std::pair<int, int>(7, 1));
 
-	// print_tree<Map<int, int>, std::map<int, int> >(mmap, map);
+	// print_tree<ft::Map<int, int>, std::map<int, int> >(mmap, map);
 
 	// ===================== Swap Test
 
@@ -159,9 +159,6 @@ void	test_map()
 
 	// // ===================== Lower Bound Test
 	
-	// check if tree or tree node
-
-
 	// std::map<int,int>::iterator its = map.begin();
 	// its = map.lower_bound(8);
 	// std::cout << its->first << " " << its->second << "\n";
@@ -172,13 +169,13 @@ void	test_map()
 
 	// ===================== Upper Bound Test
 	
-	// std::map<int,int>::iterator its = map.begin();
-	// its = map.upper_bound(7);
-	// std::cout << its->first << " " << its->second << "\n";
+	std::map<int,int>::iterator its = map.begin();
+	its = map.upper_bound(8);
+	std::cout << its->first << " " << its->second << "\n";
 
-	// ft::Map<int,int>::iterator it = mmap.begin();
-	// it = mmap.upper_bound(7);
-	// std::cout << it->first << " " << it->second << "\n";
+	ft::Map<int,int>::iterator it = mmap.begin();
+	it = mmap.upper_bound(8);
+	std::cout << it->first << " " << it->second << "\n";
 
 	// ===================== Equal range Test
 	
