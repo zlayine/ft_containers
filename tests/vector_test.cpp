@@ -199,50 +199,50 @@ void test_vector()
 
 	/* =====================> Operations */
 
-	std::cout << "**	OPERATORS 	**" << std::endl;
-	bool a;
+	// std::cout << "**	OPERATORS 	**" << std::endl;
+	// bool a;
 
-	mvector.push_back(1);
-	mvector2.push_back(1);
-	a = mvector == mvector2;
-	std::cout << "mine:	==  	: " << a << std::endl;
+	// mvector.push_back(1);
+	// mvector2.push_back(1);
+	// a = mvector == mvector2;
+	// std::cout << "mine:	==  	: " << a << std::endl;
 
-	vector.push_back(1);
-	vector2.push_back(1);
-	a = vector == vector2;
-	std::cout << "orgn:	==  	: " << a << std::endl;
+	// vector.push_back(1);
+	// vector2.push_back(1);
+	// a = vector == vector2;
+	// std::cout << "orgn:	==  	: " << a << std::endl;
 
-	a = mvector != mvector2;
-	std::cout << "mine:	!=  	: " << a << std::endl;
+	// a = mvector != mvector2;
+	// std::cout << "mine:	!=  	: " << a << std::endl;
 
-	a = vector != vector2;
-	std::cout << "orgn:	!=  	: " << a << std::endl;
+	// a = vector != vector2;
+	// std::cout << "orgn:	!=  	: " << a << std::endl;
 
-	mvector.push_back(2);
-	a = mvector > mvector2;
-	std::cout << "mine:	>  	: " << a << std::endl;
+	// mvector.push_back(2);
+	// a = mvector > mvector2;
+	// std::cout << "mine:	>  	: " << a << std::endl;
 
-	vector.push_back(2);
-	a = vector > vector2;
-	std::cout << "orgn:	>  	: " << a << std::endl;
+	// vector.push_back(2);
+	// a = vector > vector2;
+	// std::cout << "orgn:	>  	: " << a << std::endl;
 
-	a = mvector < mvector2;
-	std::cout << "mine:	<  	: " << a << std::endl;
+	// a = mvector < mvector2;
+	// std::cout << "mine:	<  	: " << a << std::endl;
 
-	a = vector < vector2;
-	std::cout << "orgn:	<  	: " << a << std::endl;
+	// a = vector < vector2;
+	// std::cout << "orgn:	<  	: " << a << std::endl;
 
-	mvector2.push_back(2);
-	a = mvector <= mvector2;
-	std::cout << "mine:	<=  	: " << a << std::endl;
+	// mvector2.push_back(2);
+	// a = mvector <= mvector2;
+	// std::cout << "mine:	<=  	: " << a << std::endl;
 
-	vector2.push_back(2);
-	a = vector <= vector2;
-	std::cout << "orgn:	<=  	: " << a << std::endl;
+	// vector2.push_back(2);
+	// a = vector <= vector2;
+	// std::cout << "orgn:	<=  	: " << a << std::endl;
 
-	a = mvector >= mvector2;
-	std::cout << "mine:	>=  	: " << a << std::endl;
+	// a = mvector >= mvector2;
+	// std::cout << "mine:	>=  	: " << a << std::endl;
 
-	a = vector >= vector2;
-	std::cout << "orgn:	>=  	: " << a << std::endl;
+	// a = vector >= vector2;
+	// std::cout << "orgn:	>=  	: " << a << std::endl;
 }

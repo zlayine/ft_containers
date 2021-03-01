@@ -30,6 +30,9 @@ namespace ft
 		{
 		}
 
+		virtual ~ListIterator(){
+		}
+
 		pointer_type getNode() const
 		{
 			return _ptr;

@@ -7,7 +7,6 @@
 
 namespace ft
 {
-
 	template <typename Vector>
 	class VectorIterator
 	{
@@ -30,6 +29,10 @@ namespace ft
 		}
 
 		VectorIterator(pointer_type ptr, unsigned int len) : i(len), _ptr(ptr)
+		{
+		}
+
+		virtual ~VectorIterator()
 		{
 		}
 
@@ -156,7 +159,7 @@ namespace ft
 			assign(src.begin(), src.end());
 		}
 
-		~Vector()
+		virtual ~Vector()
 		{
 			clear();
 			delete[] _items;
