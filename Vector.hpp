@@ -216,11 +216,7 @@ namespace ft
 		//tested 1
 		size_type max_size() const
 		{
-			long long size;
-			long long diffsize;
-			size = std::numeric_limits<size_type>::max() / sizeof(value_type);
-			diffsize = std::numeric_limits<difference_type>::max();
-			return diffsize < size ? diffsize : size;
+			return std::numeric_limits<size_type>::max() / sizeof(value_type);
 		}
 
 		//tested 1

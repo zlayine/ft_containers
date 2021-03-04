@@ -30,7 +30,8 @@ namespace ft
 		{
 		}
 
-		virtual ~ListIterator(){
+		virtual ~ListIterator()
+		{
 		}
 
 		pointer_type getNode() const
@@ -198,11 +199,7 @@ namespace ft
 		//tested 1
 		size_type max_size() const
 		{
-			long long size;
-			long long diffsize;
-			size = std::numeric_limits<size_type>::max() / sizeof(Node<T>) - sizeof(T);
-			diffsize = std::numeric_limits<difference_type>::max();
-			return diffsize < size ? diffsize : size;
+			return std::numeric_limits<size_type>::max() / sizeof(Node<T>);
 		}
 
 		//tested 1
