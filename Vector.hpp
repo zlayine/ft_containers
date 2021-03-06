@@ -165,61 +165,51 @@ namespace ft
 			delete[] _items;
 		}
 
-		//tested 1
 		iterator begin()
 		{
 			return iterator(_items);
 		}
 
-		//tested 1
 		const_iterator begin() const
 		{
 			return iterator(_items);
 		}
 
-		//tested 1
 		iterator end()
 		{
 			return iterator(_items, _top);
 		}
 
-		//tested 1
 		const_iterator end() const
 		{
 			return iterator(_items, _top);
 		}
 
-		//tested 0
 		reverse_iterator rbegin()
 		{
 			return reverse_iterator(_items, _top);
 		}
 
-		//tested 0
 		reverse_iterator rend()
 		{
 			return reverse_iterator(_items);
 		}
 
-		//tested 1
 		bool empty() const
 		{
 			return _top == 0;
 		}
 
-		//tested 1
 		size_t size() const
 		{
 			return _top;
 		}
 
-		//tested 1
 		size_type max_size() const
 		{
 			return std::numeric_limits<size_type>::max() / sizeof(value_type);
 		}
 
-		//tested 1
 		void resize(size_type n, value_type val = value_type())
 		{
 			if (n < _top)
@@ -235,20 +225,17 @@ namespace ft
 			}
 		}
 
-		//tested 1
 		size_type capacity() const
 		{
 			return _cap;
 		}
 
-		//tested 1
 		void reserve(size_type n)
 		{
 			if (n > _cap)
 				re_alloc_items(n);
 		}
 
-		//tested 1
 		reference at(size_type n)
 		{
 			if (n > _top || n < 0)
@@ -256,7 +243,6 @@ namespace ft
 			return _items[n];
 		}
 
-		//tested 1
 		const_reference at(size_type n) const
 		{
 			if (n > _top || n < 0)
@@ -264,31 +250,26 @@ namespace ft
 			return at(n);
 		}
 
-		//tested 1
 		reference front()
 		{
 			return _items[0];
 		}
 
-		//tested 1
 		const_reference front() const
 		{
 			return _items[0];
 		}
 
-		//tested 1
 		reference back()
 		{
 			return _items[_top - 1];
 		}
 
-		//tested 1
 		const_reference back() const
 		{
 			return _items[_top - 1];
 		}
 
-		//tested 1
 		void assign(iterator first, iterator last)
 		{
 			clear();
@@ -296,7 +277,6 @@ namespace ft
 				push_back(*first);
 		}
 
-		//tested 1
 		void assign(size_type n, const value_type &val)
 		{
 			clear();
@@ -304,7 +284,6 @@ namespace ft
 				push_back(val);
 		}
 
-		//tested 1
 		void push_back(const value_type &val)
 		{
 			if (_top == _cap)
@@ -312,17 +291,13 @@ namespace ft
 			_items[_top++] = val;
 		}
 
-		// tested 0 (test with the capacity if it changes with orgn)
 		void pop_back()
 		{
 			if (_top > 0)
 				_top--;
-			// this one is not included
-			// if (_top < _cap / 2)
-			// re_alloc_items(_cap / 2);
+			
 		}
 
-		//tested 1
 		iterator insert(iterator position, const value_type &val)
 		{
 			if (_top + 1 == _cap)
@@ -334,14 +309,12 @@ namespace ft
 			return iterator(position);
 		}
 
-		//tested 1
 		void insert(iterator position, size_type n, const value_type &val)
 		{
 			for (size_t i = 0; i < n; i++)
 				insert(position, val);
 		}
 
-		//tested 1
 		void insert(iterator position, iterator first, iterator last)
 		{
 			for ((void)first; first != last; ++first)
@@ -354,7 +327,6 @@ namespace ft
 			}
 		}
 
-		//tested 1
 		iterator erase(iterator position)
 		{
 			for (iterator it = position; it != end(); ++it)
@@ -363,7 +335,6 @@ namespace ft
 			return iterator(position);
 		}
 
-		//tested 0
 		iterator erase(iterator first, iterator last)
 		{
 			int returnPosition = 0;
@@ -376,7 +347,6 @@ namespace ft
 			return iterator(&this->_items[returnPosition]);
 		}
 
-		//tested 1
 		void swap(Vector<T> &x)
 		{
 			Vector<T> tmp;
@@ -390,7 +360,6 @@ namespace ft
 				push_back(*it);
 		}
 
-		//tested 1
 		void clear()
 		{
 			size_type total = _top;
@@ -398,7 +367,6 @@ namespace ft
 				pop_back();
 		}
 
-		//tested 1
 		T &operator[](int i) const
 		{
 			if (i >= _top || i < 0)
@@ -516,7 +484,6 @@ namespace ft
 		}
 		return false;
 	}
-
 }
 
 #endif

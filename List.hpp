@@ -148,85 +148,71 @@ namespace ft
 			delete _tail;
 		}
 
-		//tested 1
 		iterator begin()
 		{
 			return iterator(_head);
 		}
 
-		//tested 1
 		const_iterator begin() const
 		{
 			return iterator(_head);
 		}
 
-		//tested 1
 		iterator end()
 		{
 			return iterator(_tail);
 		}
 
-		//tested 1
 		const_iterator end() const
 		{
 			return iterator(_tail);
 		}
 
-		//tested 1
 		reverse_iterator rbegin()
 		{
 			return reverse_iterator(_tail);
 		}
 
-		//tested 1
 		reverse_iterator rend()
 		{
 			return reverse_iterator(_head);
 		}
 
-		//tested 1
 		bool empty() const
 		{
 			return _size == 0;
 		}
 
-		//tested 1
 		size_type size() const
 		{
 			return _size;
 		}
 
-		//tested 1
 		size_type max_size() const
 		{
 			return std::numeric_limits<size_type>::max() / sizeof(Node<T>);
 		}
 
-		//tested 1
 		reference front()
 		{
 			return _head->data;
 		}
 
-		//tested 1
 		const_reference front() const
 		{
 			return _head->data;
 		}
 
-		//tested 1
 		reference back()
 		{
 			return _tail->prev->data;
 		}
 
-		//tested 1
 		const_reference back() const
 		{
 			return _tail->prev->data;
 		}
 
-		//tested 1
 		void assign(size_type n, const value_type &val)
 		{
 			clear();
@@ -234,7 +220,6 @@ namespace ft
 				push_front(val);
 		}
 
-		//tested 1
 		void assign(iterator first, iterator last)
 		{
 			clear();
@@ -242,7 +227,6 @@ namespace ft
 				push_front(*first);
 		}
 
-		//tested 1
 		void push_front(const T &val)
 		{
 			Node<T> *n = new Node<T>(val);
@@ -251,7 +235,6 @@ namespace ft
 			_size++;
 		}
 
-		//tested 1
 		void push_back(const T &val)
 		{
 			Node<T> *n = new Node<T>(val);
@@ -260,7 +243,6 @@ namespace ft
 				_head = n;
 		}
 
-		//tested 1
 		void pop_front()
 		{
 			if (!_size)
@@ -270,7 +252,6 @@ namespace ft
 				_head = _tail;
 		}
 
-		//tested 1
 		void pop_back()
 		{
 			if (!_size)
@@ -280,7 +261,6 @@ namespace ft
 				_head = _tail;
 		}
 
-		//tested 1
 		iterator insert(iterator position, const value_type &val)
 		{
 			Node<T> *n = new Node<T>(val);
@@ -291,21 +271,18 @@ namespace ft
 			return iterator(n);
 		}
 
-		//tested 1
 		void insert(iterator position, size_type n, const value_type &val)
 		{
 			for (size_t i = 0; i < n; i++)
 				insert(position, val);
 		}
 
-		//tested 1
 		void insert(iterator position, iterator first, iterator last)
 		{
 			for ((void)first; first != last; ++first)
 				insert(position, *first);
 		}
 
-		//tested 1
 		iterator erase(iterator position)
 		{
 			position.getNode()->erase();
@@ -318,7 +295,6 @@ namespace ft
 			return iterator(position);
 		}
 
-		//tested 1
 		iterator erase(iterator first, iterator last)
 		{
 			iterator position;
@@ -332,7 +308,6 @@ namespace ft
 			return iterator(position);
 		}
 
-		//tested 1
 		void swap(List<T> &x)
 		{
 			List<T> tmp;
@@ -346,7 +321,6 @@ namespace ft
 				push_back(*it);
 		}
 
-		//tested 1
 		void resize(size_type n, value_type val = value_type())
 		{
 			if (n < _size)
@@ -362,14 +336,12 @@ namespace ft
 			}
 		}
 
-		//tested 1
 		void clear()
 		{
 			for (iterator it = begin(); it != end(); ++it)
 				pop_front();
 		}
 
-		//tested 1
 		void splice(iterator position, List<T> &x)
 		{
 			for (iterator it = x.begin(); it != x.end(); ++it)
@@ -377,14 +349,12 @@ namespace ft
 			x.clear();
 		}
 
-		//tested 1
 		void splice(iterator position, List<T> &x, iterator i)
 		{
 			insert(position, *i);
 			x.erase(i);
 		}
 
-		//tested 1
 		void splice(iterator position, List<T> &x, iterator first, iterator last)
 		{
 			for (iterator it = first; it != last; ++it)
@@ -392,7 +362,6 @@ namespace ft
 			x.erase(first, last);
 		}
 
-		//tested 1
 		void remove(const value_type &val)
 		{
 			for (iterator it = begin(); it != end(); ++it)
@@ -402,7 +371,6 @@ namespace ft
 			}
 		}
 
-		//tested 1
 		template <class Predicate>
 		void remove_if(Predicate pred)
 		{
@@ -413,7 +381,6 @@ namespace ft
 			}
 		}
 
-		//tested 1
 		void unique()
 		{
 			for (iterator it = begin() + 1; it != end(); ++it)
@@ -423,7 +390,6 @@ namespace ft
 			}
 		}
 
-		//tested 1
 		template <class BinaryPredicate>
 		void unique(BinaryPredicate binary_pred)
 		{
@@ -434,7 +400,6 @@ namespace ft
 			}
 		}
 
-		//tested 1
 		void merge(List<T> &x)
 		{
 			iterator s1 = begin();
@@ -457,7 +422,6 @@ namespace ft
 			splice(s1, x);
 		}
 
-		//tested 1
 		template <class Compare>
 		void merge(List<T> &x, Compare comp)
 		{
@@ -481,7 +445,6 @@ namespace ft
 			splice(s1, x);
 		}
 
-		//tested 1
 		void sort()
 		{
 			iterator tmp;
@@ -504,7 +467,6 @@ namespace ft
 			}
 		}
 
-		//tested 1
 		template <class Compare>
 		void sort(Compare comp)
 		{
@@ -528,7 +490,6 @@ namespace ft
 			}
 		}
 
-		//tested 1
 		void reverse()
 		{
 			T tmp;

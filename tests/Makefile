@@ -15,7 +15,6 @@ CONTAINERS = ../List.hpp \
 	../Tree.hpp \
 	../Tools.hpp \
 	../Vector.hpp \
-	../Deque.hpp \
 	../ReverseIterator.hpp \
 	../Node.hpp  
 

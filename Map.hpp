@@ -83,67 +83,56 @@ namespace ft
 		{
 		}
 
-		//tested 1
 		iterator begin()
 		{
 			return iterator(_tree.getHead());
 		}
 
-		//tested 1
 		const_iterator begin() const
 		{
 			return iterator(_tree.getHead());
 		}
 
-		//tested 1
 		iterator end()
 		{
 			return iterator(_tree.getTail());
 		}
 
-		//tested 1
 		const_iterator end() const
 		{
 			return iterator(_tree.getTail());
 		}
 
-		//tested 1
 		reverse_iterator rbegin()
 		{
 			return reverse_iterator(_tree.getTail());
 		}
 
-		//tested 1
 		reverse_iterator rend()
 		{
 			return reverse_iterator(_tree.getHead());
 		}
 
-		//tested 1
 		bool empty() const
 		{
 			return _size == 0;
 		}
 
-		//tested 1
 		size_type size() const
 		{
 			return _size;
 		}
 
-		//tested 1
 		size_type max_size() const
 		{
 			return std::numeric_limits<size_type>::max() / sizeof(node_type);
 		}
 
-		//tested 1
 		void clear()
 		{
 			erase(begin(), end());
 		}
 
-		//tested 1
 		mapped_type &operator[](key_type const &k)
 		{
 			TreeNode<pair_type> *node = _tree.searchNode(std::pair<key, T>(k, mapped_type()));
@@ -152,7 +141,6 @@ namespace ft
 			return (*((this->insert(std::make_pair(k, mapped_type()))).first)).second;
 		}
 
-		//tested 1 (iterator position not fixed)
 		std::pair<iterator, bool> insert(const value_type &val)
 		{
 			if (!_tree.searchNode(val))
@@ -164,41 +152,35 @@ namespace ft
 			return std::pair<iterator, bool>(iterator(_tree.getHead()), false);
 		}
 
-		//tested 1 (should be checked again)
 		iterator insert(iterator position, const value_type &val)
 		{
 			return insert(val).first;
 		}
 
-		//tested 1
 		void insert(iterator first, iterator last)
 		{
 			for ((void)first; first != last; ++first)
 				insert(*first);
 		}
 
-		//tested 1 
 		void erase(iterator position)
 		{
 			_tree.deleteNode(*position);
 			_size--;
 		}
 
-		//tested 1 
 		size_type erase(const key_type &k)
 		{
 			_tree.deleteNode(std::make_pair(k, mapped_type()));
 			return --_size;
 		}
 
-		//tested 1
 		void erase(iterator first, iterator last)
 		{
 			for ((void)first; first != last; ++first)
 				erase(first);
 		}
 
-		//tested 1
 		void swap(Map<key, T> &x)
 		{
 			Map<key, T> tmp(x);
@@ -209,21 +191,18 @@ namespace ft
 			insert(tmp.begin(), tmp.end());
 		}
 
-		//tested 1
 		key_compare key_comp() const
 		{
 			key_compare cmp;
 			return cmp;
 		}
 
-		//tested 1
 		value_compare value_comp() const
 		{
 			value_compare cmp;
 			return cmp;
 		}
 
-		//tested 1
 		iterator find(const key_type &k)
 		{
 			TreeNode<pair_type> *node = _tree.searchNode(std::pair<key, T>(k, mapped_type()));
@@ -233,13 +212,11 @@ namespace ft
 				return end();
 		}
 
-		//tested 1
 		const_iterator find(const key_type &k) const
 		{
 			return find(k);
 		}
 
-		//tested 1
 		size_type count(const key_type &k) const
 		{
 			if (find(k))
@@ -247,7 +224,6 @@ namespace ft
 			return 0;
 		}
 
-		//tested 1
 		iterator lower_bound(const key_type &k)
 		{
 			Compare cmp;
@@ -265,13 +241,11 @@ namespace ft
 			return this->end();
 		}
 
-		//tested 1
 		const_iterator lower_bound(const key_type &k) const
 		{
 			return lower_bound(k);
 		}
 
-		//tested 1
 		iterator upper_bound(const key_type &k)
 		{
 			Compare cmp;
@@ -283,19 +257,17 @@ namespace ft
 			return this->end();
 		}
 
-		//tested 1
 		const_iterator upper_bound(const key_type &k) const
 		{
 			return upper_bound(k);
 		}
 
-		//tested 1
 		std::pair<const_iterator, const_iterator> equal_range(const key_type &k) const
 		{
 			return std::pair<const_iterator, const_iterator>(lower_bound(k), upper_bound(k));
 		}
 
-		//tested 1
+		
 		std::pair<iterator, iterator> equal_range(const key_type &k)
 		{
 			return std::pair<iterator, iterator>(lower_bound(k), upper_bound(k));

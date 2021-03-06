@@ -323,13 +323,7 @@ namespace ft
 					delete leaf;
 					return tmp;
 				}
-				// Simple way to delete
-				// node_pointer tmp = minValueNode(leaf->right);
-				// std::cout << tmp->data.first << std::endl;
-				// leaf->data = tmp->data;
-				// leaf->right = deleteNode(tmp->data, leaf->right);
-
-				//optimized way to delete
+			
 				node_pointer succParent = leaf;
 
 				node_pointer succ = leaf->right;

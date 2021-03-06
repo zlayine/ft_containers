@@ -20,7 +20,6 @@ namespace ft
 		{
 		}
 
-		//tested 1
 		Queue(const Queue<T> &src)
 		{
 			this->c = src.c;
@@ -30,37 +29,31 @@ namespace ft
 		{
 		}
 
-		//tested 1
 		bool empty()
 		{
 			return this->c.empty();
 		}
 
-		//tested 1
 		size_t size()
 		{
 			return this->c.size();
 		}
 
-		//tested 1
 		T &front()
 		{
 			return this->c.front();
 		}
 
-		//tested 1
 		T &back()
 		{
 			return this->c.back();
 		}
 
-		//tested 1
 		void push(const T &item)
 		{
 			this->c.push_back(item);
 		}
 
-		//tested 1
 		void pop()
 		{
 			this->c.pop_front();
@@ -72,43 +65,32 @@ namespace ft
 			return *this;
 		}
 	};
-	
-	//tested 1
+
 	template <typename value, typename container>
 	bool operator==(const Queue<value, container> &lhs, const Queue<value, container> &rhs)
 	{
 		return lhs.c == rhs.c;
 	}
-
-	//tested 1
 	template <typename value, typename container>
 	bool operator>=(const Queue<value, container> &lhs, const Queue<value, container> &rhs)
 	{
 		return !(lhs.c < rhs.c);
 	}
-
-	//tested 1
 	template <typename value, typename container>
 	bool operator>(const Queue<value, container> &lhs, const Queue<value, container> &rhs)
 	{
 		return lhs.c > rhs.c;
 	}
-
-	//tested 1
 	template <typename value, typename container>
 	bool operator<=(const Queue<value, container> &lhs, const Queue<value, container> &rhs)
 	{
 		return !(lhs.c > rhs.c);
 	}
-
-	//tested 1
 	template <typename value, typename container>
 	bool operator<(const Queue<value, container> &lhs, const Queue<value, container> &rhs)
 	{
 		return (rhs.c > lhs.c);
 	}
-
-	//tested 1
 	template <typename value, typename container>
 	bool operator!=(const Queue<value, container> &lhs, const Queue<value, container> &rhs)
 	{

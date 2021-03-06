@@ -20,7 +20,6 @@ namespace ft
 		{
 		}
 
-		//tested 1
 		Stack(const Stack<T> &src)
 		{
 			this->c = src.c;
@@ -30,37 +29,31 @@ namespace ft
 		{
 		}
 
-		//tested 1
 		bool empty()
 		{
 			return this->c.empty();
 		}
 
-		//tested 1
 		size_t size()
 		{
 			return this->c.size();
 		}
 
-		//tested 1
 		T &top()
 		{
 			return this->c.back();
 		}
 
-		//tested 1
 		void push(const T &item)
 		{
 			this->c.push_front(item);
 		}
 
-		//tested 1
 		void pop()
 		{
 			this->c.pop_back();
 		}
 
-		//tested 1
 		Stack<T> &operator=(const Stack<T> &lhs)
 		{
 			this->c = lhs.c;
