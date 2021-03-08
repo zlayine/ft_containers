@@ -16,7 +16,7 @@ namespace ft
 		typedef value_type &reference_type;
 		typedef ptrdiff_t difference_type;
 
-		VectorIterator() : i(0), _ptr(nullptr)
+		VectorIterator() : _ptr(nullptr), i(0)
 		{
 		}
 
@@ -24,11 +24,11 @@ namespace ft
 		{
 		}
 
-		VectorIterator(pointer_type ptr) : i(0), _ptr(ptr)
+		VectorIterator(pointer_type ptr) : _ptr(ptr), i(0)
 		{
 		}
 
-		VectorIterator(pointer_type ptr, unsigned int len) : i(len), _ptr(ptr)
+		VectorIterator(pointer_type ptr, unsigned int len) : _ptr(ptr), i(len)
 		{
 		}
 
@@ -295,7 +295,6 @@ namespace ft
 		{
 			if (_top > 0)
 				_top--;
-			
 		}
 
 		iterator insert(iterator position, const value_type &val)
@@ -369,7 +368,7 @@ namespace ft
 
 		T &operator[](int i) const
 		{
-			if (i >= _top || i < 0)
+			if (static_cast<size_type>(i) >= _top || i < 0)
 				throw std::out_of_range("Index out of range");
 			return _items[i];
 		}
@@ -381,7 +380,7 @@ namespace ft
 			_items = new T[rhs._cap];
 			_top = rhs._top;
 			_cap = rhs._cap;
-			for (int i = 0; i < _top; i++)
+			for (size_type i = 0; i < _top; i++)
 				_items[i] = rhs._items[i];
 			return *this;
 		}
@@ -394,7 +393,7 @@ namespace ft
 			return false;
 		if (rhs.size() == 0)
 			return true;
-		for (int i = 0; i < rhs.size(); i++)
+		for (size_t i = 0; i < rhs.size(); i++)
 		{
 			if (rhs[i] != lhs[i])
 				return false;
@@ -409,7 +408,7 @@ namespace ft
 			return false;
 		if ((rhs.size() == 0 && lhs.size() == 0) || rhs.size() < lhs.size())
 			return true;
-		for (int i = 0; i < rhs.size(); i++)
+		for (size_t i = 0; i < rhs.size(); i++)
 		{
 			if (rhs[i] > lhs[i])
 				return false;
@@ -426,7 +425,7 @@ namespace ft
 			return false;
 		if (rhs.size() < lhs.size())
 			return true;
-		for (int i = 0; i < rhs.size(); i++)
+		for (size_t i = 0; i < rhs.size(); i++)
 		{
 			if (rhs[i] > lhs[i])
 				return false;
@@ -443,7 +442,7 @@ namespace ft
 			return false;
 		if ((rhs.size() == 0 && lhs.size() == 0) || lhs.size() < rhs.size())
 			return true;
-		for (int i = 0; i < rhs.size(); i++)
+		for (size_t i = 0; i < rhs.size(); i++)
 		{
 			if (rhs[i] < lhs[i])
 				return false;
@@ -460,7 +459,7 @@ namespace ft
 			return false;
 		if (lhs.size() < rhs.size())
 			return true;
-		for (int i = 0; i < rhs.size(); i++)
+		for (size_t i = 0; i < rhs.size(); i++)
 		{
 			if (rhs[i] < lhs[i])
 				return false;
@@ -477,13 +476,13 @@ namespace ft
 			return true;
 		if (rhs.size() == 0)
 			return false;
-		for (int i = 0; i < rhs.size(); i++)
+		for (size_t i = 0; i < rhs.size(); i++)
 		{
 			if (rhs[i] != lhs[i])
 				return true;
 		}
 		return false;
 	}
-}
+} // namespace ft
 
 #endif
