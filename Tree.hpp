@@ -80,8 +80,6 @@ namespace ft
 		{
 			node_pointer tmp;
 			tmp = _ptr;
-			// std::cout << v << "\n";
-			// std::cout << _ptr->data.first << "\n";
 			while (v--)
 				tmp = previous();
 			return TreeIterator(tmp);
@@ -118,6 +116,13 @@ namespace ft
 		bool operator!=(const TreeIterator &other) const
 		{
 			return _ptr != other._ptr;
+		}
+
+
+		TreeIterator &operator=(const TreeIterator &src)
+		{
+			_ptr = src._ptr;
+			return *this;
 		}
 
 	protected:

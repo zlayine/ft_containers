@@ -154,6 +154,7 @@ namespace ft
 
 		iterator insert(iterator position, const value_type &val)
 		{
+			position = 0;
 			return insert(val).first;
 		}
 

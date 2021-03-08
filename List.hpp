@@ -39,14 +39,12 @@ namespace ft
 			return _ptr;
 		}
 
-		// if its the end it segfault
 		ListIterator &operator++()
 		{
 			_ptr = _ptr->next;
 			return *this;
 		}
 
-		// if its the end it segfault
 		ListIterator operator++(int)
 		{
 			ListIterator iterator = *this;
@@ -101,6 +99,12 @@ namespace ft
 		bool operator!=(const ListIterator &other) const
 		{
 			return _ptr != other._ptr;
+		}
+
+		ListIterator &operator=(const ListIterator &src)
+		{
+			_ptr = src._ptr;
+			return *this;
 		}
 
 	protected:
@@ -217,14 +221,14 @@ namespace ft
 		{
 			clear();
 			for (size_type i = 0; i < n; i++)
-				push_front(val);
+				push_back(val);
 		}
 
 		void assign(iterator first, iterator last)
 		{
 			clear();
 			for ((void)first; first != last; ++first)
-				push_front(*first);
+				push_back(*first);
 		}
 
 		void push_front(const T &val)
@@ -477,11 +481,11 @@ namespace ft
 			{
 				for (iterator its = it + 1; its != end(); ++its)
 				{
-					if (comp(*its, *it))
+					if ((*comp)(*its, *it))
 					{
 						if (it.getNode() == this->_head)
 							this->_head = its.getNode();
-						its.getNode()->swap(it.getNode());
+						it.getNode()->swap(its.getNode());
 						tmp = its;
 						its = it;
 						it = tmp;

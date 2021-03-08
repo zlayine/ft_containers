@@ -22,8 +22,8 @@ CONTAINERS = ../List.hpp \
 all: $(NAME)
 
 $(NAME): $(MAIN) $(SRCS) $(CONTAINERS)
-	@g++  $(MAIN) $(SRCS) -o $(NAME)
-	@echo "CONTAINERS ARE READY! NO FLAGS"
+	@g++ -Wall -Wextra -Werror $(MAIN) $(SRCS) -o $(NAME)
+	@echo "CONTAINERS ARE READY"
 
 clean:
 	
