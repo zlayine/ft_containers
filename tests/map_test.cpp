@@ -1,206 +1,311 @@
 #include "../Map.hpp"
 #include <map>
 
-template<typename L1, typename L2>
-void	print_tree(L1 &x, L2 &y)
+template <typename L1, typename L2>
+void print_tree(L1 &x, L2 &y)
 {
-	std::cout << "----------mine:----------\n"; 
-	for(typename L1::iterator	it = x.begin() ; it != x.end(); ++it)
+	std::cout << "----------mine:----------\n";
+	for (typename L1::iterator it = x.begin(); it != x.end(); ++it)
 	{
 		std::cout << "(" << (*it).first << ")" << (*it).second << " ";
 	}
-	std::cout << "\n----------syst:----------\n"; 
-	for(typename L2::iterator it = y.begin() ; it != y.end(); ++it)
+	std::cout << "\n----------syst:----------\n";
+	for (typename L2::iterator it = y.begin(); it != y.end(); ++it)
 	{
 		std::cout << "(" << (*it).first << ")" << (*it).second << " ";
 	}
-	std::cout << "\n**********end**********\n"; 
+	std::cout << "\n**********end**********\n";
 }
 
-void	test_map()
+template <typename C, typename key, typename val>
+C reinsert()
 {
-	ft::Map<int, int> mmap;
-	ft::Map<int, int> mmap2;
-	std::pair<ft::Map<int, int>::iterator, bool> mp;
+	C container;
 
-	std::map<int, int> map;
-	std::map<int, int> map2;
-	std::pair<std::map<int, int>::iterator, bool> p;
+	container.insert(std::pair<key, val>(5, 1));
+	container.insert(std::pair<key, val>(3, 1));
+	container.insert(std::pair<key, val>(8, 1));
+	container.insert(std::pair<key, val>(4, 1));
+	container.insert(std::pair<key, val>(2, 1));
+	return container;
+}
 
-	mp = mmap.insert(std::pair<int, int>(5, 1));
-	mp = mmap.insert(std::pair<int, int>(3, 1));
-	mp = mmap.insert(std::pair<int, int>(8, 1));
-	mp = mmap.insert(std::pair<int, int>(4, 1));
-	mp = mmap.insert(std::pair<int, int>(2, 1));
+void test_map()
+{
 
-	p = map.insert(std::pair<int, int>(5, 1));
-	p = map.insert(std::pair<int, int>(3, 1));
-	p = map.insert(std::pair<int, int>(8, 1));
-	p = map.insert(std::pair<int, int>(4, 1));
-	p = map.insert(std::pair<int, int>(2, 1));
+	std::cout << "===================== Insert Test" << std::endl;
+	{
+		ft::Map<int, int> mmap;
+		ft::Map<int, int> mmap2;
+		std::map<int, int> map;
+		std::map<int, int> map2;
 
-	// ===================== Insert Test
+		mmap = reinsert<ft::Map<int, int>, int, int>();
+		map = reinsert<std::map<int, int>, int, int>();
 
-	// std:: cout << mp.second << " " << p.second << "\n";
-	// print_tree<ft::Map<int, int>, std::map<int, int> >(mmap, map);
+		print_tree<ft::Map<int, int>, std::map<int, int> >(mmap, map);
+	}
+	std::cout << "===================== Insert Test" << std::endl;
+	{
+		ft::Map<int, int> mmap;
+		ft::Map<int, int> mmap2;
+		std::map<int, int> map;
+		std::map<int, int> map2;
 
-	// ===================== Insert Test
+		mmap = reinsert<ft::Map<int, int>, int, int>();
+		map = reinsert<std::map<int, int>, int, int>();
+		ft::Map<int, int>::iterator it = mmap.begin();
+		it++;
+		mmap.insert(it, std::pair<int, int>(1, 1));
 
-	// ft::Map<int, int>::iterator it = mmap.begin();
-	// it++;
-	// mmap.insert(it, std::pair<int, int>(1, 1));
+		std::map<int, int>::iterator its = map.begin();
+		its++;
+		map.insert(its, std::pair<int, int>(1, 1));
 
-	// std::map<int, int>::iterator its = map.begin();
-	// its++;
-	// map.insert(its, std::pair<int, int>(1, 1));
+		print_tree<ft::Map<int, int>, std::map<int, int> >(mmap, map);
+	}
+	std::cout << "===================== Insert Test" << std::endl;
+	{
+		ft::Map<int, int> mmap;
+		ft::Map<int, int> mmap2;
+		std::map<int, int> map;
+		std::map<int, int> map2;
 
-	// print_tree<ft::Map<int, int>, std::map<int, int> >(mmap, map);
+		mmap = reinsert<ft::Map<int, int>, int, int>();
+		map = reinsert<std::map<int, int>, int, int>();
+		mmap2.insert(mmap.begin(), mmap.end());
 
-	// ===================== Insert Test
+		map2.insert(map.begin(), map.end());
 
-	// mmap2.insert(mmap.begin(), mmap.end());
+		print_tree<ft::Map<int, int>, std::map<int, int> >(mmap2, map2);
+	}
+	std::cout << "===================== Erase Test" << std::endl;
+	{
+		ft::Map<int, int> mmap;
+		ft::Map<int, int> mmap2;
+		std::map<int, int> map;
+		std::map<int, int> map2;
 
-	// map2.insert(map.begin(), map.end());
+		mmap = reinsert<ft::Map<int, int>, int, int>();
+		map = reinsert<std::map<int, int>, int, int>();
+		ft::Map<int, int>::iterator it = mmap.begin();
+		it++;
+		mmap.erase(it);
 
-	// print_tree<ft::Map<int, int>, std::map<int, int> >(mmap2, map2);
+		std::map<int, int>::iterator its = map.begin();
+		its++;
+		map.erase(its);
 
-	// ===================== Erase Test
+		print_tree<ft::Map<int, int>, std::map<int, int> >(mmap, map);
+	}
+	std::cout << "===================== Erase Test" << std::endl;
+	{
+		ft::Map<int, int> mmap;
+		ft::Map<int, int> mmap2;
+		std::map<int, int> map;
+		std::map<int, int> map2;
 
-	// ft::Map<int, int>::iterator it = mmap.begin();
-	// it++;
-	// mmap.erase(it);
+		mmap = reinsert<ft::Map<int, int>, int, int>();
+		map = reinsert<std::map<int, int>, int, int>();
+		mmap.erase(2);
 
-	// std::map<int, int>::iterator its = map.begin();
-	// its++;
-	// map.erase(its);
+		map.erase(2);
 
-	// print_tree<ft::Map<int, int>, std::map<int, int> >(mmap, map);
+		print_tree<ft::Map<int, int>, std::map<int, int> >(mmap, map);
+	}
+	std::cout << "===================== Erase Test" << std::endl;
+	{
+		ft::Map<int, int> mmap;
+		ft::Map<int, int> mmap2;
+		std::map<int, int> map;
+		std::map<int, int> map2;
 
-	// ===================== Erase Test
+		mmap = reinsert<ft::Map<int, int>, int, int>();
+		map = reinsert<std::map<int, int>, int, int>();
+		mmap.erase(mmap.begin(), mmap.end());
 
-	// mmap.erase(2);
+		map.erase(map.begin(), map.end());
 
-	// map.erase(2);
-	
-	// print_tree<ft::Map<int, int>, std::map<int, int> >(mmap, map);
+		print_tree<ft::Map<int, int>, std::map<int, int> >(mmap, map);
+	}
+	std::cout << "===================== Clear Test" << std::endl;
+	{
+		ft::Map<int, int> mmap;
+		ft::Map<int, int> mmap2;
+		std::map<int, int> map;
+		std::map<int, int> map2;
 
-	// ===================== Erase Test
+		mmap = reinsert<ft::Map<int, int>, int, int>();
+		map = reinsert<std::map<int, int>, int, int>();
 
-	// mmap.erase(mmap.begin(), mmap.end());
+		mmap.clear();
 
-	// map.erase(map.begin(), map.end());
+		map.clear();
 
-	// print_tree<ft::Map<int, int>, std::map<int, int> >(mmap, map);
+		print_tree<ft::Map<int, int>, std::map<int, int> >(mmap, map);
 
-	// ===================== Clear Test
+		mmap.insert(std::pair<int, int>(7, 1));
 
-	// mmap.clear();
+		map.insert(std::pair<int, int>(7, 1));
 
-	// map.clear();
+		print_tree<ft::Map<int, int>, std::map<int, int> >(mmap, map);
+	}
+	std::cout << "===================== Swap Test" << std::endl;
+	{
+		ft::Map<int, int> mmap;
+		ft::Map<int, int> mmap2;
+		std::map<int, int> map;
+		std::map<int, int> map2;
 
-	// print_tree<ft::Map<int, int>, std::map<int, int> >(mmap, map);
+		mmap = reinsert<ft::Map<int, int>, int, int>();
+		map = reinsert<std::map<int, int>, int, int>();
+		mmap2.insert(std::pair<int, int>(7, 1));
+		mmap2.insert(std::pair<int, int>(5, 1));
 
-	// mmap.insert(std::pair<int, int>(7, 1));
+		mmap2.swap(mmap);
 
-	// map.insert(std::pair<int, int>(7, 1));
+		map2.insert(std::pair<int, int>(7, 1));
+		map2.insert(std::pair<int, int>(5, 1));
 
-	// print_tree<ft::Map<int, int>, std::map<int, int> >(mmap, map);
+		map2.swap(map);
 
-	// ===================== Swap Test
+		print_tree<ft::Map<int, int>, std::map<int, int> >(mmap, map);
 
-	// mmap2.insert(std::pair<int, int>(7, 1));
-	// mmap2.insert(std::pair<int, int>(5, 1));
+		print_tree<ft::Map<int, int>, std::map<int, int> >(mmap2, map2);
+	}
+	std::cout << "===================== KeyComp Test" << std::endl;
+	{
+		ft::Map<int, int> mmap;
+		ft::Map<int, int> mmap2;
+		std::map<int, int> map;
+		std::map<int, int> map2;
 
-	// mmap2.swap(mmap);
+		mmap = reinsert<ft::Map<int, int>, int, int>();
+		map = reinsert<std::map<int, int>, int, int>();
+		std::map<int, int>::key_compare comp = map.key_comp();
+		std::cout << "map contains:\n";
+		std::map<int, int>::iterator its = map.begin();
+		do
+		{
+			std::cout << its->first << " => " << its->second << '\n';
+		} while (comp((*its++).first, map.rbegin()->first));
 
-	// map2.insert(std::pair<int, int>(7, 1));
-	// map2.insert(std::pair<int, int>(5, 1));
+		ft::Map<int, int>::key_compare mcomp = mmap.key_comp();
+		std::cout << "mmap contains:\n";
+		ft::Map<int, int>::iterator it = mmap.begin();
+		do
+		{
+			std::cout << it->first << " => " << it->second << '\n';
+		} while (mcomp((*it++).first, mmap.rbegin()->first));
+	}
+	std::cout << "===================== ValueComp Test" << std::endl;
+	{
+		ft::Map<int, int> mmap;
+		ft::Map<int, int> mmap2;
+		std::map<int, int> map;
+		std::map<int, int> map2;
 
-	// map2.swap(map);
+		mmap = reinsert<ft::Map<int, int>, int, int>();
+		map = reinsert<std::map<int, int>, int, int>();
+		std::cout << "map contains:\n";
+		std::map<int, int>::iterator its = map.begin();
+		do
+		{
+			std::cout << its->first << " => " << its->second << '\n';
+		} while (map.value_comp()(*its++, *map.rbegin()));
 
-	// print_tree<ft::Map<int, int>, std::map<int, int> >(mmap, map);
+		std::cout << "mmap contains:\n";
+		ft::Map<int, int>::iterator it = mmap.begin();
+		do
+		{
+			std::cout << it->first << " => " << it->second << '\n';
+		} while (mmap.value_comp()(*it++, *mmap.rbegin()));
+	}
+	std::cout << "===================== Find Test" << std::endl;
+	{
+		ft::Map<int, int> mmap;
+		ft::Map<int, int> mmap2;
+		std::map<int, int> map;
+		std::map<int, int> map2;
 
-	// print_tree<ft::Map<int, int>, std::map<int, int> >(mmap2, map2);
+		mmap = reinsert<ft::Map<int, int>, int, int>();
+		map = reinsert<std::map<int, int>, int, int>();
+		std::cout << mmap.find(7)->second << "\n";
+		std::cout << map.find(7)->second << "\n";
+	}
+	std::cout << "===================== Lower Bound Test" << std::endl;
+	{
+		ft::Map<int, int> mmap;
+		ft::Map<int, int> mmap2;
+		std::map<int, int> map;
+		std::map<int, int> map2;
 
-	// ===================== KeyComp Test
+		mmap = reinsert<ft::Map<int, int>, int, int>();
+		map = reinsert<std::map<int, int>, int, int>();
+		std::map<int, int>::iterator its = map.begin();
+		its = map.lower_bound(8);
+		std::cout << its->first << " " << its->second << "\n";
 
-	// std::map<int,int>::key_compare comp = map.key_comp();
-	// std::cout << "map contains:\n";
-	// std::map<int,int>::iterator its = map.begin();
-	// do {
-	// 	std::cout << its->first << " => " << its->second << '\n';
-	// } while ( comp((*its++).first, map.rbegin()->first) );
+		ft::Map<int, int>::iterator it = mmap.begin();
+		it = mmap.lower_bound(8);
+		std::cout << it->first << " " << it->second << "\n";
+	}
+	std::cout << "===================== Upper Bound Test" << std::endl;
+	{
+		ft::Map<int, int> mmap;
+		ft::Map<int, int> mmap2;
+		std::map<int, int> map;
+		std::map<int, int> map2;
 
-	// ft::Map<int,int>::key_compare mcomp = mmap.key_comp();
-	// std::cout << "mmap contains:\n";
-	// ft::Map<int,int>::iterator it = mmap.begin();
-	// do {
-	// 	std::cout << it->first << " => " << it->second << '\n';
-	// } while ( mcomp((*it++).first, mmap.rbegin()->first) );
+		mmap = reinsert<ft::Map<int, int>, int, int>();
+		map = reinsert<std::map<int, int>, int, int>();
+		std::map<int, int>::iterator its = map.begin();
+		its = map.upper_bound(8);
+		std::cout << its->first << " " << its->second << "\n";
 
-	// ===================== ValueComp Test
+		ft::Map<int, int>::iterator it = mmap.begin();
+		it = mmap.upper_bound(8);
+		std::cout << it->first << " " << it->second << "\n";
+	}
+	std::cout << "===================== Equal range Test" << std::endl;
+	{
+		ft::Map<int, int> mmap;
+		ft::Map<int, int> mmap2;
+		std::map<int, int> map;
+		std::map<int, int> map2;
 
-	// std::cout << "map contains:\n";
-	// std::map<int,int>::iterator its = map.begin();
-	// do {
-	// 	std::cout << its->first << " => " << its->second << '\n';
-	// } while ( map.value_comp()(*its++, *map.rbegin()) );
+		mmap = reinsert<ft::Map<int, int>, int, int>();
+		map = reinsert<std::map<int, int>, int, int>();
+		std::pair<std::map<int, int>::iterator, std::map<int, int>::iterator> ret;
+		ret = map.equal_range(8);
 
-	// std::cout << "mmap contains:\n";
-	// ft::Map<int,int>::iterator it = mmap.begin();
-	// do {
-	// 	std::cout << it->first << " => " << it->second << '\n';
-	// } while ( mmap.value_comp()(*it++, *mmap.rbegin()) );
+		std::cout << "lower bound points to: ";
+		std::cout << ret.first->first << " => " << ret.first->second << '\n';
 
-	// ===================== Find Test
+		std::cout << "upper bound points to: ";
+		std::cout << ret.second->first << " => " << ret.second->second << '\n';
 
-	// std::cout << mmap.find(7)->second << "\n";
-	// std::cout << map.find(7)->second << "\n";
+		std::cout << "------------mine-----------\n";
+		std::pair<ft::Map<int, int>::iterator, ft::Map<int, int>::iterator> rets;
+		rets = mmap.equal_range(8);
 
-	// // ===================== Lower Bound Test
-	
-	// std::map<int,int>::iterator its = map.begin();
-	// its = map.lower_bound(8);
-	// std::cout << its->first << " " << its->second << "\n";
+		std::cout << "lower bound points to: ";
+		std::cout << rets.first->first << " => " << rets.first->second << '\n';
 
-	// ft::Map<int,int>::iterator it = mmap.begin();
-	// it = mmap.lower_bound(8);
-	// std::cout << it->first << " " << it->second << "\n";
+		std::cout << "upper bound points to: ";
+		std::cout << rets.second->first << " => " << rets.second->second << '\n';
+	}
+	std::cout << "===================== Operator [] Test" << std::endl;
+	{
+		ft::Map<int, int> mmap;
+		ft::Map<int, int> mmap2;
+		std::map<int, int> map;
+		std::map<int, int> map2;
 
-	// ===================== Upper Bound Test
-	
-	std::map<int,int>::iterator its = map.begin();
-	its = map.upper_bound(8);
-	std::cout << its->first << " " << its->second << "\n";
+		mmap = reinsert<ft::Map<int, int>, int, int>();
+		map = reinsert<std::map<int, int>, int, int>();
 
-	ft::Map<int,int>::iterator it = mmap.begin();
-	it = mmap.upper_bound(8);
-	std::cout << it->first << " " << it->second << "\n";
-
-	// ===================== Equal range Test
-	
-	// std::pair<std::map<int, int>::iterator,std::map<int, int>::iterator> ret;
-	// ret = map.equal_range(8);
-
-	// std::cout << "lower bound points to: ";
-	// std::cout << ret.first->first << " => " << ret.first->second << '\n';
-
-	// std::cout << "upper bound points to: ";
-	// std::cout << ret.second->first << " => " << ret.second->second << '\n';
-
-	// std::cout << "------------mine-----------\n";
-	// std::pair<ft::Map<int, int>::iterator,ft::Map<int, int>::iterator> rets;
-	// rets = mmap.equal_range(8);
-
-	// std::cout << "lower bound points to: ";
-	// std::cout << rets.first->first << " => " << rets.first->second << '\n';
-
-	// std::cout << "upper bound points to: ";
-	// std::cout << rets.second->first << " => " << rets.second->second << '\n';
-
-	// ===================== Operator [] Test
-
-	// std::cout << map[2] << "\n";
-	// std::cout << mmap[2] << "\n";
-
+		std::cout << map[2] << "\n";
+		std::cout << mmap[2] << "\n";
+	}
 }

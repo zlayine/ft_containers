@@ -212,12 +212,12 @@ namespace ft
 			delete tail;
 		}
 
-		node_pointer getHead()
+		node_pointer getHead() const
 		{
 			return head;
 		}
 
-		node_pointer getTail()
+		node_pointer getTail() const
 		{
 			return tail;
 		}
